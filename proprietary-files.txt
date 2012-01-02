@@ -1,0 +1,39 @@
+# Sample file to extract required files from an original Samsung Galaxy W device
+# This script is not required if you have the proprietary repository
+#
+# This file is the file list used by extract-files.sh
+
+/bin/battery_charging
+/bin/BCM4329B1_002.002.023.0944.0952.hcd
+/bin/rmt_storage
+
+/cameradata/datapattern_420sp.yuv
+/cameradata/datapattern_front_420sp.yuv
+
+/etc/firmware/vidc_720p_command_control.fw
+/etc/firmware/vidc_720p_h263_dec_mc.fw
+/etc/firmware/vidc_720p_h264_dec_mc.fw
+/etc/firmware/vidc_720p_h264_enc_mc.fw
+/etc/firmware/vidc_720p_mp4_dec_mc.fw
+/etc/firmware/vidc_720p_mp4_enc_mc.fw
+/etc/firmware/vidc_720p_vc1_dec_mc.fw
+/etc/firmware/yamato_pfp.fw
+/etc/firmware/yamato_pm4.fw
+
+/lib/egl/libEGL_adreno200.so
+/lib/egl/libGLESv1_CM_adreno200.so
+/lib/egl/libGLESv2_adreno200.so
+/lib/egl/libq3dtools_adreno200.so
+
+/lib/hw/lights.msm7k.so
+/lib/hw/sensors.GT-I8150.so
+
+/lib/libaudioalsa.so
+/lib/libcamera.so
+/lib/libgemini.so
+/lib/libgsl.so
+/lib/libmmipl.so
+/lib/libmmjpeg.so
+/lib/liboemcamera.so
+/lib/libsecril-client.so
+/lib/libsec-ril.so

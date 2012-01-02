@@ -1,0 +1,75 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+
+    symlink /system/etc /etc
+    mkdir /mnt 0775 root system
+    mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/emmc 0000 system system
+    symlink /mnt/sdcard /sdcard
+
+    mkdir /preload
+    mkdir /system
+    mkdir /data
+    mkdir /cache
+    mkdir /efs
+    mkdir /tmp
+    mkdir /dbdata
+
+    mkdir /mnt 0775 root root
+    #mount /tmp /tmp tmpfs   
+
+#on early-fs
+#    insmod /lib/modules/param.ko
+
+on fs
+    wait /dev/block/mmcblk0p15
+    mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1
+
+    wait /dev/block/mmcblk0p13
+    mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
+    mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
+
+on boot
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+service console /system/bin/sh
+    console
+
+service playlpm /system/bin/playlpm
+    user root
+    oneshot
+
+service immvibed /system/bin/immvibed 
+    oneshot
+
+service lpmkey /system/bin/charging_mode
+    user root
+    oneshot
+    
+# adbd is controlled by the persist.service.adb.enable system property
+service adbd /sbin/adbd
+    user root
+    oneshot      
+
+on property:persist.service.adb.enable=1
+    start adbd
+
+on property:persist.service.adb.enable=0
+#    stop adbd
+

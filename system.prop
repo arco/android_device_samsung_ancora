@@ -1,0 +1,36 @@
+#
+# system.prop for ancora
+#
+rild.libpath=/system/lib/libsec-ril.so
+rild.libargs=-d /dev/smd0
+
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10
+
+# Density in DPI of the LCD of this board. This is used to scale the UI
+# appropriately. If this property is not defined, the default value is 160 dpi.
+ro.sf.lcd_density=240
+
+# Wifi interface device and interval for access point scanning.
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=15
+
+# Enable Google-specific location features,
+# like NetworkLocationProvider and LocationCollector.
+ro.com.google.locationfeatures=1
+
+# Disable fs check on boot by default.
+sys.checkfs.fat=false
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number.
+ro.opengles.version=131072
+
+# Performance settings.
+dalvik.vm.execution-mode=int:jit
+debug.sf.hw=1
+
+ro.tether.denied=false
+
+# Set default USB interface
+persist.sys.usb.config=adb

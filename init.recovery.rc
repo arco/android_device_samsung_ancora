@@ -1,0 +1,62 @@
+on early-init
+    start ueventd
+
+on init
+    export PATH /sbin
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+
+    symlink /system/etc /etc
+
+    mkdir /sdcard
+    mkdir /sd-ext
+    mkdir /system
+    mkdir /datadata
+    mkdir /data
+    mkdir /cache
+    mkdir /persist 0771 system system
+    mount /tmp /tmp tmpfs
+    mkdir /efs 0771 system system
+
+#on early-fs
+#    insmod /lib/modules/sec_param.ko
+
+on fs
+    wait /dev/block/mmcblk0p17
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev barrier=0
+
+    wait /dev/block/mmcblk0p14
+    chmod 0775 /dev/block/mmcblk0p14
+
+on boot
+
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service ueventd /sbin/ueventd
+    critical
+
+service recovery /sbin/recovery
+
+service adbd /sbin/adbd recovery
+    disabled
+
+# fix reboot issue from recovery
+service fix_reboot /sbin/sh /sbin/fix_reboot.sh
+    user root
+    group root
+    disabled
+    oneshot
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    start adbd
+
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    restart adbd
+
