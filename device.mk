@@ -106,6 +106,7 @@ PRODUCT_COPY_FILES += \
 
 # LPM
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/lpm/bin/battery_charging:root/sbin/battery_charging \
     $(LOCAL_PATH)/lpm/bin/charging_mode:/system/bin/charging_mode \
     $(LOCAL_PATH)/lpm/bin/immvibed:/system/bin/immvibed \
     $(LOCAL_PATH)/lpm/bin/playlpm:/system/bin/playlpm \
@@ -155,6 +156,7 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
+    static_busybox \
     make_ext4fs \
     setup_fs
 

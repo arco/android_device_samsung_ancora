@@ -1,5 +1,5 @@
 on boot-pause
-    exec system/bin/battery_charging
+    exec /sbin/battery_charging
 
 on early-init
     export EXTERNAL_STORAGE /mnt/sdcard
@@ -25,8 +25,7 @@ on post-fs-data
 on fs
     chmod 0666 /dev/block/mmcblk0p14
 
-    wait /dev/block/mmcblk0p15
-    mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1
+    mount ext4 /dev/block/mmcblk0p15 /system wait ro barrier=1
     mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
     mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
     mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
@@ -68,7 +67,7 @@ on boot
     chown system system /dev/fmradio
     chmod 0660 /dev/fmradio
 
-# Force Power Down
+    # Force Power Down
     chmod 0660 /sys/class/sec/pm/power_down
     chown root system /sys/class/sec/pm/power_down
 
@@ -81,7 +80,7 @@ on boot
     chmod 660 /dev/accelerometer
     chmod 660 /dev/akm8975
 
-# accelerometer
+    # accelerometer
     chown system input /sys/class/input/input4/enable
     chown system input /sys/class/input/input4/delay
     chown system input /sys/class/input/input4/position
@@ -90,14 +89,14 @@ on boot
     chown system input /sys/class/input/input4/data
     chown system input /sys/class/input/input4/calibration
 
-# orientation
+    # orientation
     chown system input /sys/class/input/input5/enable
     chown system input /sys/class/input/input5/delay
     chown system input /sys/class/input/input5/wake
     chown system input /sys/class/input/input5/data
     chown system input /sys/class/input/input5/status
 
-# proximity
+    # proximity
     chown system input /sys/class/input/input6/enable
     chown system input /sys/class/input/input6/delay
     chown system input /sys/class/input/input6/wake
@@ -111,17 +110,17 @@ on boot
     chown system system /sys/devices/platform/msm_sdcc.4/polling
     chown system system /sys/devices/platform/msm_hsusb/gadget/wakeup
 
-# for Jig
+    # for Jig
     chmod 0664 /sys/devices/virtual/jig/jig/jig
 
-# for SMD function test
+    # for SMD function test
     chmod 0664 /sys/devices/platform/lcdc_samsung_ancora.0/lcd_connected
 
-# this value will be referd in msm7k liblight. we change permission of this file due to cts fail.
+    # this value will be referd in msm7k liblight. we change permission of this file due to cts fail.
     chmod 0664 /sys/devices/virtual/sec/ts/brightness
     chown system system /sys/devices/virtual/sec/ts/brightness
 
-# TSP Test Mode
+    # TSP Test Mode
     chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_threshould
     chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_all_refer
     chown radio system /sys/devices/virtual/sec/qt602240_noise_test/disp_all_refdata
@@ -143,10 +142,10 @@ on boot
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
 
-# for jack control
+    # for jack control
     chown system system /sys/class/jack/jack_selector/select_jack
 
-# Amp Tun (YDA165)
+     # Amp Tun (YDA165)
      chown system audio /sys/devices/virtual/misc/amp/mode
      chown system audio /sys/devices/virtual/misc/amp/in1_gain
      chown system audio /sys/devices/virtual/misc/amp/in2_gain
@@ -157,7 +156,7 @@ on boot
      chown system audio /sys/devices/virtual/misc/amp/gain_all
      chown system audio /sys/devices/virtual/misc/amp/save
 
-# Codec Tun (QTR)
+     # Codec Tun (QTR)
      chown system audio /sys/class/marimba/marimba_gain/codec_tune_enable
      chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_left_gain
      chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_right_gain
@@ -172,20 +171,20 @@ on boot
      chown system audio /sys/devices/virtual/misc/amp/gain_all
      chown system audio /sys/class/marimba/marimba_gain/save
 
-# camera firmware update
+    # camera firmware update
     chmod 0660 /dev/msm_camera/control0
 
     chown radio system sys/devices/virtual/sec/switch/disable_vbus
     chown radio system sys/devices/virtual/sec/switch/usb_sel
     chown radio system sys/devices/platform/android_usb/UsbMenuSel
 
-# ledflash
+    # ledflash
     chown root system /dev/ledflash
 
-# create ledflash cdev file for factory test
+    # create ledflash cdev file for factory test
     chmod 0660 /dev/ledflash
 
-# for datarouter
+    # for datarouter
     chown system system /dev/ttyGS0
     chown system system /dev/dun
 
@@ -236,4 +235,3 @@ service sdcard /system/bin/sdcard /data/media 1023 1023
 #    class main
 #    user radio
 #    group system radio
-

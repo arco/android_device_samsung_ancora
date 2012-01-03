@@ -3,7 +3,6 @@
 #
 # This file is the file list used by extract-files.sh
 
-/bin/battery_charging
 /bin/BCM4329B1_002.002.023.0944.0952.hcd
 /bin/rmt_storage
 
@@ -28,6 +27,8 @@
 /lib/hw/lights.msm7k.so
 /lib/hw/sensors.GT-I8150.so
 
+/lib/libC2D2.so
+/lib/libOpenVG.so
 /lib/libaudioalsa.so
 /lib/libcamera.so
 /lib/libgemini.so

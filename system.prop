@@ -15,6 +15,8 @@ ro.sf.lcd_density=240
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=15
 
+ro.tether.denied=false
+
 # Enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector.
 ro.com.google.locationfeatures=1
@@ -28,9 +30,11 @@ ro.opengles.version=131072
 
 # Performance settings.
 dalvik.vm.execution-mode=int:jit
-debug.sf.hw=1
 
-ro.tether.denied=false
+# QCOM
+debug.sf.hw=1
+debug.composition.type=c2d
+com.qc.hardware=true
 
 # Set default USB interface
 persist.sys.usb.config=adb
