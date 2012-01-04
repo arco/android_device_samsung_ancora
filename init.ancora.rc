@@ -12,9 +12,6 @@ on early-init
     insmod /lib/modules/bthid.ko
 
 on post-fs-data
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -30,7 +27,6 @@ on fs
     mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
     mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
     mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait crypt barrier=1,noauto_da_alloc errors=continue
-    setprop ro.crypto.fuse_sdcard true
 
     chown radio system /efs
     chmod 0771 /efs
@@ -219,12 +215,6 @@ service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p10 /dev/block/mmc
     class main
     user root
     group radio
-
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-service sdcard /system/bin/sdcard /data/media 1023 1023
-     class late_start
 
 #service qmuxd /system/bin/qmuxd
 #    class main
