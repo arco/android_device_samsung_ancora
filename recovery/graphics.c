@@ -141,10 +141,10 @@ void gr_flip_32(unsigned *bits, unsigned short *ptr, unsigned count)
 
 {
   unsigned i=0;
-  
+
  while (i<count) {
   uint32_t rgb32, red, green, blue, alpha;
-  
+
   /* convert 16 bits to 32 bits */
   rgb32 = ((ptr[i] >> 11) & 0x1F);
   red = (rgb32 << 3) | (rgb32 >> 2);
@@ -178,7 +178,7 @@ void gr_flip(void)
 #endif
 
     /* copy data from the in-memory surface to the buffer we're about
-   * to make active. */ 
+   * to make active. */
   if(vi.bits_per_pixel == 32)
   {
     gr_flip_32((unsigned *)gr_framebuffer[gr_active_fb].data, (unsigned short *)gr_mem_surface.data, (vi.xres_virtual * vi.yres));

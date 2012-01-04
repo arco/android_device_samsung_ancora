@@ -141,31 +141,31 @@ on boot
     # for jack control
     chown system system /sys/class/jack/jack_selector/select_jack
 
-     # Amp Tun (YDA165)
-     chown system audio /sys/devices/virtual/misc/amp/mode
-     chown system audio /sys/devices/virtual/misc/amp/in1_gain
-     chown system audio /sys/devices/virtual/misc/amp/in2_gain
-     chown system audio /sys/devices/virtual/misc/amp/hp_att
-     chown system audio /sys/devices/virtual/misc/amp/hp_gainup
-     chown system audio /sys/devices/virtual/misc/amp/sp_att
-     chown system audio /sys/devices/virtual/misc/amp/sp_gainup
-     chown system audio /sys/devices/virtual/misc/amp/gain_all
-     chown system audio /sys/devices/virtual/misc/amp/save
+    # Amp Tun (YDA165)
+    chown system audio /sys/devices/virtual/misc/amp/mode
+    chown system audio /sys/devices/virtual/misc/amp/in1_gain
+    chown system audio /sys/devices/virtual/misc/amp/in2_gain
+    chown system audio /sys/devices/virtual/misc/amp/hp_att
+    chown system audio /sys/devices/virtual/misc/amp/hp_gainup
+    chown system audio /sys/devices/virtual/misc/amp/sp_att
+    chown system audio /sys/devices/virtual/misc/amp/sp_gainup
+    chown system audio /sys/devices/virtual/misc/amp/gain_all
+    chown system audio /sys/devices/virtual/misc/amp/save
 
-     # Codec Tun (QTR)
-     chown system audio /sys/class/marimba/marimba_gain/codec_tune_enable
-     chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_left_gain
-     chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_right_gain
-     chown system audio /sys/class/marimba/marimba_gain/digital_rx_left_gain
-     chown system audio /sys/class/marimba/marimba_gain/digital_rx_right_gain
-     chown system audio /sys/class/marimba/marimba_gain/digital_tx_left_gain
-     chown system audio /sys/class/marimba/marimba_gain/digital_tx_right_gain
-     chown system audio /sys/class/marimba/marimba_gain/analog_tx_left_gain
-     chown system audio /sys/class/marimba/marimba_gain/analog_tx_right_gain
-     chown system audio /sys/class/marimba/marimba_gain/auxpga_left_gain
-     chown system audio /sys/class/marimba/marimba_gain/auxpga_right_gain
-     chown system audio /sys/devices/virtual/misc/amp/gain_all
-     chown system audio /sys/class/marimba/marimba_gain/save
+    # Codec Tun (QTR)
+    chown system audio /sys/class/marimba/marimba_gain/codec_tune_enable
+    chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_left_gain
+    chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_right_gain
+    chown system audio /sys/class/marimba/marimba_gain/digital_rx_left_gain
+    chown system audio /sys/class/marimba/marimba_gain/digital_rx_right_gain
+    chown system audio /sys/class/marimba/marimba_gain/digital_tx_left_gain
+    chown system audio /sys/class/marimba/marimba_gain/digital_tx_right_gain
+    chown system audio /sys/class/marimba/marimba_gain/analog_tx_left_gain
+    chown system audio /sys/class/marimba/marimba_gain/analog_tx_right_gain
+    chown system audio /sys/class/marimba/marimba_gain/auxpga_left_gain
+    chown system audio /sys/class/marimba/marimba_gain/auxpga_right_gain
+    chown system audio /sys/devices/virtual/misc/amp/gain_all
+    chown system audio /sys/class/marimba/marimba_gain/save
 
     # camera firmware update
     chmod 0660 /dev/msm_camera/control0
