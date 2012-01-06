@@ -144,7 +144,7 @@ PRODUCT_PACKAGES += \
     audio_policy.msm7x30 \
     gps.ancora \
     audio.a2dp.default \
-    overlay.default \
+    libaudioutils \
     libgenlock \
     libmemalloc \
     liboverlay \
