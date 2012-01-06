@@ -42,9 +42,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_profiles.xml:/system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.ancora.rc:root/init.ancora.rc \
+    $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
     $(LOCAL_PATH)/lpm.rc:root/lpm.rc \
-    $(LOCAL_PATH)/ueventd.ancora.rc:root/ueventd.ancora.rc \
+    $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \
     $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh

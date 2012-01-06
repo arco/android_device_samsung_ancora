@@ -19,7 +19,7 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-on fs
+on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
     mount ext4 /dev/block/mmcblk0p15 /system wait ro barrier=1

@@ -13,10 +13,8 @@
 #define MSM_ROTATOR_IOCTL_FINISH   \
 		_IOW(MSM_ROTATOR_IOCTL_MAGIC, 3, int)
 
-#define ROTATOR_VERSION_01	0xA5B4C301
-
 enum rotator_clk_type {
-	ROTATOR_CORE_CLK,
+	ROTATOR_AXI_CLK,
 	ROTATOR_PCLK,
 	ROTATOR_IMEM_CLK
 };
@@ -36,9 +34,6 @@ struct msm_rotator_data_info {
 	int session_id;
 	struct msmfb_data src;
 	struct msmfb_data dst;
-	unsigned int version_key;
-	struct msmfb_data src_chroma;
-	struct msmfb_data dst_chroma;
 };
 
 struct msm_rot_clocks {

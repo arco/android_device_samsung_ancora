@@ -27,7 +27,7 @@ on init
 #on early-fs
 #    insmod /lib/modules/param.ko
 
-on fs
+on emmc-fs
     wait /dev/block/mmcblk0p15
     mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1
 

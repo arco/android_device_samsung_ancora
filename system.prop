@@ -32,6 +32,7 @@ ro.opengles.version=131072
 dalvik.vm.execution-mode=int:jit
 
 # QCOM
+debug.sf.hw=1
 debug.composition.type=c2d
 com.qc.hardware=true
 
