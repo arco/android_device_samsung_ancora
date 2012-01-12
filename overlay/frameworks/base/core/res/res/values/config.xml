@@ -108,10 +108,6 @@
     <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">pdp0</string>
 
-    <!-- Boolean indicating if restoring network selection should be skipped -->
-    <!-- The restoring is handled by modem if it is true -->
-    <bool translatable="false" name="skip_restoring_network_selection">true</bool>
-
     <!-- Base "touch slop" value used by ViewConfiguration as a
          movement threshold where scrolling should begin. -->
     <dimen name="config_viewConfigurationTouchSlop">10dp</dimen>
