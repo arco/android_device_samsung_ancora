@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     Camera \
     SpareParts \
     Development
@@ -35,7 +35,6 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor-blobs.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := ancora

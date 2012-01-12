@@ -47,7 +47,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \
-    $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh
+    $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh \
+    $(LOCAL_PATH)/prebuilt/FileManager.apk:system/app/FileManager.apk
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
@@ -63,8 +64,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keyfiles/ancora_keypad_numeric.kcm.bin:system/usr/keychars/ancora_keypad_numeric.kcm.bin \
     $(LOCAL_PATH)/keyfiles/ancora_keypad_qwerty.kcm.bin:system/usr/keychars/ancora_keypad_qwerty.kcm.bin \
     $(LOCAL_PATH)/keyfiles/ancora_handset.kl:system/usr/keylayout/ancora_handset.kl \
-    $(LOCAL_PATH)/keyfiles/fluid-keypad.kl:system/usr/keylayout/fluid-keypad.kl \
-    $(LOCAL_PATH)/keyfiles/msm_tma300_ts.kl:system/usr/keylayout/msm_tma300_ts.kl \
     $(LOCAL_PATH)/keyfiles/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
     $(LOCAL_PATH)/keyfiles/sec_key.kl:system/usr/keylayout/sec_key.kl \
     $(LOCAL_PATH)/keyfiles/sec_power_key.kl:system/usr/keylayout/sec_power_key.kl
@@ -111,9 +110,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/lpm/bin/immvibed:/system/bin/immvibed \
     $(LOCAL_PATH)/lpm/bin/playlpm:/system/bin/playlpm \
     $(LOCAL_PATH)/lpm/lib/libQmageDecoder.so:/system/lib/libQmageDecoder.so \
-    $(LOCAL_PATH)/lpm/media/Disconnected.qmg:/system/media/media/Disconnected.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_batteryerror.qmg:/system/media/media/battery_batteryerror.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_10.qmg:/system/media/media/battery_charging_10.qmg \
+    $(LOCAL_PATH)/lpm/media/Disconnected.qmg:/system/media/Disconnected.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_batteryerror.qmg:/system/media/battery_batteryerror.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_5.qmg:/system/media/battery_charging_5.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_10.qmg:/system/media/battery_charging_10.qmg \
     $(LOCAL_PATH)/lpm/media/battery_charging_15.qmg:/system/media/battery_charging_15.qmg \
     $(LOCAL_PATH)/lpm/media/battery_charging_20.qmg:/system/media/battery_charging_20.qmg \
     $(LOCAL_PATH)/lpm/media/battery_charging_25.qmg:/system/media/battery_charging_25.qmg \
@@ -153,14 +153,15 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libOmxVenc \
     libOmxVdec \
+    libstagefrighthw \
     com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
-    static_busybox \
     make_ext4fs \
-    setup_fs
+    setup_fs \
+    hwprops
 
-# For userdebug build
+# For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
     ro.allow.mock.location=1 \

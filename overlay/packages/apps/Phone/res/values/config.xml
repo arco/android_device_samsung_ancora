@@ -1,0 +1,6 @@
+<resources>
+    <!-- This device uses libaudio which implements
+         AudioHardware::setMicMute(bool state) and AudioHardware::getMicMute(bool* state)
+         so microphone muting calls should be routed through the AudioManager API. -->
+    <bool name="send_mic_mute_to_AudioManager">true</bool>
+</resources>

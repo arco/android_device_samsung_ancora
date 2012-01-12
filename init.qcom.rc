@@ -9,7 +9,7 @@ on early-init
     mkdir /persist 0771 system system
     mkdir /efs 0771 system system
 
-    insmod /lib/modules/bthid.ko
+#    insmod /lib/modules/bthid.ko
 
 on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -31,7 +31,7 @@ on emmc-fs
     chown radio system /efs
     chmod 0771 /efs
 
-    #insmod /lib/modules/sec_param.ko
+#    insmod /lib/modules/sec_param.ko
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -184,6 +184,11 @@ on boot
     chown system system /dev/ttyGS0
     chown system system /dev/dun
 
+   chown system /sys/devices/platform/rs300000a7.65536/force_sync
+   chown system /sys/devices/platform/rs300000a7.65536/sync_sts
+   chown system /sys/devices/platform/rs300100a7.65536/force_sync
+   chown system /sys/devices/platform/rs300100a7.65536/sync_sts
+
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class main
@@ -211,10 +216,22 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
+    --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download --i2s=1,1,0,1 \
+    --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+    class main
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p10 /dev/block/mmcblk0p11
     class main
     user root
     group radio
+
+service hwprops /sbin/hwprops
+    class main
+    oneshot
 
 #service qmuxd /system/bin/qmuxd
 #    class main

@@ -1,3 +1,10 @@
+/dev/rtc0                 0600   system     system
+/dev/ttyHS0               0600   bluetooth  bluetooth
+/dev/ttyGS0               0660   system     system
+
+# the DIAG device node is world writable/readable.
+/dev/diag                 0666   root       root
+
 # the genlock client device node is world writable/readable.
 /dev/genlock              0666   root       root
 
@@ -8,36 +15,65 @@
 /dev/kgsl-2d1             0666   root       root
 
 # these should not be world writable
+/dev/msm_camera/*         0660   system     camera
 /dev/msm_rotator          0660   system     graphics
 /dev/pmem_audio           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
 /dev/radio0               0644   fm_radio   fm_radio
+/dev/i2c-0                0664   root       system
+/dev/i2c-1                0664   root       system
 /dev/i2c-2                0660   root       system
 /dev/i2c-4                0660   root       system
+/dev/i2c-12               0770   system     system
+/dev/msm_mvs              0660   system     audio
 /dev/msm_voicememo        0660   system     audio
 /dev/qce                  0660   system     audio
 /dev/msm_pcm_lp_dec       0660   system     audio
 /dev/gemini0              0660   system     system
+/dev/video*               0660   system     camera
 
 # permissions for video
-/dev/msm_vidc_reg         0660  system       audio
-/dev/msm_vidc_dec         0660  system       audio
-/dev/msm_vidc_enc         0660  system       audio
+/dev/msm_vidc_reg         0660   system     audio
+/dev/msm_vidc_dec         0660   system     audio
+/dev/msm_vidc_enc         0660   system     audio
 
 # permissions for audio
-/dev/msm_amrnb            0660  system       audio
-/dev/msm_amrwb            0660  system       audio
-/dev/msm_aac              0660  system       audio
-/dev/msm_aac_in           0660  system       audio
-/dev/msm_qcelp            0660  system       audio
-/dev/msm_evrc             0660  system       audio
-/dev/msm_fm               0660  system       audio
-/dev/msm_acdb             0660  system       audio
-/dev/msm_wma              0660  system       audio
-/dev/msm_wmapro           0660  system       audio
-/dev/msm_qcelp_in         0660  system       audio
-/dev/msm_evrc_in          0660  system       audio
-/dev/msm_preproc_ctl      0660  system       audio
-/dev/msm_a2dp_in          0640  system       audio
-/dev/msm_amrnb_in         0640  system       audio
-/dev/tspdrv               0660  shell        shell
+/dev/msm_amrnb            0660   system     audio
+/dev/msm_amrwb            0660   system     audio
+/dev/msm_aac              0660   system     audio
+/dev/msm_multi_aac        0660   system     audio
+/dev/msm_aac_in           0660   system     audio
+/dev/msm_qcelp            0660   system     audio
+/dev/msm_evrc             0660   system     audio
+/dev/msm_fm               0660   system     audio
+/dev/msm_acdb             0660   system     audio
+/dev/msm_wma              0660   system     audio
+/dev/msm_wmapro           0660   system     audio
+/dev/msm_qcelp_in         0660   system     audio
+/dev/msm_evrc_in          0660   system     audio
+/dev/msm_preproc_ctl      0660   system     audio
+/dev/msm_a2dp_in          0640   system     audio
+/dev/msm_amrnb_in         0640   system     audio
+/dev/smdcntl0             0640   radio      radio
+/dev/smdcntl1             0640   radio      radio
+/dev/smdcntl2             0640   radio      radio
+/dev/smdcntl3             0640   radio      radio
+/dev/smdcntl4             0640   radio      radio
+/dev/smdcntl5             0640   radio      radio
+/dev/smdcntl6             0640   radio      radio
+/dev/smdcntl7             0640   radio      radio
+
+# permissions for dpram
+/dev/dpram0               0660   radio      radio
+/dev/dpram1               0660   radio      radio
+/dev/dpramerr             0660   radio      radio
+/dev/multipdp             0660   radio      radio
+/dev/ttyCSD0              0660   radio      radio
+/dev/ttySMD0              0660   radio      radio
+/dev/ttyGPS0              0660   system     system
+/dev/ttyXTRA0             0660   system     system
+
+# sysfs properties
+/sys/devices/virtual/input/input*          enable         0660  root   input
+/sys/devices/virtual/input/input*          poll_delay     0660  root   input
+/sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664  radio  radio
