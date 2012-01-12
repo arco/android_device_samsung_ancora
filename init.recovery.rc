@@ -27,7 +27,6 @@ service ueventd /sbin/ueventd
     critical
 
 service recovery /sbin/recovery
-    disabled
 
 service adbd /sbin/adbd recovery
     disabled
