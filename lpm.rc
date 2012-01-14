@@ -21,14 +21,13 @@ on init
 
     mkdir /mnt 0775 root root
 
-    #mount /tmp /tmp tmpfs
-
 on emmc-fs
 # mount mmc partitions
+    mount /tmp /tmp tmpfs
+
     wait /dev/block/mmcblk0p15
     mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1
 
-    wait /dev/block/mmcblk0p13
     mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
     mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
 

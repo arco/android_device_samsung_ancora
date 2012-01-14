@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
@@ -39,11 +39,12 @@ PRODUCT_COPY_FILES += \
 
 # Media configuration xml file
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media_profiles.xml:/system/etc/media_profiles.xml
+    $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
     $(LOCAL_PATH)/lpm.rc:root/lpm.rc \
+    $(LOCAL_PATH)/lpm.rc:recovery/root/lpm.rc \
     $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \
@@ -105,35 +106,34 @@ PRODUCT_COPY_FILES += \
 
 # LPM
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/lpm/bin/battery_charging:root/sbin/battery_charging \
-    $(LOCAL_PATH)/lpm/bin/charging_mode:/system/bin/charging_mode \
-    $(LOCAL_PATH)/lpm/bin/immvibed:/system/bin/immvibed \
-    $(LOCAL_PATH)/lpm/bin/playlpm:/system/bin/playlpm \
-    $(LOCAL_PATH)/lpm/lib/libQmageDecoder.so:/system/lib/libQmageDecoder.so \
-    $(LOCAL_PATH)/lpm/media/Disconnected.qmg:/system/media/Disconnected.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_batteryerror.qmg:/system/media/battery_batteryerror.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_5.qmg:/system/media/battery_charging_5.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_10.qmg:/system/media/battery_charging_10.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_15.qmg:/system/media/battery_charging_15.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_20.qmg:/system/media/battery_charging_20.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_25.qmg:/system/media/battery_charging_25.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_30.qmg:/system/media/battery_charging_30.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_35.qmg:/system/media/battery_charging_35.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_40.qmg:/system/media/battery_charging_40.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_45.qmg:/system/media/battery_charging_45.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_50.qmg:/system/media/battery_charging_50.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_55.qmg:/system/media/battery_charging_55.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_60.qmg:/system/media/battery_charging_60.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_65.qmg:/system/media/battery_charging_65.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_70.qmg:/system/media/battery_charging_70.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_75.qmg:/system/media/battery_charging_75.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_80.qmg:/system/media/battery_charging_80.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_85.qmg:/system/media/battery_charging_85.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_90.qmg:/system/media/battery_charging_90.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_95.qmg:/system/media/battery_charging_95.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_charging_100.qmg:/system/media/battery_charging_100.qmg \
-    $(LOCAL_PATH)/lpm/media/battery_error.qmg:/system/media/battery_error.qmg \
-    $(LOCAL_PATH)/lpm/media/chargingwarning.qmg:/system/media/chargingwarning.qmg
+    $(LOCAL_PATH)/lpm/bin/charging_mode:system/bin/charging_mode \
+    $(LOCAL_PATH)/lpm/bin/immvibed:system/bin/immvibed \
+    $(LOCAL_PATH)/lpm/bin/playlpm:system/bin/playlpm \
+    $(LOCAL_PATH)/lpm/lib/libQmageDecoder.so:system/lib/libQmageDecoder.so \
+    $(LOCAL_PATH)/lpm/media/Disconnected.qmg:system/media/Disconnected.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_batteryerror.qmg:system/media/battery_batteryerror.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_5.qmg:system/media/battery_charging_5.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_10.qmg:system/media/battery_charging_10.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_15.qmg:system/media/battery_charging_15.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_20.qmg:system/media/battery_charging_20.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_25.qmg:system/media/battery_charging_25.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_30.qmg:system/media/battery_charging_30.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_35.qmg:system/media/battery_charging_35.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_40.qmg:system/media/battery_charging_40.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_45.qmg:system/media/battery_charging_45.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_50.qmg:system/media/battery_charging_50.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_55.qmg:system/media/battery_charging_55.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_60.qmg:system/media/battery_charging_60.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_65.qmg:system/media/battery_charging_65.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_70.qmg:system/media/battery_charging_70.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_75.qmg:system/media/battery_charging_75.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_80.qmg:system/media/battery_charging_80.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_85.qmg:system/media/battery_charging_85.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_90.qmg:system/media/battery_charging_90.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_95.qmg:system/media/battery_charging_95.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_charging_100.qmg:system/media/battery_charging_100.qmg \
+    $(LOCAL_PATH)/lpm/media/battery_error.qmg:system/media/battery_error.qmg \
+    $(LOCAL_PATH)/lpm/media/chargingwarning.qmg:system/media/chargingwarning.qmg
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -158,8 +158,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     make_ext4fs \
-    setup_fs \
-    hwprops
+    setup_fs
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \

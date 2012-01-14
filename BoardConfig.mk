@@ -41,7 +41,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 
-COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60
+COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE
 
 TARGET_BOOTLOADER_BOARD_NAME := ancora
 TARGET_OTA_ASSERT_DEVICE := ancora,GT-I8150
@@ -117,6 +117,8 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 28
 
+#BOARD_HAS_SDCARD_INTERNAL := true
+
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/kernel
 
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
@@ -124,4 +126,4 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
 
 BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file

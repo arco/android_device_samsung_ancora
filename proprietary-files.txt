@@ -29,6 +29,7 @@
 
 /lib/libC2D2.so
 /lib/libOpenVG.so
+/lib/libakm.so
 /lib/libaudioalsa.so
 /lib/libcamera.so
 /lib/libgemini.so
