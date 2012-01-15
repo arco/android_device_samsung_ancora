@@ -2,6 +2,8 @@ on early-init
     export EXTERNAL_STORAGE /mnt/sdcard
     mkdir /mnt/sdcard 0000 system system
     symlink /mnt/sdcard /sdcard
+    mkdir /mnt/emmc 0000 system system
+    symlink /mnt/emmc /emmc
 
     mkdir /persist 0771 system system
     mkdir /efs 0771 system system
