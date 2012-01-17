@@ -74,6 +74,4 @@
 /dev/ttyXTRA0             0660   system     system
 
 # sysfs properties
-/sys/devices/virtual/input/input*          enable         0660  root   input
-/sys/devices/virtual/input/input*          poll_delay     0660  root   input
 /sys/devices/virtual/smdpkt/smdcntl*       open_timeout   0664  radio  radio
