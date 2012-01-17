@@ -11,6 +11,13 @@ on early-init
 #    insmod /lib/modules/bthid.ko
 
 on post-fs-data
+    # for data
+    mkdir /data/log
+    chmod 0777 /data/log
+
+    mkdir /data/misc/radio 0774 radio radio
+    mkdir /data/radio 0770 radio radio
+
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -236,12 +243,14 @@ service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p10 /dev/block/mmc
 on property:ro.emmc=1
     start rmt_storage
 
-#service qmuxd /system/bin/qmuxd
-#    class main
-#    user radio
-#    group system radio inet
+# create filesystems if necessary
+service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p17
+    class core
+    user root
+    group root
+    oneshot
 
-#service netmgrd /system/bin/netmgrd
-#    class main
-#    user radio
-#    group system radio
+service qmuxd /system/bin/qmuxd
+    class main
+    user radio
+    group system radio inet
