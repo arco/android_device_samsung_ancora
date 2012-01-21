@@ -1,19 +1,3 @@
-/* include/linux/android_pmem.h
- *
- * Copyright (C) 2007 Google, Inc.
- * Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
- *
- * This software is licensed under the terms of the GNU General Public
- * License version 2, as published by the Free Software Foundation, and
- * may be copied, distributed, and modified under those terms.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- */
-
 #ifndef _ANDROID_PMEM_H_
 #define _ANDROID_PMEM_H_
 
@@ -45,7 +29,7 @@
  */
 #define PMEM_CONNECT		_IOW(PMEM_IOCTL_MAGIC, 6, unsigned int)
 /* Returns the total size of the pmem region it is sent to as a pmem_region
- * struct (with offset set to 0). 
+ * struct (with offset set to 0).
  */
 #define PMEM_GET_TOTAL_SIZE	_IOW(PMEM_IOCTL_MAGIC, 7, unsigned int)
 /* Revokes gpu registers and resets the gpu.  Pass a pointer to the

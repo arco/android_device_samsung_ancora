@@ -1,14 +1,3 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ****************************************************************************
- ****************************************************************************/
 #ifndef __SPI_AIC3254_H__
 #define __SPI_AIC3254_H__
 
@@ -148,4 +137,3 @@ struct aic3254_ctl_ops {
 };
 
 #endif
-

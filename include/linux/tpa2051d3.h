@@ -1,14 +1,3 @@
-/****************************************************************************
- ****************************************************************************
- ***
- ***   This header was automatically generated from a Linux kernel header
- ***   of the same name, to make information necessary for userspace to
- ***   call into the kernel available to libc.  It contains only constants,
- ***   structures, and macros generated from the original header, and thus,
- ***   contains no copyrightable information.
- ***
- ****************************************************************************
- ****************************************************************************/
 #ifndef TPA2051D3_H
 #define TPA2051D3_H
 
@@ -49,4 +38,3 @@ enum TPA2051_Mode {
 #define TPA2051_SET_PARAM _IOW(TPA2051_IOCTL_MAGIC, 0x04, unsigned)
 
 #endif
-
