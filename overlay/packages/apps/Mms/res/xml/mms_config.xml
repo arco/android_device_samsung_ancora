@@ -36,11 +36,11 @@
 
     <!-- Maximum number of SMS message to save per thread before auto-delete kicks in.
          This is the default value. -->
-    <int name="defaultSMSMessagesPerThread">500</int>
+    <int name="defaultSMSMessagesPerThread">200</int>
 
     <!-- Maximum number of MMS message to save per thread before auto-delete kicks in.
          This is the default value. -->
-    <int name="defaultMMSMessagesPerThread">50</int>
+    <int name="defaultMMSMessagesPerThread">20</int>
 
     <!-- Minimum value for the number of messages kept per conversation. The user can never
          set the limit below this value. -->
@@ -64,7 +64,7 @@
     <!-- If true, The text message over 160 characters will be sent in multi part.
          If false, The text message over 160 characters will be sent
          via multi media message. -->
-    <bool name="enableMultipartSMS">false</bool>
+    <bool name="enableMultipartSMS">true</bool>
 
     <!-- If true, The mms support slide duration.
          If false, The mms does not support slide duration and we have to
@@ -76,6 +76,6 @@
     <int name="maxMessageTextSize">-1</int>
 
     <!-- User-Agent parameter used in MMS http request -->
-    <string name="userAgent">GT-I8150</string>
+    <string name="userAgent">SAMSUNG-GT-I8150-Mms</string>
 
 </mms_config>
