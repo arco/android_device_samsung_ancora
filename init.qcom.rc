@@ -1,3 +1,5 @@
+#import init.qcom.usb.rc
+
 on early-init
     export EXTERNAL_STORAGE /mnt/sdcard
     mkdir /mnt/sdcard 0000 system system
@@ -8,7 +10,7 @@ on early-init
     mkdir /persist 0771 system system
     mkdir /efs 0771 system system
 
-#    insmod /lib/modules/bthid.ko
+    insmod /lib/modules/bthid.ko
 
 on post-fs-data
     # for data
@@ -254,3 +256,8 @@ service qmuxd /system/bin/qmuxd
     class main
     user radio
     group system radio inet
+
+service qcom-sh /system/bin/sh /init.qcom.sh
+    class main
+    user root
+    oneshot

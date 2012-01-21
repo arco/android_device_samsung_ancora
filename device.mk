@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
@@ -43,6 +43,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
+    $(LOCAL_PATH)/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    $(LOCAL_PATH)/init.qcom.sh:root/init.qcom.sh \
     $(LOCAL_PATH)/lpm.rc:root/lpm.rc \
     $(LOCAL_PATH)/lpm.rc:recovery/root/lpm.rc \
     $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
@@ -170,6 +172,5 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-dalvik-heap.mk)
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
 PRODUCT_LOCALES += hdpi
