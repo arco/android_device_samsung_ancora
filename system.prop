@@ -5,10 +5,9 @@ rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/smd0
 
 ro.ril.hsxpa=1
-ro.ril.gprsclass=12
-ro.ril.hsdpa.category=8
-ro.ril.def.agps.mode=2
+ro.ril.gprsclass=10
 ro.telephony.default_network=0
+#ro.telephony.ril_class=SamsungRIL
 
 # Density in DPI of the LCD of this board. This is used to scale the UI
 # appropriately. If this property is not defined, the default value is 160 dpi.
@@ -41,6 +40,9 @@ debug.composition.type=mdp
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 debug.enabletr=false
+
+# System prop for capping scroll velocity
+ro.max.fling_velocity=4000
 
 # Set default USB interface
 persist.sys.usb.config=adb
