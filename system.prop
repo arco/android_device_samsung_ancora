@@ -37,7 +37,7 @@ dalvik.vm.execution-mode=int:jit
 # QCOM
 com.qc.hardware=true
 com.qc.hdmi_out=false
-debug.composition.type=c2d
+debug.composition.type=mdp
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 debug.enabletr=false
