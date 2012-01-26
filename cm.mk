@@ -9,9 +9,9 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 PRODUCT_NAME := cm_ancora
 PRODUCT_RELEASE_NAME := ancora
 PRODUCT_DEVICE := ancora
-PRODUCT_BRAND := samsung
+PRODUCT_BRAND := Samsung
 PRODUCT_MODEL := GT-I8150
-PRODUCT_MANUFACTURER := samsung
+PRODUCT_MANUFACTURER := Samsung
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_FINGERPRINT=samsung/GT-I8150/GT-I8150:2.3.6/GINGERBREAD/XXLA2:user/release-keys PRIVATE_BUILD_DESC="GT-I8150-user 2.3.6 GINGERBREAD XXLA2 release-keys"
 
 # Release name and versioning
