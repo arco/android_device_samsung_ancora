@@ -27,12 +27,9 @@
 
 #define KGSL_MAX_PWRLEVELS 5
 
-#define KGSL_CONVERT_TO_MBPS(val) \
-	(val*1000*1000U)
-
 /* device id */
 enum kgsl_deviceid {
-	KGSL_DEVICE_3D0		= 0x00000000,
+	KGSL_DEVICE_YAMATO	= 0x00000000,
 	KGSL_DEVICE_2D0		= 0x00000001,
 	KGSL_DEVICE_2D1		= 0x00000002,
 	KGSL_DEVICE_MAX		= 0x00000003
@@ -119,8 +116,6 @@ struct kgsl_version {
 	unsigned int dev_minor;
 };
 
-#ifdef __KERNEL__
-
 #define KGSL_3D0_REG_MEMORY	"kgsl_3d0_reg_memory"
 #define KGSL_3D0_IRQ		"kgsl_3d0_irq"
 #define KGSL_2D0_REG_MEMORY	"kgsl_2d0_reg_memory"
@@ -140,6 +135,8 @@ struct kgsl_device_pwr_data {
 	int (*set_grp_async)(void);
 	unsigned int idle_timeout;
 	unsigned int nap_allowed;
+	bool pwrrail_first;
+	unsigned int idle_pass;
 };
 
 struct kgsl_clk_data {
@@ -152,11 +149,7 @@ struct kgsl_device_platform_data {
 	struct kgsl_clk_data clk;
 	/* imem_clk_name is for 3d only, not used in 2d devices */
 	struct kgsl_grp_clk_name imem_clk_name;
-	const char *iommu_user_ctx_name;
-	const char *iommu_priv_ctx_name;
 };
-
-#endif
 
 /* structure holds list of ibs */
 struct kgsl_ibdesc {
@@ -213,6 +206,18 @@ struct kgsl_device_waittimestamp {
 #define IOCTL_KGSL_DEVICE_WAITTIMESTAMP \
 	_IOW(KGSL_IOC_TYPE, 0x6, struct kgsl_device_waittimestamp)
 
+struct kgsl_cff_user_event {
+	unsigned char cff_opcode;
+	unsigned int op1;
+	unsigned int op2;
+	unsigned int op3;
+	unsigned int op4;
+	unsigned int op5;
+	unsigned int __pad[2];
+};
+
+#define IOCTL_KGSL_CFF_USER_EVENT \
+	_IOW(KGSL_IOC_TYPE, 0x31, struct kgsl_cff_user_event)
 
 /* issue indirect commands to the GPU.
  * drawctxt_id must have been created with IOCTL_KGSL_DRAWCTXT_CREATE
@@ -258,7 +263,6 @@ struct kgsl_cmdstream_freememontimestamp {
 	unsigned int type;
 	unsigned int timestamp;
 };
-
 #define IOCTL_KGSL_CMDSTREAM_FREEMEMONTIMESTAMP \
 	_IOW(KGSL_IOC_TYPE, 0x12, struct kgsl_cmdstream_freememontimestamp)
 
@@ -325,19 +329,6 @@ struct kgsl_sharedmem_free {
 #define IOCTL_KGSL_SHAREDMEM_FREE \
 	_IOW(KGSL_IOC_TYPE, 0x21, struct kgsl_sharedmem_free)
 
-struct kgsl_cff_user_event {
-	unsigned char cff_opcode;
-	unsigned int op1;
-	unsigned int op2;
-	unsigned int op3;
-	unsigned int op4;
-	unsigned int op5;
-	unsigned int __pad[2];
-};
-
-#define IOCTL_KGSL_CFF_USER_EVENT \
-	_IOW(KGSL_IOC_TYPE, 0x31, struct kgsl_cff_user_event)
-
 struct kgsl_gmem_desc {
 	unsigned int x;
 	unsigned int y;
@@ -347,9 +338,9 @@ struct kgsl_gmem_desc {
 };
 
 struct kgsl_buffer_desc {
-	void 			*hostptr;
+	void 		*hostptr;
 	unsigned int	gpuaddr;
-	int				size;
+	int		size;
 	unsigned int	format;
 	unsigned int  	pitch;
 	unsigned int  	enabled;
