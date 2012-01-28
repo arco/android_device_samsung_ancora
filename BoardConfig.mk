@@ -106,6 +106,10 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 TARGET_USERIMAGES_USE_EXT4 := true
 
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_MAX_PARTITIONS := 28
+
+# Begin recovery stuff
 BOARD_BOOTIMAGE_PARTITION_SIZE := 5767168
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 7864320
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 560988160
@@ -115,19 +119,16 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_VOLD_MAX_PARTITIONS := 28
-
 BOARD_HAS_SDCARD_INTERNAL := true
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
+TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
+BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
+# End recovery stuff
 
 # Charging Mode (LPM)
 #BOARD_CHARGING_MODE_BOOTING_LPM := "/sys/class/power_supply/battery/charging_mode_booting"
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/kernel
 
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
-TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
-
-BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file

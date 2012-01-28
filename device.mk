@@ -74,9 +74,7 @@ PRODUCT_COPY_FILES += \
 # Modules
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bthid.ko:root/lib/modules/bthid.ko \
-    $(LOCAL_PATH)/prebuilt/dhd.ko:root/lib/modules/dhd.ko \
-    $(LOCAL_PATH)/prebuilt/sec_param.ko:root/lib/modules/sec_param.ko \
-    $(LOCAL_PATH)/prebuilt/sec_param.ko:recovery/root/lib/modules/sec_param.ko
+    $(LOCAL_PATH)/prebuilt/dhd.ko:root/lib/modules/dhd.ko
 
 # Audio profiles
 PRODUCT_COPY_FILES += \

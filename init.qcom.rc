@@ -1,6 +1,6 @@
 #import init.qcom.usb.rc
 
-on early-init
+on init
     export EXTERNAL_STORAGE /mnt/sdcard
     mkdir /mnt/sdcard 0000 system system
     symlink /mnt/sdcard /sdcard
@@ -11,35 +11,6 @@ on early-init
     mkdir /efs 0771 system system
 
     insmod /lib/modules/bthid.ko
-
-on post-fs-data
-    # for data
-    mkdir /data/log
-    chmod 0777 /data/log
-
-    mkdir /data/misc/radio 0774 radio radio
-    mkdir /data/radio 0770 radio radio
-
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
-    setprop vold.post_fs_data_done 1
-
-on emmc-fs
-    chmod 0666 /dev/block/mmcblk0p14
-
-    mount ext4 /dev/block/mmcblk0p15 /system wait ro barrier=1
-    mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
-    mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
-    mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
-    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait crypt barrier=1,noauto_da_alloc errors=continue
-
-    chown radio system /efs
-    chmod 0771 /efs
-
-#    insmod /lib/modules/sec_param.ko
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -196,10 +167,41 @@ on boot
     chown system system /dev/ttyGS0
     chown system system /dev/dun
 
-   chown system /sys/devices/platform/rs300000a7.65536/force_sync
-   chown system /sys/devices/platform/rs300000a7.65536/sync_sts
-   chown system /sys/devices/platform/rs300100a7.65536/force_sync
-   chown system /sys/devices/platform/rs300100a7.65536/sync_sts
+    chown system /sys/devices/platform/rs300000a7.65536/force_sync
+    chown system /sys/devices/platform/rs300000a7.65536/sync_sts
+    chown system /sys/devices/platform/rs300100a7.65536/force_sync
+    chown system /sys/devices/platform/rs300100a7.65536/sync_sts
+
+    # increase readahead buffers on MMC devices
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
+
+on emmc-fs
+    chmod 0666 /dev/block/mmcblk0p14
+
+    mount ext4 /dev/block/mmcblk0p15 /system wait ro barrier=1
+    mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
+    mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
+    mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait crypt barrier=1,noauto_da_alloc errors=continue
+
+    chown radio system /efs
+    chmod 0771 /efs
+
+on post-fs-data
+    # for data
+    mkdir /data/log
+    chmod 0777 /data/log
+
+    mkdir /data/misc/radio 0774 radio radio
+    mkdir /data/radio 0770 radio radio
+
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+    setprop vold.post_fs_data_done 1
 
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
