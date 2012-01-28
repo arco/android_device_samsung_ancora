@@ -6,6 +6,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
+    export SECONDARY_STORAGE /emmc
 
     symlink /system/etc /etc
 

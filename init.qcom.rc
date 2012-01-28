@@ -2,6 +2,7 @@
 
 on init
     export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /emmc
     mkdir /mnt/sdcard 0000 system system
     symlink /mnt/sdcard /sdcard
     mkdir /mnt/emmc 0000 system system
