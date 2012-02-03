@@ -256,11 +256,6 @@ service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p1
     group root
     oneshot
 
-service qmuxd /system/bin/qmuxd
-    class main
-    user radio
-    group system radio inet
-
 service qcom-sh /system/bin/sh /init.qcom.sh
     class main
     user root
