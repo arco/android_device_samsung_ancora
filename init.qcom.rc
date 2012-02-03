@@ -177,6 +177,9 @@ on boot
     write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
     write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
 
+    # disable ipv6 (causes issue when turning off wifi)
+    write /proc/sys/net/ipv6/conf/all/disable_ipv6 1
+
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
