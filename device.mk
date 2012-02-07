@@ -17,9 +17,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 # Boot screen
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ARIESVE.rle:root/ARIESVE.rle \
-    $(LOCAL_PATH)/charging.rle:root/charging.rle \
-    $(LOCAL_PATH)/ARIESVE.rle:recovery/ARIESVE.rle \
-    $(LOCAL_PATH)/charging.rle:recovery/charging.rle
+    $(LOCAL_PATH)/charging.rle:root/charging.rle
 
 # Support files
 PRODUCT_COPY_FILES += \
@@ -45,8 +43,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
     $(LOCAL_PATH)/init.qcom.usb.rc:root/init.qcom.usb.rc \
     $(LOCAL_PATH)/init.qcom.sh:root/init.qcom.sh \
-    $(LOCAL_PATH)/lpm.rc:root/lpm.rc \
-    $(LOCAL_PATH)/lpm.rc:recovery/root/lpm.rc \
     $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \

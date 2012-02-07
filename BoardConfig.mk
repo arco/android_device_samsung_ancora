@@ -56,10 +56,10 @@ BOARD_WLAN_DEVICE                := bcm4329
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
 WIFI_BAND                        := 802_11_ABG
 WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm4329.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm4329_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcm4329.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
-WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan0 firmware_path=/system/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan0 firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.emmc=true
 BOARD_KERNEL_BASE := 0x00400000
@@ -67,6 +67,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+TARGET_NEEDS_BLUETOOTH_INIT_DELAY := true
 
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 
@@ -109,7 +110,12 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 28
 
+BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
+
 # Begin recovery stuff
+#
+# Partition sizes must match your phone, or all hell will break loose!
+# For the Galaxy W, these are calculated from /proc/partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 5767168
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 7864320
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 560988160
@@ -125,9 +131,6 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
 BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 # End recovery stuff
-
-# Charging Mode (LPM)
-#BOARD_CHARGING_MODE_BOOTING_LPM := "/sys/class/power_supply/battery/charging_mode_booting"
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/kernel
 

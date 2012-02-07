@@ -13,10 +13,6 @@ on init
 
     insmod /lib/modules/bthid.ko
 
-on early-boot
-    # set RLIMIT_MEMLOCK to 64MB
-    setrlimit 8 67108864 67108864
-
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
@@ -235,8 +231,7 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     oneshot
 
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
-    --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download --i2s=1,1,0,1 \
-    --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+    --baudrate 3000000 --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
     class main
     user bluetooth
     group bluetooth net_bt_admin
@@ -259,7 +254,17 @@ service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p1
     group root
     oneshot
 
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class main
+#service qcom-sh /system/bin/sh /init.qcom.sh
+#    class main
+#    user root
+#    oneshot
+
+service playlpm /system/bin/playlpm
+    class charger
+    user root
+    oneshot
+
+service lpmkey /system/bin/charging_mode
+    class charger
     user root
     oneshot

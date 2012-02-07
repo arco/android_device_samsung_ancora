@@ -6,8 +6,8 @@ rild.libargs=-d /dev/smd0
 
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
-ro.telephony.default_network=0
-#ro.telephony.ril_class=SamsungRIL
+ro.telephony.ril.v3=signalstrength,usehcradio
+ro.telephony.ril_class=SamsungHCRIL
 
 # Density in DPI of the LCD of this board. This is used to scale the UI
 # appropriately. If this property is not defined, the default value is 160 dpi.
@@ -15,7 +15,7 @@ ro.sf.lcd_density=240
 
 # Wifi interface device and interval for access point scanning.
 wifi.interface=wlan0
-wifi.supplicant_scan_interval=15
+wifi.supplicant_scan_interval=45
 
 ro.tether.denied=false
 
@@ -36,8 +36,8 @@ dalvik.vm.execution-mode=int:jit
 ro.zram.default=0
 
 # QCOM
+debug.sf.hw=1
 com.qc.hardware=true
-com.qc.hdmi_out=false
 debug.composition.type=mdp
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
