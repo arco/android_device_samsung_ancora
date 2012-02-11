@@ -12,11 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This file is executed by build/envsetup.sh, and can use anything
-# defined in envsetup.sh.
-#
-# In particular, you can add lunch options with the add_lunch_combo
-# function: add_lunch_combo generic-eng
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+$(call inherit-product, $(LOCAL_PATH)/ancora.mk)
 
-add_lunch_combo full_ancora-eng
-add_lunch_combo cm_ancora-userdebug
+# The gps config appropriate for this device
+$(call inherit-product, device/common/gps/gps_eu_supl.mk)
+
+# Set those variables here to overwrite the inherited values.
+PRODUCT_NAME := full_ancora
+PRODUCT_DEVICE := ancora
+PRODUCT_BRAND := Samsung
+PRODUCT_MANUFACTURER := Samsung
+PRODUCT_MODEL := GT-I8150

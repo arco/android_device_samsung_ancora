@@ -59,9 +59,8 @@ WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
-WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan0 firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan0 firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/vendor/firmware/nvram_net.txt"
 
-BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom androidboot.emmc=true
 BOARD_KERNEL_BASE := 0x00400000
 BOARD_KERNEL_PAGESIZE := 4096
 
@@ -89,7 +88,7 @@ BOARD_USE_SKIA_LCDTEXT := true
 
 TARGET_USES_C2D_COMPOSITION := false
 TARGET_USES_OVERLAY := true
-TARGET_HAVE_BYPASS := false
+TARGET_USES_SF_BYPASS := false
 TARGET_GRALLOC_USES_ASHMEM := false
 TARGET_USES_GENLOCK := true
 TARGET_FORCE_CPU_UPLOAD := true
@@ -134,4 +133,4 @@ BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/kernel
 
-#TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file

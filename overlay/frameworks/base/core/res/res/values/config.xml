@@ -107,8 +107,4 @@
 
     <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">pdp0</string>
-
-    <!-- Number of database connections opened and managed by framework layer
-         to handle queries on each database. -->
-    <integer name="db_connection_pool_size">2</integer>
 </resources>
