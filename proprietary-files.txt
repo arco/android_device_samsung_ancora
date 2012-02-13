@@ -30,6 +30,7 @@
 /lib/libC2D2.so
 /lib/libOpenVG.so
 /lib/libakm.so
+/lib/libarccamera.so
 /lib/libaudioalsa.so
 /lib/libcamera.so
 /lib/libgemini.so
@@ -37,5 +38,6 @@
 /lib/libmmipl.so
 /lib/libmmjpeg.so
 /lib/liboemcamera.so
+/lib/libs3cjpeg.so
 /lib/libsecril-client.so
 /lib/libsec-ril.so
