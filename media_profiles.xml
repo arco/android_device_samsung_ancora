@@ -208,7 +208,7 @@
                    bitRate="96000"
                    sampleRate="16000"
                    channels="1" />
-	    </EncoderProfile>
+        </EncoderProfile>
 
         <EncoderProfile quality="low" fileFormat="3gp" duration="30">
             <Video codec="h264"
@@ -220,7 +220,7 @@
                    bitRate="12200"
                    sampleRate="8000"
                    channels="1" />
-	    </EncoderProfile>
+        </EncoderProfile>
 
         <ImageEncoding quality="90" />
         <ImageEncoding quality="80" />
