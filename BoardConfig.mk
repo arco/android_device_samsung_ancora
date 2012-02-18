@@ -125,6 +125,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_SDCARD_INTERNAL := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
