@@ -47,7 +47,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
     $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh \
     $(LOCAL_PATH)/prebuilt/FileManager.apk:system/app/FileManager.apk \
-    $(LOCAL_PATH)/prebuilt/bootanimation.zip:system/media/bootanimation.zip
+    $(LOCAL_PATH)/prebuilt/bootanimation.zip:system/media/bootanimation.zip \
+    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
@@ -152,6 +153,7 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
+    bdaddr_read \
     make_ext4fs \
     setup_fs
 
