@@ -32,6 +32,8 @@
 /dev/msm_pcm_lp_dec       0660   system     audio
 /dev/gemini0              0660   system     system
 /dev/video*               0660   system     camera
+/dev/system_bus_freq      0660   system     system
+/dev/cpu_dma_latency      0660   system     system
 
 # permissions for video
 /dev/msm_vidc_reg         0660   system     audio
