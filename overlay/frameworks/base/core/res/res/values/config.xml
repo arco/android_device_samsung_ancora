@@ -20,6 +20,9 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Enables or disables fading edges when marquee is enabled in TextView. -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
+
     <!-- This string array should be overridden by the device to present a list of network
          attributes.  This is used by the connectivity manager to decide which networks can coexist
          based on the hardware -->
@@ -82,6 +85,9 @@
         <item>7</item>
     </integer-array>
 
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">true</bool>
+
     <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
@@ -92,7 +98,7 @@
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
     <integer-array name="config_keyboardTapVibePattern">
-        <item>50</item>
+        <item>40</item>
     </integer-array>
 
     <!-- Component name of the service providing network location support. -->
