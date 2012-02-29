@@ -11,31 +11,30 @@
  ****************************************************************************/
 #ifndef _MSM_VIDC_ENC_H_
 #define _MSM_VIDC_ENC_H_
-
 #include <linux/types.h>
 #include <linux/ioctl.h>
 
 #define VEN_S_BASE 0x00000000
-#define VEN_S_SUCCESS (VEN_S_BASE) 
-#define VEN_S_EFAIL (VEN_S_BASE+1) 
-#define VEN_S_EFATAL (VEN_S_BASE+2) 
-#define VEN_S_EBADPARAM (VEN_S_BASE+3) 
+#define VEN_S_SUCCESS (VEN_S_BASE)
+#define VEN_S_EFAIL (VEN_S_BASE+1)
+#define VEN_S_EFATAL (VEN_S_BASE+2)
+#define VEN_S_EBADPARAM (VEN_S_BASE+3)
 
 #define VEN_S_EINVALSTATE (VEN_S_BASE+4)
-#define VEN_S_ENOSWRES (VEN_S_BASE+5) 
-#define VEN_S_ENOHWRES (VEN_S_BASE+6) 
-#define VEN_S_EBUFFREQ (VEN_S_BASE+7) 
-#define VEN_S_EINVALCMD (VEN_S_BASE+8) 
-#define VEN_S_ETIMEOUT (VEN_S_BASE+9) 
+#define VEN_S_ENOSWRES (VEN_S_BASE+5)
+#define VEN_S_ENOHWRES (VEN_S_BASE+6)
+#define VEN_S_EBUFFREQ (VEN_S_BASE+7)
+#define VEN_S_EINVALCMD (VEN_S_BASE+8)
+#define VEN_S_ETIMEOUT (VEN_S_BASE+9)
 
 #define VEN_S_ENOREATMPT (VEN_S_BASE+10)
-#define VEN_S_ENOPREREQ (VEN_S_BASE+11) 
-#define VEN_S_ECMDQFULL (VEN_S_BASE+12) 
-#define VEN_S_ENOTSUPP (VEN_S_BASE+13) 
-#define VEN_S_ENOTIMPL (VEN_S_BASE+14) 
-#define VEN_S_ENOTPMEM (VEN_S_BASE+15) 
-#define VEN_S_EFLUSHED (VEN_S_BASE+16) 
-#define VEN_S_EINSUFBUF (VEN_S_BASE+17) 
+#define VEN_S_ENOPREREQ (VEN_S_BASE+11)
+#define VEN_S_ECMDQFULL (VEN_S_BASE+12)
+#define VEN_S_ENOTSUPP (VEN_S_BASE+13)
+#define VEN_S_ENOTIMPL (VEN_S_BASE+14)
+#define VEN_S_ENOTPMEM (VEN_S_BASE+15)
+#define VEN_S_EFLUSHED (VEN_S_BASE+16)
+#define VEN_S_EINSUFBUF (VEN_S_BASE+17)
 #define VEN_S_ESAMESTATE (VEN_S_BASE+18)
 #define VEN_S_EINVALTRANS (VEN_S_BASE+19)
 
@@ -59,66 +58,67 @@
 #define VEN_BUFFLAG_EXTRADATA 0x00000040
 #define VEN_BUFFLAG_CODECCONFIG 0x00000080
 
-#define VEN_FRAME_TYPE_I 1 
-#define VEN_FRAME_TYPE_P 2 
-#define VEN_FRAME_TYPE_B 3 
+#define VEN_FRAME_TYPE_I 1
+#define VEN_FRAME_TYPE_P 2
+#define VEN_FRAME_TYPE_B 3
 
-#define VEN_CODEC_MPEG4 1 
-#define VEN_CODEC_H264 2 
-#define VEN_CODEC_H263 3 
+#define VEN_CODEC_MPEG4 1
+#define VEN_CODEC_H264 2
+#define VEN_CODEC_H263 3
 
-#define VEN_PROFILE_MPEG4_SP 1 
-#define VEN_PROFILE_MPEG4_ASP 2 
-#define VEN_PROFILE_H264_BASELINE 3 
-#define VEN_PROFILE_H264_MAIN 4 
-#define VEN_PROFILE_H264_HIGH 5 
-#define VEN_PROFILE_H263_BASELINE 6 
+#define VEN_PROFILE_MPEG4_SP 1
+#define VEN_PROFILE_MPEG4_ASP 2
+#define VEN_PROFILE_H264_BASELINE 3
+#define VEN_PROFILE_H264_MAIN 4
+#define VEN_PROFILE_H264_HIGH 5
+#define VEN_PROFILE_H263_BASELINE 6
 
-#define VEN_LEVEL_MPEG4_0 0x1 
-#define VEN_LEVEL_MPEG4_1 0x2 
-#define VEN_LEVEL_MPEG4_2 0x3 
-#define VEN_LEVEL_MPEG4_3 0x4 
-#define VEN_LEVEL_MPEG4_4 0x5 
-#define VEN_LEVEL_MPEG4_5 0x6 
-#define VEN_LEVEL_MPEG4_3b 0x7 
-#define VEN_LEVEL_MPEG4_6 0x8 
+#define VEN_LEVEL_MPEG4_0 0x1
+#define VEN_LEVEL_MPEG4_1 0x2
+#define VEN_LEVEL_MPEG4_2 0x3
+#define VEN_LEVEL_MPEG4_3 0x4
+#define VEN_LEVEL_MPEG4_4 0x5
+#define VEN_LEVEL_MPEG4_5 0x6
+#define VEN_LEVEL_MPEG4_3b 0x7
+#define VEN_LEVEL_MPEG4_6 0x8
 
-#define VEN_LEVEL_H264_1 0x9 
-#define VEN_LEVEL_H264_1b 0xA 
-#define VEN_LEVEL_H264_1p1 0xB 
-#define VEN_LEVEL_H264_1p2 0xC 
-#define VEN_LEVEL_H264_1p3 0xD 
-#define VEN_LEVEL_H264_2 0xE 
-#define VEN_LEVEL_H264_2p1 0xF 
-#define VEN_LEVEL_H264_2p2 0x10 
+#define VEN_LEVEL_H264_1 0x9
+#define VEN_LEVEL_H264_1b 0xA
+#define VEN_LEVEL_H264_1p1 0xB
+#define VEN_LEVEL_H264_1p2 0xC
+#define VEN_LEVEL_H264_1p3 0xD
+#define VEN_LEVEL_H264_2 0xE
+#define VEN_LEVEL_H264_2p1 0xF
+#define VEN_LEVEL_H264_2p2 0x10
 #define VEN_LEVEL_H264_3 0x11
 #define VEN_LEVEL_H264_3p1 0x12
-#define VEN_LEVEL_H264_4 0x13
+#define VEN_LEVEL_H264_3p2 0x13
+#define VEN_LEVEL_H264_4 0x14
 
-#define VEN_LEVEL_H263_10 0x14
-#define VEN_LEVEL_H263_20 0x15
-#define VEN_LEVEL_H263_30 0x16
-#define VEN_LEVEL_H263_40 0x17
-#define VEN_LEVEL_H263_45 0x18
-#define VEN_LEVEL_H263_50 0x19
-#define VEN_LEVEL_H263_60 0x1A
-#define VEN_LEVEL_H263_70 0x1B
+#define VEN_LEVEL_H263_10 0x15
+#define VEN_LEVEL_H263_20 0x16
+#define VEN_LEVEL_H263_30 0x17
+#define VEN_LEVEL_H263_40 0x18
+#define VEN_LEVEL_H263_45 0x19
+#define VEN_LEVEL_H263_50 0x1A
+#define VEN_LEVEL_H263_60 0x1B
+#define VEN_LEVEL_H263_70 0x1C
 
 #define VEN_ENTROPY_MODEL_CAVLC 1
 #define VEN_ENTROPY_MODEL_CABAC 2
 
-#define VEN_CABAC_MODEL_0 1 
-#define VEN_CABAC_MODEL_1 2 
-#define VEN_CABAC_MODEL_2 3 
+#define VEN_CABAC_MODEL_0 1
+#define VEN_CABAC_MODEL_1 2
+#define VEN_CABAC_MODEL_2 3
 
-#define VEN_DB_DISABLE 1 
-#define VEN_DB_ALL_BLKG_BNDRY 2 
-#define VEN_DB_SKIP_SLICE_BNDRY 3 
+#define VEN_DB_DISABLE 1
+#define VEN_DB_ALL_BLKG_BNDRY 2
+#define VEN_DB_SKIP_SLICE_BNDRY 3
 
 #define VEN_MSLICE_OFF 1
-#define VEN_MSLICE_CNT_MB 2  
-#define VEN_MSLICE_CNT_BYTE 3  
-#define VEN_MSLICE_GOB 4  
+#define VEN_MSLICE_CNT_MB 2
+#define VEN_MSLICE_CNT_BYTE 3
+#define VEN_MSLICE_GOB 4
 
 #define VEN_RC_OFF 1
 #define VEN_RC_VBR_VFR 2
@@ -137,7 +137,7 @@
 #define VEN_ROTATION_0 1
 #define VEN_ROTATION_90 2
 #define VEN_ROTATION_180 3
-#define VEN_ROTATION_270 4 
+#define VEN_ROTATION_270 4
 
 #define VEN_TIMEOUT_INFINITE 0xffffffff
 
@@ -193,7 +193,6 @@ struct venc_ioctl_msg{
 #define VEN_IOCTL_CMD_STOP _IO(VEN_IOCTLBASE_NENC, 19)
 
 #define VEN_IOCTL_SET_RECON_BUFFER   _IOW(VEN_IOCTLBASE_NENC, 20, struct venc_ioctl_msg)
-
 #define VEN_IOCTL_FREE_RECON_BUFFER   _IOW(VEN_IOCTLBASE_NENC, 21, struct venc_ioctl_msg)
 
 #define VEN_IOCTL_GET_RECON_BUFFER_SIZE   _IOW(VEN_IOCTLBASE_NENC, 22, struct venc_ioctl_msg)
@@ -208,7 +207,6 @@ struct venc_ioctl_msg{
 #define VEN_IOCTL_GET_CODEC_PROFILE   _IOR(VEN_IOCTLBASE_ENC, 6, struct venc_ioctl_msg)
 
 #define VEN_IOCTL_SET_PROFILE_LEVEL   _IOW(VEN_IOCTLBASE_ENC, 7, struct venc_ioctl_msg)
-
 #define VEN_IOCTL_GET_PROFILE_LEVEL   _IOR(VEN_IOCTLBASE_ENC, 8, struct venc_ioctl_msg)
 
 #define VEN_IOCTL_SET_SHORT_HDR   _IOW(VEN_IOCTLBASE_ENC, 9, struct venc_ioctl_msg)
@@ -269,6 +267,7 @@ struct venc_ioctl_msg{
 #define VEN_IOCTL_GET_QP_RANGE   _IOR(VEN_IOCTLBASE_ENC, 45, struct venc_ioctl_msg)
 
 #define VEN_IOCTL_GET_NUMBER_INSTANCES   _IOR(VEN_IOCTLBASE_ENC, 46, struct venc_ioctl_msg)
+#define VEN_IOCTL_SET_METABUFFER_MODE   _IOW(VEN_IOCTLBASE_ENC, 47, struct venc_ioctl_msg)
 
 struct venc_switch{
  unsigned char status;
@@ -318,6 +317,7 @@ struct venc_basecfg{
 struct venc_profile{
  unsigned long profile;
 };
+
 struct ven_profilelevel{
  unsigned long level;
 };
@@ -331,10 +331,12 @@ struct venc_qprange{
  unsigned long maxqp;
  unsigned long minqp;
 };
+
 struct venc_intraperiod{
  unsigned long num_pframes;
  unsigned long num_bframes;
 };
+
 struct venc_seqheader{
  unsigned char *hdrbufptr;
  unsigned long bufsize;
@@ -383,6 +385,7 @@ struct venc_ratectrlcfg{
 struct venc_voptimingcfg{
  unsigned long voptime_resolution;
 };
+
 struct venc_framerate{
  unsigned long fps_denominator;
  unsigned long fps_numerator;
@@ -412,6 +415,7 @@ struct venc_msg{
 };
 
 struct venc_recon_addr{
+ unsigned char *pbuffer;
  unsigned long buffer_size;
  unsigned long pmem_fd;
  unsigned long offset;
