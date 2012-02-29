@@ -48,3 +48,6 @@ ro.max.fling_velocity=4000
 
 # Set default USB interface
 persist.sys.usb.config=mass_storage
+
+# Enable debug mode by default
+persist.service.adb.enable=1
