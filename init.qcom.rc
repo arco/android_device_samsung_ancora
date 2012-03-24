@@ -169,13 +169,6 @@ on boot
     chown system /sys/devices/platform/rs300100a7.65536/force_sync
     chown system /sys/devices/platform/rs300100a7.65536/sync_sts
 
-    # increase readahead buffers on MMC devices
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
-    write /sys/block/mmcblk1/bdi/read_ahead_kb 1024
-
-    # disable ipv6 (causes issue when turning off wifi)
-    write /proc/sys/net/ipv6/conf/all/disable_ipv6 1
-
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
@@ -230,22 +223,12 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-#service hciattach /system/bin/brcm_patchram_plus --enable_hci \
-#    --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
-#    class main
-#    user bluetooth
-#    group bluetooth net_bt_admin
-#    disabled
-#    oneshot
-
-service hciattach /system/bin/brcm_patchram_plus --enable_hci --no2bytes --enable_lpm \
-    --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download --i2s=1,1,0,1 \
-    --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
+    --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
     class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
-    oneshot
 
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p10 /dev/block/mmcblk0p11
     class main
@@ -261,9 +244,6 @@ service get_macaddrs /system/bin/get_macaddrs
     user root
     oneshot
     disabled
-
-on property:init.svc.ril-daemon=running
-    start get_macaddrs
 
 # create filesystems if necessary
 service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p17
@@ -281,3 +261,9 @@ service lpmkey /system/bin/charging_mode
     class charger
     user root
     oneshot
+
+on property:sys.radio.shutdown=true
+    write /sys/devices/platform/rs300000a7.65536/force_sync 1
+
+on property:init.svc.ril-daemon=running
+    start get_macaddrs
