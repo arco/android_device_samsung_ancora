@@ -134,7 +134,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.debuggable=1
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
+    LOCAL_KERNEL := $(LOCAL_PATH)/prebuilt/zImage
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
