@@ -9,6 +9,7 @@
 #define KGSL_CONTEXT_NO_GMEM_ALLOC	2
 #define KGSL_CONTEXT_SUBMIT_IB_LIST	4
 #define KGSL_CONTEXT_CTX_SWITCH	8
+#define KGSL_CONTEXT_PREAMBLE	16
 
 /* Memory allocayion flags */
 #define KGSL_MEMFLAGS_GPUREADONLY	0x01000000
@@ -25,11 +26,32 @@
 #define KGSL_FLAGS_RESERVED2   0x00000080
 #define KGSL_FLAGS_SOFT_RESET  0x00000100
 
+/* Clock flags to show which clocks should be controled by a given platform */
+#define KGSL_CLK_SRC	0x00000001
+#define KGSL_CLK_CORE	0x00000002
+#define KGSL_CLK_IFACE	0x00000004
+#define KGSL_CLK_MEM	0x00000008
+#define KGSL_CLK_MEM_IFACE 0x00000010
+#define KGSL_CLK_AXI	0x00000020
+
+/*
+ * Reset status values for context
+ */
+enum kgsl_ctx_reset_stat {
+	KGSL_CTX_STAT_NO_ERROR				= 0x00000000,
+	KGSL_CTX_STAT_GUILTY_CONTEXT_RESET_EXT		= 0x00000001,
+	KGSL_CTX_STAT_INNOCENT_CONTEXT_RESET_EXT	= 0x00000002,
+	KGSL_CTX_STAT_UNKNOWN_CONTEXT_RESET_EXT		= 0x00000003
+};
+
 #define KGSL_MAX_PWRLEVELS 5
+
+#define KGSL_CONVERT_TO_MBPS(val) \
+	(val*1000*1000U)
 
 /* device id */
 enum kgsl_deviceid {
-	KGSL_DEVICE_YAMATO	= 0x00000000,
+	KGSL_DEVICE_3D0		= 0x00000000,
 	KGSL_DEVICE_2D0		= 0x00000001,
 	KGSL_DEVICE_2D1		= 0x00000002,
 	KGSL_DEVICE_MAX		= 0x00000003
@@ -38,7 +60,9 @@ enum kgsl_deviceid {
 enum kgsl_user_mem_type {
 	KGSL_USER_MEM_TYPE_PMEM		= 0x00000000,
 	KGSL_USER_MEM_TYPE_ASHMEM	= 0x00000001,
-	KGSL_USER_MEM_TYPE_ADDR		= 0x00000002
+	KGSL_USER_MEM_TYPE_ADDR		= 0x00000002,
+	KGSL_USER_MEM_TYPE_ION		= 0x00000003,
+	KGSL_USER_MEM_TYPE_MAX		= 0x00000004,
 };
 
 struct kgsl_devinfo {
@@ -59,17 +83,17 @@ struct kgsl_devinfo {
 };
 
 /* this structure defines the region of memory that can be mmap()ed from this
-   driver. The timestamp fields are volatile because they are written by the
+   driver. The timestamp fields are __volatile__ because they are written by the
    GPU
 */
 struct kgsl_devmemstore {
-	volatile unsigned int soptimestamp;
+	__volatile__ unsigned int soptimestamp;
 	unsigned int sbz;
-	volatile unsigned int eoptimestamp;
+	__volatile__ unsigned int eoptimestamp;
 	unsigned int sbz2;
-	volatile unsigned int ts_cmp_enable;
+	__volatile__ unsigned int ts_cmp_enable;
 	unsigned int sbz3;
-	volatile unsigned int ref_wait_ts;
+	__volatile__ unsigned int ref_wait_ts;
 	unsigned int sbz4;
 	unsigned int current_context;
 	unsigned int sbz5;
@@ -96,6 +120,7 @@ enum kgsl_property_type {
 	KGSL_PROP_MMU_ENABLE 	  = 0x00000006,
 	KGSL_PROP_INTERRUPT_WAITS = 0x00000007,
 	KGSL_PROP_VERSION         = 0x00000008,
+	KGSL_PROP_GPU_RESET_STAT  = 0x00000009
 };
 
 struct kgsl_shadowprop {
@@ -107,6 +132,7 @@ struct kgsl_shadowprop {
 struct kgsl_pwrlevel {
 	unsigned int gpu_freq;
 	unsigned int bus_freq;
+	unsigned int io_fraction;
 };
 
 struct kgsl_version {
@@ -116,40 +142,6 @@ struct kgsl_version {
 	unsigned int dev_minor;
 };
 
-#define KGSL_3D0_REG_MEMORY	"kgsl_3d0_reg_memory"
-#define KGSL_3D0_IRQ		"kgsl_3d0_irq"
-#define KGSL_2D0_REG_MEMORY	"kgsl_2d0_reg_memory"
-#define KGSL_2D0_IRQ		"kgsl_2d0_irq"
-#define KGSL_2D1_REG_MEMORY	"kgsl_2d1_reg_memory"
-#define KGSL_2D1_IRQ		"kgsl_2d1_irq"
-
-struct kgsl_grp_clk_name {
-	const char *clk;
-	const char *pclk;
-};
-
-struct kgsl_device_pwr_data {
-	struct kgsl_pwrlevel pwrlevel[KGSL_MAX_PWRLEVELS];
-	int init_level;
-	int num_levels;
-	int (*set_grp_async)(void);
-	unsigned int idle_timeout;
-	unsigned int nap_allowed;
-	bool pwrrail_first;
-	unsigned int idle_pass;
-};
-
-struct kgsl_clk_data {
-	struct kgsl_grp_clk_name name;
-	struct msm_bus_scale_pdata *bus_scale_table;
-};
-
-struct kgsl_device_platform_data {
-	struct kgsl_device_pwr_data pwr_data;
-	struct kgsl_clk_data clk;
-	/* imem_clk_name is for 3d only, not used in 2d devices */
-	struct kgsl_grp_clk_name imem_clk_name;
-};
 
 /* structure holds list of ibs */
 struct kgsl_ibdesc {
@@ -206,18 +198,6 @@ struct kgsl_device_waittimestamp {
 #define IOCTL_KGSL_DEVICE_WAITTIMESTAMP \
 	_IOW(KGSL_IOC_TYPE, 0x6, struct kgsl_device_waittimestamp)
 
-struct kgsl_cff_user_event {
-	unsigned char cff_opcode;
-	unsigned int op1;
-	unsigned int op2;
-	unsigned int op3;
-	unsigned int op4;
-	unsigned int op5;
-	unsigned int __pad[2];
-};
-
-#define IOCTL_KGSL_CFF_USER_EVENT \
-	_IOW(KGSL_IOC_TYPE, 0x31, struct kgsl_cff_user_event)
 
 /* issue indirect commands to the GPU.
  * drawctxt_id must have been created with IOCTL_KGSL_DRAWCTXT_CREATE
@@ -263,6 +243,7 @@ struct kgsl_cmdstream_freememontimestamp {
 	unsigned int type;
 	unsigned int timestamp;
 };
+
 #define IOCTL_KGSL_CMDSTREAM_FREEMEMONTIMESTAMP \
 	_IOW(KGSL_IOC_TYPE, 0x12, struct kgsl_cmdstream_freememontimestamp)
 
@@ -329,6 +310,19 @@ struct kgsl_sharedmem_free {
 #define IOCTL_KGSL_SHAREDMEM_FREE \
 	_IOW(KGSL_IOC_TYPE, 0x21, struct kgsl_sharedmem_free)
 
+struct kgsl_cff_user_event {
+	unsigned char cff_opcode;
+	unsigned int op1;
+	unsigned int op2;
+	unsigned int op3;
+	unsigned int op4;
+	unsigned int op5;
+	unsigned int __pad[2];
+};
+
+#define IOCTL_KGSL_CFF_USER_EVENT \
+	_IOW(KGSL_IOC_TYPE, 0x31, struct kgsl_cff_user_event)
+
 struct kgsl_gmem_desc {
 	unsigned int x;
 	unsigned int y;
@@ -338,9 +332,9 @@ struct kgsl_gmem_desc {
 };
 
 struct kgsl_buffer_desc {
-	void 		*hostptr;
+	void 			*hostptr;
 	unsigned int	gpuaddr;
-	int		size;
+	int				size;
 	unsigned int	format;
 	unsigned int  	pitch;
 	unsigned int  	enabled;
@@ -440,12 +434,4 @@ struct kgsl_timestamp_event_genlock {
 	int handle; /* Handle of the genlock lock to release */
 };
 
-#ifdef __KERNEL__
-#ifdef CONFIG_MSM_KGSL_DRM
-int kgsl_gem_obj_addr(int drm_fd, int handle, unsigned long *start,
-			unsigned long *len);
-#else
-#define kgsl_gem_obj_addr(...) 0
-#endif
-#endif
 #endif /* _MSM_KGSL_H */

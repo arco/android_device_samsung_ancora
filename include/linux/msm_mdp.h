@@ -140,6 +140,7 @@ enum {
 #define MDP_OV_PLAY_NOWAIT		0x00200000
 #define MDP_SOURCE_ROTATED_90		0x00100000
 #define MDP_DPP_HSIC			0x00080000
+#define MDP_BACKEND_COMPOSITION		0x00040000
 #define MDP_BORDERFILL_SUPPORTED	0x00010000
 #define MDP_SECURE_OVERLAY_SESSION      0x00008000
 #define MDP_MEMORY_ID_TYPE_FB		0x00001000
@@ -445,19 +446,5 @@ struct msmfb_mixer_info_req {
 };
 
 
-#ifdef __KERNEL__
-
-/* get the framebuffer physical address information */
-int get_fb_phys_info(unsigned long *start, unsigned long *len, int fb_num);
-struct fb_info *msm_fb_get_writeback_fb(void);
-int msm_fb_writeback_init(struct fb_info *info);
-int msm_fb_writeback_start(struct fb_info *info);
-int msm_fb_writeback_queue_buffer(struct fb_info *info,
-		struct msmfb_data *data);
-int msm_fb_writeback_dequeue_buffer(struct fb_info *info,
-		struct msmfb_data *data);
-int msm_fb_writeback_stop(struct fb_info *info);
-int msm_fb_writeback_terminate(struct fb_info *info);
-#endif
 
 #endif /*_MSM_MDP_H_*/

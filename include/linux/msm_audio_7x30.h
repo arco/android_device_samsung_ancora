@@ -1,3 +1,18 @@
+/* include/linux/msm_audio.h
+ *
+ * Copyright (C) 2008 Google, Inc.
+ *
+ * This software is licensed under the terms of the GNU General Public
+ * License version 2, as published by the Free Software Foundation, and
+ * may be copied, distributed, and modified under those terms.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+
 #ifndef __LINUX_MSM_AUDIO_H
 #define __LINUX_MSM_AUDIO_H
 
@@ -75,6 +90,9 @@
 #define AUDIO_GET_ACDB_BLK _IOW(AUDIO_IOCTL_MAGIC, 96,  \
 					struct msm_acdb_cmd_device)
 
+#define AUDIO_REGISTER_ION _IOW(AUDIO_IOCTL_MAGIC, 97, unsigned)
+#define AUDIO_DEREGISTER_ION _IOW(AUDIO_IOCTL_MAGIC, 98, unsigned)
+
 #define	AUDIO_MAX_COMMON_IOCTL_NUM	100
 
 
@@ -149,6 +167,11 @@ struct msm_audio_stats {
 	uint32_t byte_count;
 	uint32_t sample_count;
 	uint32_t unused[2];
+};
+
+struct msm_audio_ion_info {
+	int fd;
+	void *vaddr;
 };
 
 struct msm_audio_pmem_info {
