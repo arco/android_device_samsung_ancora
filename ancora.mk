@@ -43,6 +43,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
     $(LOCAL_PATH)/init.qcom.usb.rc:root/init.qcom.usb.rc \
     $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
+    $(LOCAL_PATH)/etc/adreno_config.txt:system/etc/adreno_config.txt \
     $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
     $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh \

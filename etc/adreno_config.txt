@@ -1,0 +1,918 @@
+; VERSION 6  -- Increment version when this file is changed
+; P4 Version: $Revision: #26 $
+
+;##################################################################################################
+; Performance Analysis
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set different performance profiling modes for the driver.
+; Valid values:
+;   normal    - (default) This is the only mode that actually renders the scene correctly.
+;
+;   ifh       - Infinitely fast hardware. This mode generates command buffers, but never
+;               submits them to the hardware.
+;
+;   gslNull   - ifh mode plus it skips most of the gsl driver work.
+;
+;   ifd         Infinitely fast driver. This mode simulates an infinitely fast driver by returning
+;               instantly from ES 2.0 API calls.
+;
+;   es11ifd   - Same as ifd but implemented at the ES 1.1 driver level.
+;
+;performance=normal
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Disable EGL Swap Blits to help determine swap overhead.
+; Valid values:
+;   0 - (default) perform swap BLTs in EGL.
+;   1 - do not perform swap BLTs in EGL.
+;
+;disableExtraSwapBlit=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Ignore glFlush() calls.
+; Valid values:
+;   0  -  (default) do not ignore glFlush calls.
+;   1  -  ignore glFlush calls.
+;
+;ignoreGlFlush=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;   Binning
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use hardware-assisted binning.
+; Valid values:
+;   hw  -  (default) use hardware-assisted binning.
+;   sw  -  use software-only binning.
+;
+;binning=hw
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Forces a binning guardband.
+; Valid values:
+;   0  -  (default) do not force guardband on.
+;   1  -  force Guardband on, use the value in guardbandValue.
+;
+;forceGuardband=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the Guardband value. Only active if forceGuardband is set to 1. 
+; Valid values:
+;   0..7 - Set this guardband value if forceGuardband is set to 1.  Valid range on Yamato is 0 to
+;          7.
+;
+;guardbandValue=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force GMEM size reduction for testing purposes. 
+; Valid values:
+;   0   -  (default) do not reduce the GMEM size.
+;   1   -  force the GMEM size to the value specified by gmemSize.
+;
+;forceGmemSize=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the new size of the reduced GMEM in KB. Only active if forceGmemSize is set to 1.
+; Valid values:
+;    Int - Driver will clamp this between the minimum bin size for your hardware and the amount of
+;          GMEM the device has.  Specified in KBytes.
+;
+;gmemSize=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Varying Export Binning Optimization Value (VEBO) saves the position value from the binning pass
+;   and reuses it during the rendering pass.
+; Valid values:
+;    0   - (default) VEBO is turned off.
+;    Int - Optimization is only run if more than this number of instructions are used to compute
+;          the vertex position.
+;
+;veboSetting=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Bins weight percentage.
+; Valid values:
+;   80  -  (default) percentage is 80%.
+;   Int - Integer between 0 and 100: percentage is set to this value. 
+;
+;numBins_weight=80
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Bin groups weight percentage.
+; Valid values:
+;   20  - (default) percentage is 20%
+;   Int - Integer between 0 and 100: percentage is set to this value.
+;
+;numGroups_weight=20
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Logging
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Log resolve information.
+; Valid values:
+;   0 - (default) do not log Resolves.
+;   1 - log Resolves.
+;
+;log.resolves=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Log PM4 packets.
+; Valid values:
+;   0 - (default) do not log PM4 packets.
+;   1 - log PM4 packets.
+;
+;log.pm4=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Log Pm4 memory writes.
+; Valid values:
+;   0 - (default) do not log PM4 memory writes.
+;   1 - log PM4 memory writes.
+;
+;log.pm4mem=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify that a shader should be dumped. 
+; Valid values:
+;   0 - (default) do not dump a shader.
+;   1 - dump the shader specified in log.sc_dev_shader_name.
+;
+;log.shaders=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Dump the SC_DEV log for the shader specified in log.sc_dev_shader_name.
+; Valid values:
+;   0 - (default) do not dump an SC_DEV log.
+;   1 - dump an SC_DEV log for the shader specified in log.sc_dev_shader_name.
+;
+;log.sc_dev=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify the name of the shader to be dumped.
+; Valid values:
+;   string - If log.sc_dev is 1, this is the name of the shader to be dumped.
+;
+;log.sc_dev_shader_name=sc_dev_dump.txt
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable common file format dumps.
+; Valid values:
+;   0 - (default) do not use the CFF.
+;   1 - use the CFF.
+;
+;log.cffdump=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable CFF dumping with ifh.
+; Valid values:
+;   0 - (default) do not enable.
+;   1 - do enable.
+;
+;log.cffdump_with_ifh=0                 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable no_memzero cff dumping.
+; Valid values:
+;   0 - (default) do not enable.
+;   1 - do enable.
+;
+;log.cffdump_no_memzero=0       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable dumpx. 
+; Valid values:
+;   0 - (default) do not enable.
+;   1 - enable.
+;
+;log.dumpx=0 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Dump a bunch of the information about primitives being drawn to primdump.log.
+; Valid values:
+;   0 - (default) do not dump primitives.
+;   1 - dump primitives.
+;
+;log.primitives=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Debugging
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Wait for 3d idle after each draw.  This is a GPU idle and not a GPU/CPU sync on timestamp.
+; Valid values:
+;   0 - (default) do not wait.
+;   1 - do wait.
+;
+;waitForIdleAfterDraw=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Wait for 3d idle after each submit.  This is a GPU idle plus a GPU/CPU sync on timestamp.
+; Valid values:
+;    0   -  (default) do not wait.
+;    1   -  do wait.
+;
+;waitForIdleOnSubmit=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Disable GPU/CPU sync on timestamp after SwapBuffers.  This will force concurrent CPU/GPU
+;   rendering, overriding synchronous swaps.
+; Valid values:
+;   0  -  (default) do not disable.
+;   1  -  disable.
+;
+;disableSwapTsIdle=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force uncached VBOs.  Uncached VBOs is a slow path for debugging purposes.
+; Valid values:
+;   0 - (default) Use standard cached VBOs.
+;   1 - Force uncached VBOs.
+;
+;useUncachedVBOs=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Turn on clock gating. This value is automatically set to off if UseSafeMode is on.
+; Valid values:
+;   off -  (default) turn it off.
+;   on  -  turn it on.
+;
+;clockGating=off
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use GSL safe mode. 
+; Valid values:
+;   0 - (default) do not use GSL safe mode.
+;   1 - use GSL safe mode.
+;
+;useSafeMode=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Redirect debug messages. 
+; Valid values:
+;   0 - (default) do not redirect debug messages.
+;   1 - do redirect debug messages.
+;
+;redirectDebugMessages=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force the chip hardware id.
+; Valid values:
+;   Default         - (default) do not force the chip id. This is the default value.
+;   YAMATODX_REV22  - force the chip id to YAMATO DX Rev 2.2.
+;   YAMATODX_REV23  - force the chip id to YAMATO DX Rev 2.3.
+;   YAMATODX_REV231 - force the chip id to YAMATO DX Rev 2.3.1.
+;   YAMATODX_REV24  - force the chip id to YAMATO DX Rev 2.4.
+;   YAMATODX_REV25  - force the chip id to YAMATO DX Rev 2.5.
+;   YAMATODX_REV251 - force the chip id to YAMATO DX Rev 2.5.1.
+;   YODA_REV10      - force the chip id to YODA Rev 1.0.
+;   LEIA_REV10      - force the chip id to LEIA Rev 1.0 (Z470).
+;   LEIA_REV20      - force the chip id to LEIA Rev 2.0 (Z475).
+;   OXILI_REV10     - force the chip id to OXILI Rev 1.0.
+;   YODA_REV106     - force the chip id to YODA Rev 1.0.6.
+;
+;forceChipId=Default
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Primitive Conversion.
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force conversion of triangle strips to triangle lists.
+; Valid values:
+;   default - (default) use the chip default for conversions of triangle strips to triangle lists.
+;   on      - force conversion of triangle strips to triangle lists.
+;   off     - do not convert triangle strips to triangle lists. 
+;
+;convertTristrips=default
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force conversion of triangle fans to triangle lists.
+; Valid values:
+;   default - (default) use the chip default for conversions of triangle fans to triangle lists. 
+;   on      - force conversion of triangle fans to triangle lists.
+;   off     - do not convert triangle fans to triangle lists.
+;
+;convertTrifans=default
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force conversion of line loops to line lists.
+; Valid values:
+;   default - (default) use the chip default for conversion of line loops to line lists.
+;   on      - force conversion of line loops to line lists.
+;   off     - do not convert line loops to line lists. 
+;
+;convertLineloops=default
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Shader substitution: Write incoming shaders to individual files.
+;
+; Filenames in the format:
+;
+;       <LANG>_[VS|FS]_<HASH>_Orig.txt
+;
+; Where <LANG> is GLSL, IL or HW. (Initial support is GLSL only.)
+; <HASH> is a 32 bit hash of the shader text, same hash algorithm as shader logging.
+;
+; Files are written to the DRIVER_DEBUG_PATH.
+; 
+; Valid values:
+;   1      - Write files.
+;   0      - Do not write files.
+;
+;shader_sub.write=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Shader substitution: Read substitute shaders.
+;
+; If a file with a matching name is found, it is read and used in place of the shader with <HASH>.
+;
+; Filenames in the format:
+;
+;       <LANG>_[VS|FS]_<HASH>_Subst.txt
+;
+; Where <LANG> is GLSL, IL or HW. (Initial support is GLSL only.)
+; <HASH> is a 32 bit hash of the original text, same hash algorithm as shader logging.
+;
+; Files are read from DRIVER_DEBUG_PATH.
+;
+; Valid values:
+;   1      - Read files.
+;   0      - Do not read files.
+;
+;shader_sub.read=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Shader substitution: Use trivial Fragment Shaders.
+;
+; Replace every fragment shader with one that outputs a constant color.
+; A set of 24 colors are rotated through.
+;
+; NOTE: This option is applied BEFORE shader_sub.read.
+;
+; Valid values:
+;   1      - Use trivial FS.
+;   0      - Do not modify shaders.
+;
+;shader_sub.trivialfs=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Features and Performance
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Turn on Faceness (front face/ back face) generation and culling.
+; Valid values:;
+;   default - (default) use the chip default for Faceness generation and culling.
+;   on      - turn on Faceness (Front Face / Back Face) generation and culling.
+;   off     - turn off Faceness generation and culling.
+;
+;facenessCulling=default
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify data alignment for Vertex Buffer Objects (VBOs).
+; Valid values:
+;   natural - (default) use natural data alignment for Vertex Buffer Objects.
+;   dword   - force double word alignment for Vertex Buffer Objects.         
+;
+;vboDataAlignment=natural 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable or disable optimzed texture updates.
+; Valid values:
+;   1 - (default) enable optimized texture updates.
+;   0 - disable optimized texture updates.
+;
+;enableOptimizedTextureUpdates=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable or disable optimzed vbo updates.
+; Valid values:
+;   1 - (default) enable optimized vbo updates.
+;   0 - disable optimized vbo updates.
+;
+;enableOptimizedVboUpdates=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force automatic texture compression (does not affect FBOs, EGLimage, or other user generated
+;  textures). 
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;forceAutoTextureCompression=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify the Trijuice ratio.  This is a ramping function between mip levels.  Higher values
+;  reduce the cost of linear filtering between mipmaps.
+; Valid values:
+;   0 - (default) set to 0.
+;   1 - set to 1/6.
+;   2 - set to 1/4.
+;   3 - set to 3/8.
+;
+;triJuice=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable inline constant updates. This is the default value. 
+; Valid values:
+;   1 - (default) enable inline constant updates. 
+;   0 - disable inline constant updates.
+;
+;enableInlineConstantUpdates=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable the memory pool optimization for client side vertex arrays.
+; Valid values:
+;   1 - (default) enable the memory pool.
+;   0 - disable the memory pool.
+;
+;enableMemoryPool=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable fast clears.
+; Valid values:
+;   1 - (default) enable.
+;   0 - disable.
+;
+;enableFastClears=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Restrict fast clears to dithering-safe cases (clears which use colors that are not affected by
+;   dithering)
+; Valid values:
+;   0 - disable (default).
+;   1 - enable.
+;
+;ditherSafeFastClears=0   
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable GSL shadowing of GMEM in the application's color and depth buffers.
+; Valid values:
+;   1 - (default) enable.
+;   0 - disable.
+;
+;shadowGmemInAppBuffers=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable tiled textures.  Tiled textures are faster to render, but slower to load.
+; Valid values:
+;  1 - (default) enable.
+;  0 - disable.
+;
+;textureTiling=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force a preserve of Z and Stencil on swap.
+; Valid values:
+;   0 - (default) do not preserve.
+;   1 - preserve.
+;
+;preserveZStencilOnSwap=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Allow use of depth export (gl_FragDepth) from fragment shaders.
+; Valid values:
+;   0 - (default) do not allow.
+;   1 - allow.
+;
+;allowDepthExport=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable or disable untiling of dynamic textures
+; Valid values:
+;   1 - (default) untile dynamic textures on the fly
+;   0 - never untile dynamic textures
+;
+;untileDynamicTextures=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable or disable the full surface update optimization path for dynamic textures
+; Valid values:
+;   1 - (default) create new surface instead of using the update path
+;   0 - use update path for full surface updates
+;
+;fullSurfaceDynamicUpdatePath=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use hints on whether or not to use GPU tiling BLT to update hw image during texture upload
+; Valid values:
+;   1 - (default) use GPU tiling hints
+;   0 - don't use GPU tiling hints
+;
+;useGpuTilingHints=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    MultiSampling Antialiasing (MSAA)
+;##################################################################################################
+    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify the multisampling antialiasing smoothing strategy.
+; Valid values:
+;   Normal - (default) use normal MSAA smoothing. This is the default value. 
+;   High   - use high MSAA smoothing.
+;
+;MSAASmoothing=Normal
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specify the allocation strategy for multisampling antialiasing buffers.
+; Valid values:
+;   on_demand - allocate MSAA buffer on demand. This is the default value. 
+;   always    - always allocate MSAA buffer.
+;   never     - never allocate an MSAA buffer.
+;
+;MSAABufferAllocation=on_demand 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force the MSAA antialiasing mode to the value in MSAAMode.
+; Valid values:
+;    0 - (default) do not force the MSAA antialiasing mode.
+;    1 - force the MSAA antialiasing mode to the values in MSAAMode and MSAASmoothing.
+;
+;forceMSAAMode=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Specifiy the antialiasing mode to use if forceMSAAMode is enabled.
+; Valid values:
+;   0 - (default) do not antialias.
+;   1 - use 2x antialiasing.
+;   2 - use 4x antialiasing.   
+;
+;MSAAMode=0 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    VMem Allocation Error Stresser.
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable the VAES and log.
+; Valid values:
+;    0   -  (default) disable.
+;    1   -  enable.
+;
+;VAESEnable=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Issue a generic error.
+; Valid values:
+;    0   -  (default) do not issue.
+;    1   -  issue.
+;
+;VAESGenericError=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Fail upon the Nth error.
+; Valid values:
+;    0   -  (default) do not fail upon errors.
+;    N   -  (integer) fail upon the Nth error. Do not fail upon errors if value = 0.
+;
+;VAESFailNth=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Do not fail the first N errors.
+; Valid values:
+;   0   - (default) do not fail errors.
+;   Int - (integer) do not fail the first N errors.
+;
+;VAESDoNotFailFirstN=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the VAES Randomizer Seed.
+; Valid values:
+;    Int - Use this value for the VAES randomizer seed.
+;
+;VAESRandomSeed=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the failure percentage.
+; Valid values:
+;   Int - set the failure percentage to this value. 
+;
+;VAESFailPercent=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    2D Settings:    
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Use 2D hardware BLTs.
+; Valid values:
+;   1 - (default) use hw BLTs.
+;   0 - do not use.
+;
+;2D.HwBlt=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Wait for chip to be idle before issuing SwapBuffers.
+; Valid values:
+;   noidle    - (default) do not wait for the chip to be idle before issuing a SwapBuffers.
+;   idle      - wait for the chip to be idle before issuing a SwapBuffers.
+;   interrupt - do SwapBuffers in interrupt mode.
+;
+;2D.eglSwapMode=noidle
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force the eglSwapBuffers interval to the value in 2D.eglSwapInterval.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - force.
+;
+;2D.forceEglSwapInterval=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the eglSwapBuffers interval to be used if 2D.forceEglSwapinterval is set to 1. 
+; Valid values:
+;   Int - Set the eglSwapBuffers interval to this value if 2D.forceEglSwapInterval is set.
+;
+;2D.eglSwapInterval=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    LEIA Features:
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable z writes (and z testing) to the LRZ buffer during the binning pass.
+; Valid values:
+;    1   -  (default) enable LRZ writes.
+;    0   -  disable LRZ writes.
+;
+;leiaEnableLrzWrites=1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable expansion of the LRZ buffer to the depth buffer prior to the rendering pass.
+; Valid values:
+;    0   -  (default) disable LRZ expansion.
+;    1   -  enable LRZ expansion.
+;
+;leiaEnableLrzExpansion=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable color export from the LRZ unresolve shader.  If enabled, the depth value will be exported
+; to both the color export and the expanded depth export.
+; Valid values:
+;    0   -  (default) disable color export.
+;    1   -  enable color export.
+;
+;leiaExportColorForLrzUnresolve=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable fast LRZ unresolves.
+; Valid values:
+;    0   -  (default) disable fast LRZ unresolves.
+;    1   -  enable fast LRZ unresolves.
+;
+;leiaEnableFastLrzUnresolves=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Oxili settings.
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Disable Oxili lazy updates.  If lazy updates are not disabled, the HLSQ will defer any indirect
+; state updates until the first non-killed batch is encounted.  
+; Valid values:
+;   0 - (default) do not disable.
+;   1 - disable lazy updates.
+;
+;oxiliDisableLazyUpdates=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Disable chunked updates.  If chuncked updates are disabled, indirect state updates do not need
+; to be chuck-aligned.
+; Valid values:
+;   0 - (default) do not disable.
+;   1 - disable.
+;
+;oxiliDisableChunkedUpdates=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force shader direct updates. When enabled, the driver will write shader instructions inline
+; into the PM4 command stream.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceShaderDirectUpdates=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force constant shader updates. When enabled, the driver will write shader constant values inline
+; into the PM4 command stream.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceConstantDirectUpdates=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force Istore cache mode.  Force indirect shader updates into cache mode.  Normally, this will
+; only occur for very large shaders.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceIstoreCacheMode=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force Cstore Single Buffer.  Force constant store into single buffer mode.  In single buffer mode
+; HW supports up to 512 total constants and FS constants are always written to the same address.
+; Can be useful for debug.   
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceCstoreSingleBuffer=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force shader single context. 
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceShaderSingleContext=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force superthread mode. 
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceSuperthreadMode=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Force VS Single Thread.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force.
+;
+;oxiliForceVsSingleThread=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force Fs Single Thread. 
+; Valid values:
+;   0 - (default) do not disable.
+;   1 - disable.
+;
+;oxiliForceFsSingleThread=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Force Single Sp.
+; Valid values:
+;   0 - (default) do not force.
+;   1 - do force
+;
+;oxiliForceSingleSp=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable the skipping of clears. For debug.  Every color/depth operation is ignored.
+; Valid values:
+;    0   -  (default) perform clears.
+;    1   -  skip all the clears
+;
+;oxiliSkipClears=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Enable direct rendering to system memory, bypassing GMEM.  This is similar to READONLY_RENDER
+; extension, but with depth test and blending enabled.
+;    0   -  (default) render to GMEM.
+;    1   -  render direct to system memory.
+;
+;oxiliForceSysmemRender=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;##################################################################################################
+;    Other settings.   
+;##################################################################################################
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Cap value for frames per second. Do not cap if value < 0 or value > 1000.            
+; Valid values:
+;   0   - (default) do not cap.
+;   Int - (integer) cap to this number of frames per second if N <=1000, do not cap if > 1000.
+;
+;FPSCap=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Allow limited floating point FBOs on older hardware that can't fully support them.
+; Valid values:
+;   0 - (default) do not allow.
+;   1 - allow.
+;
+;allowFloatFBOs=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Suppress timestamp interrupts. 
+; Valid values:
+;   0 - (default) do not suppress.
+;   1 - suppress.
+;
+;suppressTimestampInterrupts=0 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Turn on detection of GPU timeouts: use GPUIdleTimeoutMsec for the timeout value. 
+; Valid values:
+;   off - turn off the detection of GPU timeouts. 
+;   on  - turn on detection of GPU timeouts and use GPUIdleTimeoutMsec for the timeout value. 
+;
+;GPUIdleTimeout=off
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Set the GPU Idle Timeout value.
+; Valid values:
+;   0 - (default) do not time out.
+;   N - (integer) if GPUIdleTimeout is on, set the timeout value to this millicsecond value. 
+;
+;GPUIdleTimeoutMsec=0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
