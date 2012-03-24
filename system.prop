@@ -51,3 +51,6 @@ persist.sys.usb.config=mass_storage
 
 # Enable debug mode by default
 persist.service.adb.enable=1
+
+# Storage configuration
+ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
