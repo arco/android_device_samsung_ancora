@@ -110,14 +110,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm7x30 \
     audio.primary.msm7x30 \
     audio_policy.msm7x30 \
-    gps.ancora \
     audio.a2dp.default \
-    libaudioutils \
-    libgenlock \
-    libmemalloc \
-    liboverlay \
-    libtilerenderer \
-    libQcomUI \
+    gps.ancora \
     libOmxCore \
     libOmxVenc \
     libOmxVdec \
