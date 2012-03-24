@@ -72,34 +72,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bthid.ko:root/lib/modules/bthid.ko \
     $(LOCAL_PATH)/prebuilt/dhd.ko:root/lib/modules/dhd.ko
 
-# Audio profiles
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/audio/codec/FMRadioEar.ini:system/etc/audio/codec/FMRadioEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/FMRadioSpk.ini:system/etc/audio/codec/FMRadioSpk.ini \
-    $(LOCAL_PATH)/etc/audio/codec/MusicEar.ini:system/etc/audio/codec/MusicEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/MusicSpk.ini:system/etc/audio/codec/MusicSpk.ini \
-    $(LOCAL_PATH)/etc/audio/codec/RecHeadSetMic.ini:system/etc/audio/codec/RecHeadSetMic.ini \
-    $(LOCAL_PATH)/etc/audio/codec/RecMainMic.ini:system/etc/audio/codec/RecMainMic.ini \
-    $(LOCAL_PATH)/etc/audio/codec/RecSubMic.ini:system/etc/audio/codec/RecSubMic.ini \
-    $(LOCAL_PATH)/etc/audio/codec/RingtoneEar.ini:system/etc/audio/codec/RingtoneEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/RingtoneSpk.ini:system/etc/audio/codec/RingtoneSpk.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceCall3pEar.ini:system/etc/audio/codec/VoiceCall3pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceCall4pEar.ini:system/etc/audio/codec/VoiceCall4pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceCallBT.ini:system/etc/audio/codec/VoiceCallBT.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceCallRcv.ini:system/etc/audio/codec/VoiceCallRcv.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceCallSpk.ini:system/etc/audio/codec/VoiceCallSpk.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceRecHeadSetMic.ini:system/etc/audio/codec/VoiceRecHeadSetMic.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoiceRecMainMic.ini:system/etc/audio/codec/VoiceRecMainMic.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoipCall3pEar.ini:system/etc/audio/codec/VoipCall3pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoipCall4pEar.ini:system/etc/audio/codec/VoipCall4pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoipCallRcv.ini:system/etc/audio/codec/VoipCallRcv.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VoipCallSpk.ini:system/etc/audio/codec/VoipCallSpk.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VtCall3pEar.ini:system/etc/audio/codec/VtCall3pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VtCall4pEar.ini:system/etc/audio/codec/VtCall4pEar.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VtCallBT.ini:system/etc/audio/codec/VtCallBT.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VtCallRcv.ini:system/etc/audio/codec/VtCallRcv.ini \
-    $(LOCAL_PATH)/etc/audio/codec/VtCallSpk.ini:system/etc/audio/codec/VtCallSpk.ini
-
 # LPM
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/lpm/bin/charging_mode:system/bin/charging_mode \
