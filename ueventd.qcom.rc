@@ -37,6 +37,7 @@
 /dev/cpu_dma_latency      0660   system     system
 /dev/smdcntl*             0640   radio      radio
 /dev/usb_mtp_gadget       0660   root       mtp
+/dev/rfkill               0660   system     wifi
 
 # permissions for video
 /dev/msm_vidc*            0660   system     graphics
