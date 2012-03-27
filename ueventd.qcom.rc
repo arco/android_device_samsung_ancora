@@ -40,7 +40,7 @@
 /dev/rfkill               0660   system     wifi
 
 # permissions for video
-/dev/msm_vidc*            0660   system     graphics
+/dev/msm_vidc*            0660   system     audio
 
 # permissions for audio
 /dev/msm_amrnb            0660   system     audio
