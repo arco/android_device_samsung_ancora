@@ -51,7 +51,7 @@ enum kgsl_ctx_reset_stat {
 
 /* device id */
 enum kgsl_deviceid {
-	KGSL_DEVICE_3D0		= 0x00000000,
+	KGSL_DEVICE_YAMATO	= 0x00000000,
 	KGSL_DEVICE_2D0		= 0x00000001,
 	KGSL_DEVICE_2D1		= 0x00000002,
 	KGSL_DEVICE_MAX		= 0x00000003
@@ -173,19 +173,8 @@ struct kgsl_device_getproperty {
 #define IOCTL_KGSL_DEVICE_GETPROPERTY \
 	_IOWR(KGSL_IOC_TYPE, 0x2, struct kgsl_device_getproperty)
 
-
-/* read a GPU register.
-   offsetwords it the 32 bit word offset from the beginning of the
-   GPU register space.
+/* IOCTL_KGSL_DEVICE_READ (0x3) - removed 03/2012
  */
-struct kgsl_device_regread {
-	unsigned int offsetwords;
-	unsigned int value; /* output param */
-};
-
-#define IOCTL_KGSL_DEVICE_REGREAD \
-	_IOWR(KGSL_IOC_TYPE, 0x3, struct kgsl_device_regread)
-
 
 /* block until the GPU has executed past a given timestamp
  * timeout is in milliseconds.
