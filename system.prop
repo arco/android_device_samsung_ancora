@@ -43,9 +43,6 @@ debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 debug.enabletr=false
 
-# System prop for capping scroll velocity
-ro.max.fling_velocity=4000
-
 # Set default USB interface
 persist.sys.usb.config=mass_storage
 
