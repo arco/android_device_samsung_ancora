@@ -182,11 +182,10 @@ on emmc-fs
     chmod 0771 /efs
 
 on post-fs-data
-    # for data
-    mkdir /data/log
-    chmod 0777 /data/log
+    # create log system
+    mkdir /data/log 0775 system log
 
-    mkdir /data/misc/radio 0774 radio radio
+    mkdir /data/misc/radio 0775 radio system
     mkdir /data/radio 0770 radio radio
 
     mkdir /data/misc/wifi 0770 wifi wifi
