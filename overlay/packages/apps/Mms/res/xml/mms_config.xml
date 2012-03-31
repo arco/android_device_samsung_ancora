@@ -36,11 +36,11 @@
 
     <!-- Maximum number of SMS message to save per thread before auto-delete kicks in.
          This is the default value. -->
-    <int name="defaultSMSMessagesPerThread">200</int>
+    <int name="defaultSMSMessagesPerThread">500</int>
 
     <!-- Maximum number of MMS message to save per thread before auto-delete kicks in.
          This is the default value. -->
-    <int name="defaultMMSMessagesPerThread">20</int>
+    <int name="defaultMMSMessagesPerThread">50</int>
 
     <!-- Minimum value for the number of messages kept per conversation. The user can never
          set the limit below this value. -->
@@ -66,6 +66,10 @@
          via multi media message. -->
     <bool name="enableMultipartSMS">true</bool>
 
+    <!-- If true, the text message will be split every 160 characters.
+         If false, the text will never be split before being sent. -->
+    <bool name="enableSplitSMS">true</bool>
+
     <!-- If true, The mms support slide duration.
          If false, The mms does not support slide duration and we have to
          set duration value. -->
@@ -76,6 +80,30 @@
     <int name="maxMessageTextSize">-1</int>
 
     <!-- User-Agent parameter used in MMS http request -->
+    <!-- this is default to "Android-Mms/0.1". Override if necessary. Optional -->
     <string name="userAgent">SAMSUNG-GT-I8150-Mms</string>
+
+    <!-- UAProf parameter tag name -->
+    <!-- this is default to "x-wap-profile". Override if necessary. Optional -->
+    <!--
+    <string name="uaProfTagName">x-wap-profile</string>
+    -->
+
+    <!-- Reference for additional http parameters used in MMS http request.
+         Parameters are seperated by '|'. Optional.
+    -->
+    <!--
+    <string name="httpParams">
+        x-up-calling-line-id: ##LINE1##|x-carrier-magic: http://magic.google.com
+    </string>
+    -->
+
+    <!-- Reference for the substitution key to be used when adding the users telephone number
+         (Line1) to the httpPrams at runtime. Optional.
+    -->
+    <!--
+    <string name="httpParamsLine1Key">##LINE1##</string>
+    -->
+
 
 </mms_config>
