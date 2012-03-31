@@ -112,11 +112,14 @@ PRODUCT_PACKAGES += \
     audio_policy.msm7x30 \
     audio.a2dp.default \
     gps.ancora \
+    com.android.future.usb.accessory
+
+PRODUCT_PACKAGES += \
+    libmm-omxcore \
     libOmxCore \
     libOmxVenc \
     libOmxVdec \
-    libstagefrighthw \
-    com.android.future.usb.accessory
+    libstagefrighthw
 
 PRODUCT_PACKAGES += \
     make_ext4fs \
