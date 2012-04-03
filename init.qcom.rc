@@ -169,6 +169,11 @@ on boot
     chown system /sys/devices/platform/rs300100a7.65536/force_sync
     chown system /sys/devices/platform/rs300100a7.65536/sync_sts
 
+    # disable performance capturing
+    write /sys/devices/platform/msm_sdcc.1/perf 0
+    write /sys/devices/platform/msm_sdcc.2/perf 0
+    write /sys/devices/platform/msm_sdcc.4/perf 0
+
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
