@@ -37,11 +37,11 @@ dalvik.vm.dexopt-data-only=1
 ro.zram.default=0
 
 # QCOM
+debug.sf.hw=1
 com.qc.hardware=true
-debug.composition.type=mdp
-debug.qctwa.statusbar=1
-debug.qctwa.preservebuf=1
-debug.enabletr=false
+com.qc.hdmi_out=false
+debug.composition.type=dyn
+dev.pm.dyn_samplingrate=1
 
 # Set default USB interface
 persist.sys.usb.config=mass_storage
