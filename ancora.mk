@@ -122,8 +122,17 @@ PRODUCT_PACKAGES += \
     libstagefrighthw
 
 PRODUCT_PACKAGES += \
+    badblocks \
+    e2fsck \
+    e2label \
+    mke2fs \
+    resize2fs\
+    tune2fs \
     make_ext4fs \
     setup_fs
+
+PRODUCT_PACKAGES += \
+    hcitool
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
