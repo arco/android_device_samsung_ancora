@@ -15,6 +15,9 @@
 /dev/kgsl-2d0             0666   root       root
 /dev/kgsl-2d1             0666   root       root
 
+# rfkill needs world writable/readable
+/dev/rfkill               0666   root       root
+
 # these should not be world writable
 /dev/akm8975              0660   compass    system
 /dev/msm_camera/*         0660   system     camera
@@ -31,13 +34,12 @@
 /dev/msm_voicememo        0660   system     audio
 /dev/qce                  0660   system     audio
 /dev/msm_pcm_lp_dec       0660   system     audio
-/dev/gemini0              0660   system     system
+/dev/gemini0              0660   system     camera
 /dev/video*               0660   system     camera
 /dev/system_bus_freq      0660   system     system
 /dev/cpu_dma_latency      0660   system     system
 /dev/smdcntl*             0640   radio      radio
 /dev/usb_mtp_gadget       0660   root       mtp
-/dev/rfkill               0660   system     wifi
 
 # permissions for video
 /dev/msm_vidc*            0660   system     audio
