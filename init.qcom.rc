@@ -177,11 +177,11 @@ on boot
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
-    mount ext4 /dev/block/mmcblk0p15 /system wait ro noatime nodiratime barrier=0 nouser_xattr
-    mount ext4 /dev/block/mmcblk0p12 /persist wait noatime nodiratime nosuid nodev barrier=0 nouser_xattr
-    mount ext4 /dev/block/mmcblk0p16 /cache wait noatime nodiratime nosuid nodev barrier=0 nouser_xattr
-    mount ext4 /dev/block/mmcblk0p27 /efs wait noatime nodiratime nosuid nodev barrier=0 nouser_xattr
-    mount ext4 /dev/block/mmcblk0p17 /data wait noatime nodiratime nosuid nodev crypt barrier=0 noauto_da_alloc nouser_xattr
+    mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1 wait
+    mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
+    mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
+    mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait crypt barrier=1 noauto_da_alloc errors=continue
 
     chown radio system /efs
     chmod 0771 /efs
