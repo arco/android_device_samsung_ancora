@@ -126,7 +126,8 @@ PRODUCT_PACKAGES += \
     e2fsck \
     e2label \
     mke2fs \
-    resize2fs\
+    mke2fs.conf \
+    resize2fs \
     tune2fs \
     make_ext4fs \
     setup_fs
