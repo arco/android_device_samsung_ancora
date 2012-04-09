@@ -1,10 +1,4 @@
 <resources>
-    <!-- Flag indicating whether the Phone app should ignore
-         EVENT_SIM_NETWORK_LOCKED events from the Sim.  If true, this will
-         prevent the IccNetworkDepersonalizationPanel from being shown,
-         and effectively disable the "Sim network lock" feature. -->
-    <bool name="ignore_sim_network_locked_events">true</bool>
-
     <!-- This device uses libaudio which implements
          AudioHardware::setMicMute(bool state) and AudioHardware::getMicMute(bool* state)
          so microphone muting calls should be routed through the AudioManager API. -->
