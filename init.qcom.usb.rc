@@ -14,6 +14,10 @@ on property:sys.usb.config=mass_storage,adb
     start adbd
     setprop sys.usb.state $sys.usb.config
 
+on property:sys.usb.config=mtp
+    write /sys/class/usb_composite/mtp/enable 1
+    setprop sys.usb.state $sys.usb.config
+
 on property:sys.usb.config=rndis
     write /sys/class/usb_composite/rndis/enable 1
     setprop sys.usb.state $sys.usb.config
