@@ -132,7 +132,9 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 PRODUCT_PACKAGES += \
-    hcitool
+    hciconfig \
+    hcitool \
+    libaudioutils
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
