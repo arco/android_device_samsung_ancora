@@ -1,7 +1,8 @@
 /dev/rtc0                 0600   system     system
 /dev/rtc1                 0600   system     system
-/dev/ttyHS0               0600   bluetooth  bluetooth
-/dev/ttyGS0               0660   system     system
+/dev/ttyHS0               0660   bluetooth  bluetooth
+/dev/ttySMD0              0660   bluetooth  bluetooth
+/dev/uinput               0660   bluetooth  bluetooth
 
 # the DIAG device node is world writable/readable.
 /dev/diag                 0666   root       root
@@ -19,6 +20,7 @@
 /dev/rfkill               0666   root       root
 
 # these should not be world writable
+/dev/accelerometer        0660   compass    system
 /dev/akm8975              0660   compass    system
 /dev/msm_camera/*         0660   system     camera
 /dev/msm_rotator          0660   system     graphics
@@ -40,6 +42,9 @@
 /dev/cpu_dma_latency      0660   system     system
 /dev/smdcntl*             0640   radio      radio
 /dev/usb_mtp_gadget       0660   root       mtp
+/dev/ledflash             0660   root       system
+/dev/fmradio              0660   system     system
+/dev/dun                  0660   system     system
 
 # permissions for video
 /dev/msm_vidc*            0660   system     audio
@@ -72,8 +77,8 @@
 /dev/dpramerr             0660   radio      radio
 /dev/multipdp             0660   radio      radio
 /dev/ttyCSD0              0660   radio      radio
-/dev/ttySMD0              0660   radio      radio
 /dev/ttyGPS0              0660   system     system
+/dev/ttyGS0               0660   system     system
 /dev/ttyXTRA0             0660   system     system
 /dev/ttyEFS0              0660   system     system
 /dev/ttyCIQ00             0660   system     system

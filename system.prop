@@ -31,6 +31,7 @@ sys.checkfs.fat=false
 ro.opengles.version=131072
 
 # Performance settings.
+persist.sys.use_dithering=0
 ro.kernel.android.checkjni=0
 dalvik.vm.checkjni=false
 dalvik.vm.dexopt-data-only=1
@@ -41,6 +42,9 @@ debug.sf.hw=1
 com.qc.hardware=true
 com.qc.hdmi_out=false
 debug.composition.type=dyn
+debug.enabletr=false
+
+# QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
 
 # Set default USB interface

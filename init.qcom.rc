@@ -13,6 +13,10 @@ on init
 
     insmod /lib/modules/bthid.ko
 
+on early-boot
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
@@ -29,32 +33,12 @@ on boot
     chmod 0660 /sys/class/rfkill/rfkill1/state
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth bluetooth ro.bt.bdaddr_path
-    chown bluetooth bluetooth /dev/uinput
-    chmod 0660 /dev/uinput
-    chown bluetooth bluetooth /dev/ttyHS0
-    chmod 0660 /dev/ttyHS0
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-
-    # for VT
-    chown radio radio /dev/ttyCSD0
-    chmod 0660 /dev/ttyCSD0
-
-    chown system system /dev/fmradio
-    chmod 0660 /dev/fmradio
 
     # Force Power Down
     chmod 0660 /sys/class/sec/pm/power_down
     chown root system /sys/class/sec/pm/power_down
-
-    # permissions for MTP device node
-    chmod 0770 /dev/usb_mtp_gadget
-    chown system system /dev/usb_mtp_gadget
-
-    chown system system /dev/accelerometer
-    chown system system /dev/akm8975
-    chmod 660 /dev/accelerometer
-    chmod 660 /dev/akm8975
 
     # accelerometer
     chown system input /sys/class/input/input4/enable
@@ -79,11 +63,8 @@ on boot
     chown system input /sys/class/input/input6/data
     chown system input /sys/class/input/input6/status
 
-    chown root radio /proc/cmdline
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
     chown system system /sys/devices/platform/msm_hsusb/gadget/wakeup
 
     # for Jig
@@ -147,32 +128,29 @@ on boot
     chown system audio /sys/devices/virtual/misc/amp/gain_all
     chown system audio /sys/class/marimba/marimba_gain/save
 
-    # camera firmware update
-    chmod 0660 /dev/msm_camera/control0
-
     chown radio system sys/devices/virtual/sec/switch/disable_vbus
     chown radio system sys/devices/virtual/sec/switch/usb_sel
     chown radio system sys/devices/platform/android_usb/UsbMenuSel
-
-    # ledflash
-    chown root system /dev/ledflash
-
-    # create ledflash cdev file for factory test
-    chmod 0660 /dev/ledflash
-
-    # for datarouter
-    chown system system /dev/ttyGS0
-    chown system system /dev/dun
 
     chown system /sys/devices/platform/rs300000a7.65536/force_sync
     chown system /sys/devices/platform/rs300000a7.65536/sync_sts
     chown system /sys/devices/platform/rs300100a7.65536/force_sync
     chown system /sys/devices/platform/rs300100a7.65536/sync_sts
 
+    # for silent reset
+    chown system system /proc/dump_enable
+    chown system system /proc/silent
+    chown system system /proc/nosim_handler
+    copy /data/dump_enable /proc/dump_enable
+
     # disable performance capturing
     write /sys/devices/platform/msm_sdcc.1/perf 0
     write /sys/devices/platform/msm_sdcc.2/perf 0
     write /sys/devices/platform/msm_sdcc.4/perf 0
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 75000
 
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
