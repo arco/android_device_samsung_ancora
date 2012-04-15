@@ -1,3 +1,7 @@
 <resources>
+    <!-- Comma-separated list of bluetooth, wifi, and cell. -->
+    <string name="def_airplane_mode_radios" translatable="false">cell,bluetooth,wifi</string>
+    <string name="airplane_mode_toggleable_radios" translatable="false">bluetooth,wifi</string>
+
     <bool name="def_install_non_market_apps">true</bool>
 </resources>
