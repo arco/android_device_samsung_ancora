@@ -142,7 +142,11 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.allow.mock.location=1 \
     ro.debuggable=1
 
-LOCAL_KERNEL := $(LOCAL_PATH)/prebuilt/zImage
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+    LOCAL_KERNEL := $(LOCAL_PATH)/prebuilt/zImage
+else
+    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
