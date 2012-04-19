@@ -1,7 +1,6 @@
 /dev/rtc0                 0600   system     system
 /dev/rtc1                 0600   system     system
 /dev/ttyHS0               0660   bluetooth  bluetooth
-/dev/ttySMD0              0660   bluetooth  bluetooth
 /dev/uinput               0660   bluetooth  bluetooth
 
 # the DIAG device node is world writable/readable.
@@ -20,9 +19,10 @@
 /dev/rfkill               0666   root       root
 
 # these should not be world writable
-/dev/accelerometer        0660   compass    system
-/dev/akm8975              0660   compass    system
+/dev/accelerometer        0660   system     system
+/dev/akm8975              0660   system     system
 /dev/msm_camera/*         0660   system     camera
+/dev/graphics/*           0660   system     graphics
 /dev/msm_rotator          0660   system     graphics
 /dev/pmem_audio           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
@@ -34,7 +34,7 @@
 /dev/i2c-12               0770   system     system
 /dev/msm_mvs              0660   system     audio
 /dev/msm_voicememo        0660   system     audio
-/dev/qce                  0660   system     audio
+/dev/qce                  0660   system     drmrpc
 /dev/msm_pcm_lp_dec       0660   system     audio
 /dev/gemini0              0660   system     camera
 /dev/video*               0660   system     camera
@@ -45,6 +45,7 @@
 /dev/ledflash             0660   root       system
 /dev/fmradio              0660   system     system
 /dev/dun                  0660   system     system
+/dev/tun                  0660   vpn        vpn
 
 # permissions for video
 /dev/msm_vidc*            0660   system     audio
@@ -52,7 +53,6 @@
 # permissions for audio
 /dev/msm_amrnb            0660   system     audio
 /dev/msm_amrwb            0660   system     audio
-/dev/msm_audio_dev_ctrl   0660   system     audio
 /dev/msm_aac              0660   system     audio
 /dev/msm_multi_aac        0660   system     audio
 /dev/msm_aac_in           0660   system     audio
@@ -68,8 +68,6 @@
 /dev/msm_a2dp_in          0660   system     audio
 /dev/msm_amrnb_in         0660   system     audio
 /dev/msm_adc              0660   system     audio
-/dev/msm_adpcm            0660   system     audio
-/dev/msm_pcm_dec          0660   system     audio
 
 # permissions for dpram
 /dev/dpram0               0660   radio      radio
@@ -77,6 +75,7 @@
 /dev/dpramerr             0660   radio      radio
 /dev/multipdp             0660   radio      radio
 /dev/ttyCSD0              0660   radio      radio
+/dev/ttySMD0              0660   radio      radio
 /dev/ttyGPS0              0660   system     system
 /dev/ttyGS0               0660   system     system
 /dev/ttyXTRA0             0660   system     system
