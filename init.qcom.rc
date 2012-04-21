@@ -148,8 +148,6 @@ on boot
     write /sys/devices/platform/msm_sdcc.2/perf 0
     write /sys/devices/platform/msm_sdcc.4/perf 0
 
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
-
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
