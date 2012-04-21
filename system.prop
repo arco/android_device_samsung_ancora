@@ -15,7 +15,7 @@ ro.sf.lcd_density=240
 
 # Wifi interface device and interval for access point scanning.
 wifi.interface=wlan0
-wifi.supplicant_scan_interval=45
+wifi.supplicant_scan_interval=15
 
 ro.tether.denied=false
 
