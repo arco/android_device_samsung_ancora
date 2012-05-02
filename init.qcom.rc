@@ -158,7 +158,9 @@ on emmc-fs
     mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
     wait /dev/block/mmcblk0p17
     exec /system/bin/e2fsck -p /dev/block/mmcblk0p17
-    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait crypt barrier=1 noauto_da_alloc errors=continue
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait barrier=1 noauto_da_alloc
+
+    setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
 
     chown radio system /efs
     chmod 0771 /efs
