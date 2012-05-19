@@ -78,7 +78,7 @@ PRODUCT_COPY_FILES += \
 # Modules
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bthid.ko:root/lib/modules/bthid.ko \
-    $(LOCAL_PATH)/prebuilt/bcm4329.ko:root/lib/modules/bcm4329.ko
+    $(LOCAL_PATH)/prebuilt/dhd.ko:root/lib/modules/dhd.ko
 
 # LPM
 PRODUCT_COPY_FILES += \
@@ -162,5 +162,5 @@ PRODUCT_COPY_FILES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 $(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
-
 $(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
