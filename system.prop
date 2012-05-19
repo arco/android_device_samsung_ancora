@@ -38,7 +38,6 @@ dalvik.vm.dexopt-data-only=1
 ro.zram.default=0
 
 # QCOM
-debug.sf.hw=1
 com.qc.hardware=true
 com.qc.hdmi_out=false
 debug.composition.type=dyn
