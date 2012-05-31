@@ -17,15 +17,6 @@ ro.sf.lcd_density=240
 wifi.interface=wlan0
 wifi.supplicant_scan_interval=15
 
-ro.tether.denied=false
-
-# Enable Google-specific location features,
-# like NetworkLocationProvider and LocationCollector.
-ro.com.google.locationfeatures=1
-
-# Disable fs check on boot by default.
-sys.checkfs.fat=false
-
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number.
 ro.opengles.version=131072
