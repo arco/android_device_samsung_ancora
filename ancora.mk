@@ -111,6 +111,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     librs_jni \
+    camera.msm7x30 \
     copybit.msm7x30 \
     gralloc.msm7x30 \
     hwcomposer.msm7x30 \
