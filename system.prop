@@ -37,6 +37,10 @@ debug.enabletr=false
 # QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
 
+# Low Power Audio
+lpa.decode=true
+lpa.use-stagefright=true
+
 # Set default USB interface
 persist.sys.usb.config=mass_storage
 
