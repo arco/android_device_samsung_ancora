@@ -34,16 +34,6 @@
 #define KGSL_CLK_MEM_IFACE 0x00000010
 #define KGSL_CLK_AXI	0x00000020
 
-/*
- * Reset status values for context
- */
-enum kgsl_ctx_reset_stat {
-	KGSL_CTX_STAT_NO_ERROR				= 0x00000000,
-	KGSL_CTX_STAT_GUILTY_CONTEXT_RESET_EXT		= 0x00000001,
-	KGSL_CTX_STAT_INNOCENT_CONTEXT_RESET_EXT	= 0x00000002,
-	KGSL_CTX_STAT_UNKNOWN_CONTEXT_RESET_EXT		= 0x00000003
-};
-
 #define KGSL_MAX_PWRLEVELS 5
 
 #define KGSL_CONVERT_TO_MBPS(val) \
@@ -51,7 +41,7 @@ enum kgsl_ctx_reset_stat {
 
 /* device id */
 enum kgsl_deviceid {
-	KGSL_DEVICE_YAMATO	= 0x00000000,
+	KGSL_DEVICE_3D0		= 0x00000000,
 	KGSL_DEVICE_2D0		= 0x00000001,
 	KGSL_DEVICE_2D1		= 0x00000002,
 	KGSL_DEVICE_MAX		= 0x00000003
@@ -83,17 +73,17 @@ struct kgsl_devinfo {
 };
 
 /* this structure defines the region of memory that can be mmap()ed from this
-   driver. The timestamp fields are __volatile__ because they are written by the
+   driver. The timestamp fields are volatile because they are written by the
    GPU
 */
 struct kgsl_devmemstore {
-	__volatile__ unsigned int soptimestamp;
+	volatile unsigned int soptimestamp;
 	unsigned int sbz;
-	__volatile__ unsigned int eoptimestamp;
+	volatile unsigned int eoptimestamp;
 	unsigned int sbz2;
-	__volatile__ unsigned int ts_cmp_enable;
+	volatile unsigned int ts_cmp_enable;
 	unsigned int sbz3;
-	__volatile__ unsigned int ref_wait_ts;
+	volatile unsigned int ref_wait_ts;
 	unsigned int sbz4;
 	unsigned int current_context;
 	unsigned int sbz5;
@@ -120,7 +110,6 @@ enum kgsl_property_type {
 	KGSL_PROP_MMU_ENABLE 	  = 0x00000006,
 	KGSL_PROP_INTERRUPT_WAITS = 0x00000007,
 	KGSL_PROP_VERSION         = 0x00000008,
-	KGSL_PROP_GPU_RESET_STAT  = 0x00000009
 };
 
 struct kgsl_shadowprop {
@@ -142,6 +131,37 @@ struct kgsl_version {
 	unsigned int dev_minor;
 };
 
+#ifdef __KERNEL__
+
+#define KGSL_3D0_REG_MEMORY	"kgsl_3d0_reg_memory"
+#define KGSL_3D0_IRQ		"kgsl_3d0_irq"
+#define KGSL_2D0_REG_MEMORY	"kgsl_2d0_reg_memory"
+#define KGSL_2D0_IRQ		"kgsl_2d0_irq"
+#define KGSL_2D1_REG_MEMORY	"kgsl_2d1_reg_memory"
+#define KGSL_2D1_IRQ		"kgsl_2d1_irq"
+
+struct kgsl_grp_clk_name {
+	const char *clk;
+	const char *pclk;
+};
+
+struct kgsl_device_platform_data {
+	struct kgsl_pwrlevel pwrlevel[KGSL_MAX_PWRLEVELS];
+	int init_level;
+	int num_levels;
+	int (*set_grp_async)(void);
+	unsigned int idle_timeout;
+	bool strtstp_sleepwake;
+	unsigned int nap_allowed;
+	struct kgsl_grp_clk_name clk;
+	struct kgsl_grp_clk_name imem_clk_name;
+	unsigned int idle_needed;
+	struct msm_bus_scale_pdata *bus_scale_table;
+	const char *iommu_user_ctx_name;
+	const char *iommu_priv_ctx_name;
+};
+
+#endif
 
 /* structure holds list of ibs */
 struct kgsl_ibdesc {
@@ -173,8 +193,19 @@ struct kgsl_device_getproperty {
 #define IOCTL_KGSL_DEVICE_GETPROPERTY \
 	_IOWR(KGSL_IOC_TYPE, 0x2, struct kgsl_device_getproperty)
 
-/* IOCTL_KGSL_DEVICE_READ (0x3) - removed 03/2012
+
+/* read a GPU register.
+   offsetwords it the 32 bit word offset from the beginning of the
+   GPU register space.
  */
+struct kgsl_device_regread {
+	unsigned int offsetwords;
+	unsigned int value; /* output param */
+};
+
+#define IOCTL_KGSL_DEVICE_REGREAD \
+	_IOWR(KGSL_IOC_TYPE, 0x3, struct kgsl_device_regread)
+
 
 /* block until the GPU has executed past a given timestamp
  * timeout is in milliseconds.
@@ -423,4 +454,12 @@ struct kgsl_timestamp_event_genlock {
 	int handle; /* Handle of the genlock lock to release */
 };
 
+#ifdef __KERNEL__
+#ifdef CONFIG_MSM_KGSL_DRM
+int kgsl_gem_obj_addr(int drm_fd, int handle, unsigned long *start,
+			unsigned long *len);
+#else
+#define kgsl_gem_obj_addr(...) 0
+#endif
+#endif
 #endif /* _MSM_KGSL_H */
