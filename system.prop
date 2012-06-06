@@ -31,7 +31,7 @@ ro.zram.default=0
 # QCOM
 com.qc.hardware=true
 com.qc.hdmi_out=false
-debug.composition.type=dyn
+debug.composition.type=c2d
 debug.enabletr=false
 
 # QCOM CpuGovernorService
