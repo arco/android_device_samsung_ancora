@@ -328,14 +328,13 @@ enum {
 	MDP_BLOCK_DMA_P,
 	MDP_BLOCK_DMA_S,
 	MDP_BLOCK_DMA_E,
-	MDP_BLOCK_OVERLAY_2,
 	MDP_BLOCK_MAX,
 };
 
 /*
- * mdp_histogram_start_req is used to provide the parameters for
- * histogram start request
- */
+mdp_histogram_start_req is used to provide the parameters for
+histogram start request
+*/
 
 struct mdp_histogram_start_req {
 	uint32_t block;
@@ -344,10 +343,14 @@ struct mdp_histogram_start_req {
 	uint8_t num_bins;
 };
 
+
 /*
- * mdp_histogram_data is used to return the histogram data, once
- * the histogram is done/stopped/cance
+
+   mdp_histogram_data is used to return the histogram data, once
+   the histogram is done/stopped/cance
+
  */
+
 
 struct mdp_histogram_data {
 	uint32_t block;
@@ -355,7 +358,7 @@ struct mdp_histogram_data {
 	uint32_t *c0;
 	uint32_t *c1;
 	uint32_t *c2;
-	uint32_t *extra_info;
+	uint32_t extra_info[2];
 };
 
 struct mdp_pcc_coeff {
@@ -437,20 +440,10 @@ struct mdp_lut_cfg_data {
 	} data;
 };
 
-struct mdp_qseed_cfg_data {
-	uint32_t block;
-	uint32_t table_num;
-	uint32_t ops;
-	uint32_t len;
-	uint32_t *data;
-};
-
-
 enum {
 	mdp_op_pcc_cfg,
 	mdp_op_csc_cfg,
 	mdp_op_lut_cfg,
-	mdp_op_qseed_cfg,
 	mdp_op_max,
 };
 
@@ -460,7 +453,6 @@ struct msmfb_mdp_pp {
 		struct mdp_pcc_cfg_data pcc_cfg_data;
 		struct mdp_csc_cfg_data csc_cfg_data;
 		struct mdp_lut_cfg_data lut_cfg_data;
-		struct mdp_qseed_cfg_data qseed_cfg_data;
 	} data;
 };
 
@@ -486,10 +478,20 @@ struct msmfb_mixer_info_req {
 	struct mdp_mixer_info info[MAX_PIPE_PER_MIXER];
 };
 
-enum {
-	DISPLAY_SUBSYSTEM_ID,
-	ROTATOR_SUBSYSTEM_ID,
-};
 
+#ifdef __KERNEL__
+
+/* get the framebuffer physical address information */
+int get_fb_phys_info(unsigned long *start, unsigned long *len, int fb_num);
+struct fb_info *msm_fb_get_writeback_fb(void);
+int msm_fb_writeback_init(struct fb_info *info);
+int msm_fb_writeback_start(struct fb_info *info);
+int msm_fb_writeback_queue_buffer(struct fb_info *info,
+		struct msmfb_data *data);
+int msm_fb_writeback_dequeue_buffer(struct fb_info *info,
+		struct msmfb_data *data);
+int msm_fb_writeback_stop(struct fb_info *info);
+int msm_fb_writeback_terminate(struct fb_info *info);
+#endif
 
 #endif /*_MSM_MDP_H_*/
