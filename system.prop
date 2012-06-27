@@ -6,8 +6,7 @@ rild.libargs=-d /dev/smd0
 
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
-ro.telephony.ril.v3=signalstrength
-ro.telephony.ril_class=SamsungHCRIL
+ro.telephony.ril_class=SamsungMSMRIL
 
 # Density in DPI of the LCD of this board. This is used to scale the UI
 # appropriately. If this property is not defined, the default value is 160 dpi.
