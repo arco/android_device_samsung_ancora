@@ -48,3 +48,6 @@ persist.service.adb.enable=1
 
 # Storage configuration
 ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
+
+# Enable repeatable keys in recovery
+ro.cwm.enable_key_repeat=true
