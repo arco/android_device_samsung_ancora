@@ -87,7 +87,7 @@ BOARD_FM_DEVICE := si4709
 BOARD_EGL_CFG := device/samsung/ancora/egl.cfg
 
 USE_OPENGL_RENDERER := true
-
+ENABLE_WEBGL := true
 BOARD_USE_SKIA_LCDTEXT := true
 
 BOARD_ADRENO_DECIDE_TEXTURE_TARGET := true
