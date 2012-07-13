@@ -154,6 +154,11 @@ on boot
     chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 
+    # increase dirty_writeback_interval
+    write /proc/sys/vm/dirty_writeback_centisecs 60000
+    write /proc/sys/vm/dirty_expire_centisecs 60000
+    write /proc/sys/vm/laptop_mode 5
+
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
