@@ -148,6 +148,12 @@ on boot
     write /sys/devices/platform/msm_sdcc.2/perf 0
     write /sys/devices/platform/msm_sdcc.4/perf 0
 
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 75000
+    chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+    chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+    chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
+
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
