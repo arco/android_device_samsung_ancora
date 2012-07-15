@@ -10,8 +10,10 @@
 /dev/genlock              0666   system     system
 
 # gpu driver for adreno200 is globally accessible
-/dev/kgsl-2d0             0666   system     system
+/dev/kgsl                 0666   system     system
 /dev/kgsl-3d0             0666   system     system
+/dev/kgsl-2d0             0666   root       root
+/dev/kgsl-2d1             0666   root       root
 
 # rfkill needs world writable/readable
 /dev/rfkill               0666   root       root
