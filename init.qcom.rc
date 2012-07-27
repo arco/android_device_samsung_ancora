@@ -2,11 +2,11 @@ import init.qcom.usb.rc
 
 on init
     export EXTERNAL_STORAGE /mnt/sdcard
-    export SECONDARY_STORAGE /mnt/emmc
+    export SECONDARY_STORAGE /mnt/external_sd
     mkdir /mnt/sdcard 0000 system system
     symlink /mnt/sdcard /sdcard
-    mkdir /mnt/emmc 0000 system system
-    symlink /mnt/emmc /emmc
+    mkdir /mnt/external_sd 0000 system system
+    symlink /mnt/external_sd /external_sd
 
     mkdir /persist 0771 system system
     mkdir /efs 0771 system system

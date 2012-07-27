@@ -40,7 +40,7 @@
                  android:allowMassStorage="true"
                  android:maxFileSize="4096" />
 
-    <storage android:mountPoint="/mnt/emmc"
+    <storage android:mountPoint="/mnt/external_sd"
                  android:storageDescription="@string/storage_sd_card"
                  android:primary="false"
                  android:removable="true"

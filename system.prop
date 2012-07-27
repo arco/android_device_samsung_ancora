@@ -47,7 +47,7 @@ persist.sys.usb.config=mass_storage
 persist.service.adb.enable=1
 
 # Storage configuration
-ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
+ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd
 
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true

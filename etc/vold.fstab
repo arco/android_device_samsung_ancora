@@ -16,4 +16,4 @@
 dev_mount sdcard /mnt/sdcard 28 /devices/platform/msm_sdcc.2/mmc_host/mmc1
 
 # externel sdcard
-dev_mount emmc /mnt/emmc auto /devices/platform/msm_sdcc.4/mmc_host/mmc2
+dev_mount external_sd /mnt/external_sd auto /devices/platform/msm_sdcc.4/mmc_host/mmc2
