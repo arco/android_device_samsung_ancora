@@ -14,15 +14,8 @@ LOCAL_C_INCLUDES := $(TOP)/frameworks/base/include
 
 LOCAL_SHARED_LIBRARIES := liblog libutils libcutils
 LOCAL_SHARED_LIBRARIES += libui libhardware libcamera_client
-LOCAL_SHARED_LIBRARIES += libcamera
+LOCAL_SHARED_LIBRARIES += libcamera libseccameraadaptor
 LOCAL_PRELINK_MODULE := false
-
-ifeq ($(BOARD_HAVE_HTC_FFC), true)
-    LOCAL_CFLAGS += -DHTC_FFC
-endif
-ifeq ($(BOARD_USE_REVERSE_FFC), true)
-    LOCAL_CFLAGS += -DREVERSE_FFC
-endif
 
 include $(BUILD_SHARED_LIBRARY)
 
