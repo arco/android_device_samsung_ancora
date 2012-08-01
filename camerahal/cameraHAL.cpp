@@ -388,8 +388,6 @@ static void wrap_data_callback_timestamp(nsecs_t timestamp, int32_t msg_type,
 void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_device_t* dev)
 {
     const char *preferred_size = "640x480";
-    const char *preview_frame_rates  = "31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5";
-    const char *preferred_rate = "31";
 
     camParams.set(android::CameraParameters::KEY_VIDEO_FRAME_FORMAT,
                   android::CameraParameters::PIXEL_FORMAT_YUV420SP);
@@ -397,20 +395,7 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_devi
     camParams.set(CameraParameters::KEY_PREFERRED_PREVIEW_SIZE_FOR_VIDEO,
                   preferred_size);
 
-    camParams.set(android::CameraParameters::KEY_MAX_SHARPNESS, "30");
-    camParams.set(android::CameraParameters::KEY_MAX_CONTRAST, "10");
-    camParams.set(android::CameraParameters::KEY_MAX_SATURATION, "10");
-
-    if (!camParams.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES)) {
-        camParams.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES,
-                      preview_frame_rates);
-    }
-
-    if (!camParams.get(android::CameraParameters::KEY_PREVIEW_FRAME_RATE)) {
-        camParams.set(CameraParameters::KEY_PREVIEW_FRAME_RATE, preferred_rate);
-    }
-
-    if (dev->cameraid==CAMERA_ID_BACK) {
+    if (dev->cameraid == CAMERA_ID_BACK) {
         if (!camParams.get(android::CameraParameters::KEY_MAX_NUM_FOCUS_AREAS)) {
             camParams.set(CameraParameters::KEY_MAX_NUM_FOCUS_AREAS, 1);
         }
@@ -419,7 +404,6 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_devi
     camParams.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, 4);
     camParams.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, -4);
     camParams.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, 1);
-
 }
 
 int camera_set_preview_window(struct camera_device * device,
