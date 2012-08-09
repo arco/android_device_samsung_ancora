@@ -400,10 +400,6 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_devi
             camParams.set(CameraParameters::KEY_MAX_NUM_FOCUS_AREAS, 1);
         }
     }
-
-    camParams.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, 4);
-    camParams.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, -4);
-    camParams.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, 1);
 }
 
 int camera_set_preview_window(struct camera_device * device,
@@ -468,7 +464,7 @@ int camera_set_preview_window(struct camera_device * device,
     //    return -1;
     //}
 
-    window->set_usage(window, GRALLOC_USAGE_PMEM_PRIVATE_ADSP | GRALLOC_USAGE_SW_READ_OFTEN);
+    window->set_usage(window, GRALLOC_USAGE_PMEM_PRIVATE_ADSP | GRALLOC_USAGE_HW_RENDER);
 
     if (window->set_buffers_geometry(window, preview_width,
                                      preview_height, hal_pixel_format)) {
@@ -1107,11 +1103,7 @@ int camera_get_camera_info(int camera_id, struct camera_info *info)
     android::SEC_getCameraInfo(camera_id, &cameraInfo);
 
     info->facing = cameraInfo.facing;
-    if(info->facing == 1) {
-        info->orientation = 270;
-    } else {
-        info->orientation = 90;
-    }
+    info->orientation = cameraInfo.orientation;
 
     LOGI("%s: id:%i faceing:%i orientation: %i", __FUNCTION__,camera_id, info->facing, info->orientation);
 

@@ -234,7 +234,7 @@ namespace android {
          */
         virtual status_t dump(int fd, const Vector<String16>& args) const = 0;
 
-        virtual void takeLiveShapshot() = 0;
+        virtual void takeLiveSnapshot() = 0;
     };
 
     /**
