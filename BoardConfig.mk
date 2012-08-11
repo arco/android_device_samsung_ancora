@@ -144,4 +144,4 @@ BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
 
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun%d/file
