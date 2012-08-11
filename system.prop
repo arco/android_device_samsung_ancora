@@ -37,8 +37,8 @@ debug.enabletr=false
 dev.pm.dyn_samplingrate=1
 
 # Low Power Audio
-lpa.decode=true
-lpa.use-stagefright=true
+lpa.decode=false
+lpa.use-stagefright=false
 
 # Set default USB interface
 persist.sys.usb.config=mass_storage
