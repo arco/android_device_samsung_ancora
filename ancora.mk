@@ -53,6 +53,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
     $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh \
     $(LOCAL_PATH)/prebuilt/FileManager.apk:system/app/FileManager.apk \
+    $(LOCAL_PATH)/prebuilt/Torch.apk:system/app/Torch.apk \
     $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
 
 # Input device calibration files
@@ -110,7 +111,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/lpm/media/chargingwarning.qmg:system/media/chargingwarning.qmg
 
 PRODUCT_PACKAGES += \
-    librs_jni \
     camera.msm7x30 \
     copybit.msm7x30 \
     gralloc.msm7x30 \
@@ -142,9 +142,6 @@ PRODUCT_PACKAGES += \
     hciconfig \
     hcitool \
     libaudioutils
-
-PRODUCT_PACKAGES += \
-    Torch
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
