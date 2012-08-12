@@ -317,10 +317,16 @@ static void wrap_notify_callback(int32_t msg_type, int32_t ext1,
 
     dev = (priv_camera_device_t*) user;
 
+    if (dev->cameraid == CAMERA_ID_FRONT) {
+        if (msg_type == CAMERA_MSG_SHUTTER) {
+            LOGI("ignore CAMERA_MSG_SHUTTER callback");
+            return;
+        }
+    }
+
     if (dev->notify_callback)
         dev->notify_callback(msg_type, ext1, ext2, dev->user);
-    LOGI("%s---", __FUNCTION__);
-
+        LOGI("%s---", __FUNCTION__);
 }
 //QiSS ME for capture
 static void wrap_data_callback(int32_t msg_type, const sp<IMemory>& dataPtr,
@@ -337,7 +343,7 @@ static void wrap_data_callback(int32_t msg_type, const sp<IMemory>& dataPtr,
 
     dev = (priv_camera_device_t*) user;
 
-    if(msg_type ==CAMERA_MSG_RAW_IMAGE)
+    if (msg_type == CAMERA_MSG_RAW_IMAGE)
     {
     	gCameraHals[dev->cameraid]->disableMsgType(CAMERA_MSG_RAW_IMAGE);
         return;
@@ -347,8 +353,7 @@ static void wrap_data_callback(int32_t msg_type, const sp<IMemory>& dataPtr,
 
     if (dev->data_callback)
         dev->data_callback(msg_type, data, 0, NULL, dev->user);
-	LOGI("%s---", __FUNCTION__);
-
+        LOGI("%s---", __FUNCTION__);
 }
 //QiSS ME for record
 
@@ -385,7 +390,7 @@ static void wrap_data_callback_timestamp(nsecs_t timestamp, int32_t msg_type,
  * implementation of priv_camera_device_ops functions
  *******************************************************************/
 
-void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_device_t* dev)
+void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_device_t* dev)
 {
     const char *preferred_size = "640x480";
 
@@ -395,10 +400,21 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams,priv_camera_devi
     camParams.set(CameraParameters::KEY_PREFERRED_PREVIEW_SIZE_FOR_VIDEO,
                   preferred_size);
 
+    if (dev->cameraid == CAMERA_ID_FRONT) {
+        camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "");
+    }
+
     if (dev->cameraid == CAMERA_ID_BACK) {
         if (!camParams.get(android::CameraParameters::KEY_MAX_NUM_FOCUS_AREAS)) {
             camParams.set(CameraParameters::KEY_MAX_NUM_FOCUS_AREAS, 1);
         }
+        camParams.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES, "auto,macro");
+        camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "auto,ISO50,ISO100,ISO200,ISO400");
+
+        camParams.set(CameraParameters::KEY_ZOOM, "0");
+        camParams.set(CameraParameters::KEY_MAX_ZOOM, "8");
+        camParams.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300");
+        camParams.set(CameraParameters::KEY_ZOOM_SUPPORTED, CameraParameters::TRUE);
     }
 }
 
