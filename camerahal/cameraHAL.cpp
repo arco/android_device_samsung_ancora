@@ -411,7 +411,6 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_dev
         camParams.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES, "auto,macro");
         camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "auto,ISO50,ISO100,ISO200,ISO400");
 
-        camParams.set(CameraParameters::KEY_ZOOM, "0");
         camParams.set(CameraParameters::KEY_MAX_ZOOM, "8");
         camParams.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300");
         camParams.set(CameraParameters::KEY_ZOOM_SUPPORTED, CameraParameters::TRUE);
