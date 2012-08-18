@@ -348,6 +348,10 @@ static void wrap_data_callback(int32_t msg_type, const sp<IMemory>& dataPtr,
     if (dev->data_callback)
         dev->data_callback(msg_type, data, 0, NULL, dev->user);
         LOGI("%s---", __FUNCTION__);
+
+    if ( NULL != data ) {
+        data->release(data);
+    }
 }
 //QiSS ME for record
 
