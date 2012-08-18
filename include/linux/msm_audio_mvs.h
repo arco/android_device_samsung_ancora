@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2011, Code Aurora Forum. All rights reserved.
+/* Copyright (c) 2010, Code Aurora Forum. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -36,21 +36,13 @@
 	(AUDIO_MAX_COMMON_IOCTL_NUM + 1), unsigned)
 
 /* MVS modes */
-#define MVS_MODE_IS733 1
 #define MVS_MODE_IS127 2
-#define MVS_MODE_4GV_NB 3
-#define MVS_MODE_4GV_WB 4
 #define MVS_MODE_AMR 5
-#define MVS_MODE_EFR 6
-#define MVS_MODE_FR 7
-#define MVS_MODE_HR 8
 #define MVS_MODE_LINEAR_PCM 9
-#define MVS_MODE_G711 10
 #define MVS_MODE_PCM 12
 #define MVS_MODE_AMR_WB 13
 #define MVS_MODE_G729A 14
 #define MVS_MODE_G711A 15
-#define MVS_MODE_G722 16
 
 enum msm_audio_amr_mode {
 	MVS_AMR_MODE_0475, /* AMR 4.75 kbps */
@@ -98,14 +90,6 @@ enum msm_audio_g711a_mode {
 	MVS_G711A_MODE_ALAW
 };
 
-enum mvs_g722_mode_type {
-	MVS_G722_MODE_01,
-	MVS_G722_MODE_02,
-	MVS_G722_MODE_03,
-	MVS_G722_MODE_MAX,
-	MVS_G722_MODE_UNDEF
-};
-
 enum msm_audio_g711a_frame_type {
 	MVS_G711A_SPEECH_GOOD,
 	MVS_G711A_SID,
@@ -129,7 +113,6 @@ struct msm_audio_mvs_config {
 	uint32_t mvs_mode;
 	uint32_t rate_type;
 	struct min_max_rate min_max_rate;
-	uint32_t dtx_mode;
 };
 
 #define MVS_MAX_VOC_PKT_SIZE 320
