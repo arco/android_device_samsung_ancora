@@ -140,7 +140,6 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/init.recovery.rc
-BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 # End recovery stuff
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
