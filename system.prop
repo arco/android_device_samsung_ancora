@@ -12,9 +12,8 @@ ro.telephony.ril_class=SamsungMSMRIL
 # appropriately. If this property is not defined, the default value is 160 dpi.
 ro.sf.lcd_density=240
 
-# Wifi interface device and interval for access point scanning.
+# Wifi interface device
 wifi.interface=wlan0
-wifi.supplicant_scan_interval=60
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number.
