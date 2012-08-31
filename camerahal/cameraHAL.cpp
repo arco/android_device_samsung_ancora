@@ -413,6 +413,10 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_dev
         camParams.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300");
         camParams.set(CameraParameters::KEY_ZOOM_SUPPORTED, CameraParameters::TRUE);
     }
+
+    camParams.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, 4);
+    camParams.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, -4);
+    camParams.set(CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, 1);
 }
 
 int camera_set_preview_window(struct camera_device * device,
