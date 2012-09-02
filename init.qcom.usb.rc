@@ -19,18 +19,16 @@ on property:sys.usb.config=mtp
     setprop sys.usb.state $sys.usb.config
 
 on property:sys.usb.config=rndis
-    write /sys/class/usb_composite/rndis/enable 1
+    exec /system/bin/ifconfig usb0 192.168.42.129
+    write /sys/devices/platform/android_usb/tethering 1
     setprop sys.usb.state $sys.usb.config
 
 on property:sys.usb.config=rndis,adb
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
+    exec /system/bin/ifconfig usb0 192.168.42.129
+    write /sys/devices/platform/android_usb/tethering 1
     setprop sys.usb.state $sys.usb.config
 
 on property:sys.usb.config=mass_storage,rndis,adb
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
+    exec /system/bin/ifconfig usb0 192.168.42.129
+    write /sys/devices/platform/android_usb/tethering 1
     setprop sys.usb.state $sys.usb.config
