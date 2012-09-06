@@ -254,3 +254,6 @@ on property:sys.radio.shutdown=true
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
+
+on property:init.svc.bluetoothd=running
+    write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
