@@ -147,6 +147,7 @@ on boot
 
     write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
     write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 75000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
     chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
     chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
