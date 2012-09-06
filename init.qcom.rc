@@ -241,6 +241,12 @@ service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p1
     group root
     oneshot
 
+service compcache /system/bin/handle_compcache
+    class main
+    user root
+    group root
+    oneshot
+
 service playlpm /system/bin/playlpm
     class charger
     user root
