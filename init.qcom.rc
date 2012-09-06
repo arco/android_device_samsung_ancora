@@ -8,9 +8,6 @@ on init
     mkdir /mnt/external_sd 0000 system system
     symlink /mnt/external_sd /external_sd
 
-    mkdir /persist 0771 system system
-    mkdir /efs 0771 system system
-
     insmod /lib/modules/bthid.ko
 
 on early-boot
@@ -159,17 +156,12 @@ on emmc-fs
 
     wait /dev/block/mmcblk0p15
     mount ext4 /dev/block/mmcblk0p15 /system ro barrier=1
-    mount ext4 /dev/block/mmcblk0p12 /persist nosuid nodev barrier=0
     mount ext4 /dev/block/mmcblk0p16 /cache nosuid nodev barrier=0
-    mount ext4 /dev/block/mmcblk0p27 /efs nosuid nodev noatime wait
     wait /dev/block/mmcblk0p17
     exec /system/bin/e2fsck -p /dev/block/mmcblk0p17
     mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime wait barrier=1 noauto_da_alloc
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
-
-    chown radio system /efs
-    chmod 0771 /efs
 
 on post-fs-data
     # create log system

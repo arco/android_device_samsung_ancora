@@ -6,7 +6,6 @@
 /system         ext4            /dev/block/mmcblk0p15
 /cache          ext4            /dev/block/mmcblk0p16
 /data           ext4            /dev/block/mmcblk0p17   length=-16384
-/efs            ext4            /dev/block/mmcblk0p27
 
 /sdcard         vfat            /dev/block/mmcblk0p28
 /external_sd    vfat            /dev/block/mmcblk1p1    /dev/block/mmcblk1
