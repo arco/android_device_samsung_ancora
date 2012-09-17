@@ -19,10 +19,10 @@ PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_LOCALES += hdpi
 
-# Boot screen
+# Boot and charging images
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ARIESVE.rle:root/ARIESVE.rle \
-    $(LOCAL_PATH)/charging.rle:root/charging.rle
+    $(LOCAL_PATH)/lpm/charging.rle:root/charging.rle
 
 # Support files
 PRODUCT_COPY_FILES += \
@@ -42,15 +42,14 @@ PRODUCT_COPY_FILES += \
 
 # Media configuration xml file
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.qcom.rc:root/init.qcom.rc \
-    $(LOCAL_PATH)/init.qcom.usb.rc:root/init.qcom.usb.rc \
-    $(LOCAL_PATH)/ueventd.qcom.rc:root/ueventd.qcom.rc \
-    $(LOCAL_PATH)/etc/adreno_config.txt:system/etc/adreno_config.txt \
-    $(LOCAL_PATH)/etc/vold.fstab:system/etc/vold.fstab \
-    $(LOCAL_PATH)/etc/wifi/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
+    $(LOCAL_PATH)/config/init.qcom.rc:root/init.qcom.rc \
+    $(LOCAL_PATH)/config/init.qcom.usb.rc:root/init.qcom.usb.rc \
+    $(LOCAL_PATH)/config/ueventd.qcom.rc:root/ueventd.qcom.rc \
+    $(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab \
+    $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
     $(LOCAL_PATH)/recovery/fix_reboot.sh:recovery/root/sbin/fix_reboot.sh \
     $(LOCAL_PATH)/prebuilt/FileManager.apk:system/app/FileManager.apk \
     $(LOCAL_PATH)/prebuilt/Torch.apk:system/app/Torch.apk \
@@ -58,11 +57,7 @@ PRODUCT_COPY_FILES += \
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
-
-# Bluetooth configuration files
-PRODUCT_COPY_FILES += \
-    system/bluetooth/data/main.conf:system/etc/bluetooth/main.conf
+    $(LOCAL_PATH)/config/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
 # Keychars and keylayout files
 PRODUCT_COPY_FILES += \
@@ -115,10 +110,10 @@ PRODUCT_PACKAGES += \
     copybit.msm7x30 \
     gralloc.msm7x30 \
     hwcomposer.msm7x30 \
+    gps.msm7x30 \
     audio.primary.msm7x30 \
     audio_policy.msm7x30 \
-    audio.a2dp.default \
-    gps.ancora
+    audio.a2dp.default
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \

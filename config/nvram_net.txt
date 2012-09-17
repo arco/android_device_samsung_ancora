@@ -1,5 +1,5 @@
 #Ancora R0.0 110502_Calibration
-#nvram_override=1 
+#nvram_override=1
 # bcm94329sdagb board
 # $Copyright (C) 2008 Broadcom Corporation$
 # $id$
@@ -22,7 +22,7 @@ aa5g=0
 
 ag0=255
 
-# 11g paparams 
+# 11g paparams
 pa0b0=6003,6003,6027
 pa0b1=64086,64086,64135
 pa0b2=65195,65195,65163
@@ -43,7 +43,7 @@ rssisav2g=0x3,0x3,0x3
 bxa2g=0
 
 # country code
-ccode=EU
+ccode=ALL
 cctl=0x0
 cckdigfilttype=1
 ofdmdigfilttype=1

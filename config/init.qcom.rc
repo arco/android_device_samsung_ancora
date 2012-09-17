@@ -46,19 +46,11 @@ on boot
     chown system input /sys/class/input/input4/data
     chown system input /sys/class/input/input4/calibration
 
-    # orientation
+    # proximity
     chown system input /sys/class/input/input5/enable
     chown system input /sys/class/input/input5/delay
     chown system input /sys/class/input/input5/wake
     chown system input /sys/class/input/input5/data
-    chown system input /sys/class/input/input5/status
-
-    # proximity
-    chown system input /sys/class/input/input6/enable
-    chown system input /sys/class/input/input6/delay
-    chown system input /sys/class/input/input6/wake
-    chown system input /sys/class/input/input6/data
-    chown system input /sys/class/input/input6/status
 
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
@@ -258,3 +250,9 @@ on property:init.svc.ril-daemon=running
 
 on property:init.svc.bluetoothd=running
     write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
+
+on property:init.svc.playlpm=running
+    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 122880
