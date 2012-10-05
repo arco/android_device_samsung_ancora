@@ -20,7 +20,6 @@ wifi.interface=wlan0
 ro.opengles.version=131072
 
 # Performance settings.
-persist.sys.use_dithering=0
 ro.kernel.android.checkjni=0
 dalvik.vm.checkjni=false
 dalvik.vm.dexopt-data-only=1
