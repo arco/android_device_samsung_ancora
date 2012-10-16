@@ -8,8 +8,6 @@ on init
     mkdir /mnt/external_sd 0000 system system
     symlink /mnt/external_sd /external_sd
 
-    insmod /lib/modules/bthid.ko
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864

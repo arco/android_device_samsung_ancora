@@ -39,7 +39,7 @@ lpa.decode=false
 lpa.use-stagefright=false
 
 # Set default USB interface
-persist.sys.usb.config=mass_storage
+persist.sys.usb.config=mtp
 
 # Enable debug mode by default
 persist.service.adb.enable=1
