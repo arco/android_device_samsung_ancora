@@ -8,6 +8,8 @@ on init
     mkdir /mnt/external_sd 0000 system system
     symlink /mnt/external_sd /external_sd
 
+    mkdir /mnt/usbdisk 0755 system system
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -31,9 +33,19 @@ on boot
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
+    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
     # Force Power Down
     chmod 0660 /sys/class/sec/pm/power_down
     chown root system /sys/class/sec/pm/power_down
+
+    # To prevent out of order acknowledgements from making
+    # connection tracking to treat them as not belonging to
+    # the connection they belong to.
+    # Otherwise, a weird issue happens in which some long
+    # connections on high-throughput links get dropped when
+    # an ack packet comes out of order
+    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
     # accelerometer
     chown system input /sys/class/input/input4/enable
@@ -100,24 +112,8 @@ on boot
     chown system audio /sys/devices/virtual/misc/amp/gain_all
     chown system audio /sys/devices/virtual/misc/amp/save
 
-    # Codec Tun (QTR)
-    chown system audio /sys/class/marimba/marimba_gain/codec_tune_enable
-    chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_left_gain
-    chown system audio /sys/class/marimba/marimba_gain/analog_headset_rx_right_gain
-    chown system audio /sys/class/marimba/marimba_gain/digital_rx_left_gain
-    chown system audio /sys/class/marimba/marimba_gain/digital_rx_right_gain
-    chown system audio /sys/class/marimba/marimba_gain/digital_tx_left_gain
-    chown system audio /sys/class/marimba/marimba_gain/digital_tx_right_gain
-    chown system audio /sys/class/marimba/marimba_gain/analog_tx_left_gain
-    chown system audio /sys/class/marimba/marimba_gain/analog_tx_right_gain
-    chown system audio /sys/class/marimba/marimba_gain/auxpga_left_gain
-    chown system audio /sys/class/marimba/marimba_gain/auxpga_right_gain
-    chown system audio /sys/devices/virtual/misc/amp/gain_all
-    chown system audio /sys/class/marimba/marimba_gain/save
-
     chown radio system sys/devices/virtual/sec/switch/disable_vbus
     chown radio system sys/devices/virtual/sec/switch/usb_sel
-    chown radio system sys/devices/platform/android_usb/UsbMenuSel
 
     chown system /sys/devices/platform/rs300000a7.65536/force_sync
     chown system /sys/devices/platform/rs300000a7.65536/sync_sts
