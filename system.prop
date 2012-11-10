@@ -41,6 +41,9 @@ lpa.use-stagefright=false
 # Set default USB interface
 persist.sys.usb.config=mtp
 
+# Increase speed for UMS transfer
+ro.vold.umsdirtyratio=50
+
 # Enable debug mode by default
 persist.service.adb.enable=1
 
