@@ -14,6 +14,7 @@
 /dev/kgsl-3d0             0666   system     system
 /dev/kgsl-2d0             0666   root       root
 /dev/kgsl-2d1             0666   root       root
+/dev/ion                  0664   system     system
 
 # rfkill needs world writable/readable
 /dev/rfkill               0666   root       root
@@ -27,6 +28,7 @@
 /dev/pmem_audio           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
 /dev/radio0               0644   fm_radio   fm_radio
+/dev/oncrpc/*             0660   root       qcom_oncrpc
 /dev/i2c-0                0664   root       system
 /dev/i2c-1                0664   root       system
 /dev/i2c-2                0660   root       system

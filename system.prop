@@ -8,12 +8,12 @@ ro.ril.hsxpa=1
 ro.ril.gprsclass=10
 ro.telephony.ril_class=SamsungMSMRIL
 
+# Wifi interface device
+wifi.interface=wlan0
+
 # Density in DPI of the LCD of this board. This is used to scale the UI
 # appropriately. If this property is not defined, the default value is 160 dpi.
 ro.sf.lcd_density=240
-
-# Wifi interface device
-wifi.interface=wlan0
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number.
@@ -26,10 +26,10 @@ dalvik.vm.dexopt-data-only=1
 ro.zram.default=0
 
 # QCOM
-debug.sf.hw=1
 com.qc.hardware=true
-com.qc.hdmi_out=false
-debug.enabletr=false
+debug.sf.hw=1
+debug.egl.hw=1
+debug.enabletr=true
 
 # QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
@@ -40,6 +40,9 @@ lpa.use-stagefright=false
 
 # Set default USB interface
 persist.sys.usb.config=mass_storage
+
+# Increase speed for UMS transfer
+ro.vold.umsdirtyratio=50
 
 # Enable debug mode by default
 persist.service.adb.enable=1
