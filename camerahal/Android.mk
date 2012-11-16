@@ -1,5 +1,3 @@
-ifeq ($(BOARD_USES_LEGACY_CAMERA),true)
-
 $(shell mkdir -p $(OUT)/obj/SHARED_LIBRARIES/libcamera_intermediates/)
 $(shell touch $(OUT)/obj/SHARED_LIBRARIES/libcamera_intermediates/export_includes)
 $(shell mkdir -p $(OUT)/obj/SHARED_LIBRARIES/libseccameraadaptor_intermediates/)
@@ -25,5 +23,3 @@ LOCAL_SHARED_LIBRARIES += libcamera libseccameraadaptor
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif
