@@ -43,7 +43,7 @@ on property:sys.usb.config=rndis,adb
     write /sys/class/android_usb/android0/bDeviceClass 224
     write /sys/class/android_usb/android0/enable 1
     start adbd
-    setprop sys.usb.state ${sys.usb.config}
+    setprop sys.usb.state $sys.usb.config
 
 on property:sys.usb.config=ptp
     write /sys/class/android_usb/android0/enable 0
