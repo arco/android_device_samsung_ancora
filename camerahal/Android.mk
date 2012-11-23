@@ -1,5 +1,3 @@
-ifeq ($(BOARD_USES_HTC_CAMERA),true)
-
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -14,9 +12,7 @@ LOCAL_C_INCLUDES := $(TOP)/frameworks/base/include
 
 LOCAL_SHARED_LIBRARIES := liblog libutils libcutils
 LOCAL_SHARED_LIBRARIES += libui libhardware libcamera_client
-LOCAL_SHARED_LIBRARIES += libcamera libseccameraadaptor
+LOCAL_SHARED_LIBRARIES += libseccameraadaptor
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif
