@@ -6,7 +6,8 @@ rild.libargs=-d /dev/smd0
 
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
-ro.telephony.ril_class=SamsungMSMRIL
+ro.telephony.ril_class=SamsungRIL
+ro.telephony.ril.v3=datacall,icccardstatus
 
 # Wifi interface device
 wifi.interface=wlan0
