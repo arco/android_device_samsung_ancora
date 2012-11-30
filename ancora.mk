@@ -112,6 +112,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm7x30 \
     hwcomposer.msm7x30 \
     gps.msm7x30 \
+    lights.msm7x30 \
     audio.primary.msm7x30 \
     audio_policy.msm7x30 \
     audio.a2dp.default
