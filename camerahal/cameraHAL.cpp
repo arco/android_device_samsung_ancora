@@ -36,7 +36,7 @@
 #include <signal.h>
 
 #include <cutils/log.h>
-#include <ui/Overlay.h>
+#include <ui/legacy/Overlay.h>
 #include <camera/CameraParameters.h>
 #include <hardware/camera.h>
 #include <binder/IMemory.h>
