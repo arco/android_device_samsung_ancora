@@ -29,8 +29,11 @@ ro.zram.default=0
 # QCOM
 com.qc.hardware=true
 debug.sf.hw=1
+debug.sf.swaprect=1
 debug.egl.hw=1
+debug.mdpcomp.logs=0
 debug.enabletr=true
+debug.hwui.render_dirty_regions=true
 
 # QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
@@ -49,7 +52,7 @@ ro.vold.umsdirtyratio=50
 persist.service.adb.enable=1
 
 # Storage configuration
-ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd
+ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1
 
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true
