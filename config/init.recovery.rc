@@ -33,11 +33,6 @@ service recovery /sbin/recovery
 service adbd /sbin/adbd recovery
     disabled
 
-# fix reboot issue from recovery
-service fix_reboot /sbin/sh /sbin/fix_reboot.sh
-    user root
-    oneshot
-
 # Always start adbd on userdebug and eng builds
 on property:ro.debuggable=1
     start adbd
