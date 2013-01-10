@@ -1,7 +1,6 @@
 /dev/rtc0                 0600   system     system
 /dev/rtc1                 0600   system     system
-/dev/ttyHS0               0660   bluetooth  bluetooth
-/dev/uinput               0660   bluetooth  bluetooth
+/dev/ttyHS0               0660   system     bluetooth
 
 # the DIAG device node is world writable/readable.
 /dev/diag                 0666   root       root
@@ -47,7 +46,7 @@
 /dev/ledflash             0660   root       system
 /dev/fmradio              0660   system     system
 /dev/dun                  0660   system     system
-/dev/tun                  0660   vpn        vpn
+/dev/tun                  0660   system     vpn
 
 # permissions for video
 /dev/msm_vidc*            0660   system     audio
