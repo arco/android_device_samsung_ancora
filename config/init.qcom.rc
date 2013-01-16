@@ -198,7 +198,6 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group radio
     disabled
 
 on property:ro.emmc=1
