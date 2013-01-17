@@ -28,8 +28,11 @@ ro.zram.default=0
 # QCOM
 com.qc.hardware=true
 debug.sf.hw=1
+debug.sf.swaprect=1
 debug.egl.hw=1
 debug.enabletr=true
+ro.sf.compbypass.enable=1
+debug.hwui.render_dirty_regions=true
 
 # QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
@@ -39,7 +42,7 @@ lpa.decode=false
 lpa.use-stagefright=false
 
 # Set default USB interface
-persist.sys.usb.config=mass_storage
+persist.sys.usb.config=mtp
 
 # Increase speed for UMS transfer
 ro.vold.umsdirtyratio=50
@@ -48,7 +51,7 @@ ro.vold.umsdirtyratio=50
 persist.service.adb.enable=1
 
 # Storage configuration
-ro.vold.switchablepair=/mnt/sdcard,/mnt/external_sd
+ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1
 
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true

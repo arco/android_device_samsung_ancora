@@ -91,7 +91,8 @@ USE_OPENGL_RENDERER := true
 # QCOM webkit
 TARGET_FORCE_CPU_UPLOAD := true
 
-TARGET_NO_HW_VSYNC := true
+#TARGET_NO_HW_VSYNC := true
+TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
 
 BOARD_NEEDS_MEMORYHEAPPMEM := true
@@ -117,8 +118,6 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 28
 
-BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
-
 # Begin recovery stuff
 #
 # Partition sizes must match your phone, or all hell will break loose!
@@ -139,9 +138,9 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/recovery.fstab
 # Enable below line if compiling for a recovery version before 6.0.1.2
-#BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun%d/file
+#BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 # End recovery stuff
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
 
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun%d/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
