@@ -29,7 +29,6 @@ ro.zram.default=0
 # QCOM
 com.qc.hardware=true
 debug.sf.hw=1
-debug.sf.swaprect=1
 debug.egl.hw=1
 debug.mdpcomp.logs=0
 debug.enabletr=true
