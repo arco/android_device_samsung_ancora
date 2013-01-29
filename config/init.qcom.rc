@@ -121,11 +121,6 @@ on boot
     chown radio system sys/devices/virtual/sec/switch/usb_sel
     chown radio system sys/devices/platform/android_usb/UsbMenuSel
 
-    chown system /sys/devices/platform/rs300000a7.65536/force_sync
-    chown system /sys/devices/platform/rs300000a7.65536/sync_sts
-    chown system /sys/devices/platform/rs300100a7.65536/force_sync
-    chown system /sys/devices/platform/rs300100a7.65536/sync_sts
-
     # for silent reset
     chown system system /proc/dump_enable
     chown system system /proc/silent
@@ -240,9 +235,6 @@ service lpmkey /system/bin/charging_mode
     class charger
     user root
     oneshot
-
-on property:sys.radio.shutdown=true
-    write /sys/devices/platform/rs300000a7.65536/force_sync 1
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
