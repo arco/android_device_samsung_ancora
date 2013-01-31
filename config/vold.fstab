@@ -17,6 +17,3 @@ dev_mount sdcard /storage/sdcard0 28 /devices/platform/msm_sdcc.2/mmc_host/mmc1
 
 # externel sdcard
 dev_mount external_sd /storage/sdcard1 auto /devices/platform/msm_sdcc.4/mmc_host/mmc2
-
-# usb disk
-dev_mount usbdisk /storage/usbdisk auto /devices/platform/msm_hsusb_host.0
