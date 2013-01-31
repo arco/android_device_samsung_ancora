@@ -52,7 +52,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/config/fstab.qcom:root/fstab.qcom \
     $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
-    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
+    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs \
+    $(LOCAL_PATH)/prebuilt/Torch.apk:system/app/Torch.apk
 
 # Needed to reset bootmode when leaving recovery
 PRODUCT_COPY_FILES += \
