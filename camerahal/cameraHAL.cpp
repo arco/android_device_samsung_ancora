@@ -397,6 +397,8 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_dev
 {
     const char *preferred_size = "640x480";
 
+    camParams.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "30");
+
     camParams.set(android::CameraParameters::KEY_VIDEO_FRAME_FORMAT,
                   android::CameraParameters::PIXEL_FORMAT_YUV420SP);
 
