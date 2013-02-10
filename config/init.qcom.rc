@@ -18,6 +18,10 @@ on early-boot
     setrlimit 8 67108864 67108864
 
 on boot
+    # Disable idle power collapse during boot.
+    # These features will be enabled at the end of boot
+    write /sys/module/pm2/parameters/idle_sleep_mode 3
+
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -141,6 +145,8 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/powersave_bias
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+    chown system system /sys/devices/system/cpu/cpufreq ondemand/up_threshold
+    chmod 0664 /sys/devices/system/cpu/cpufreq ondemand/up_threshold
 
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
@@ -242,3 +248,6 @@ on property:init.svc.playlpm=running
     chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 122880
+
+on property:sys.boot_completed=1
+    write /sys/module/pm2/parameters/idle_sleep_mode 1

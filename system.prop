@@ -20,10 +20,13 @@ ro.sf.lcd_density=240
 # This is a 16.16 fixed point number.
 ro.opengles.version=131072
 
-# Performance settings.
-ro.kernel.android.checkjni=0
-dalvik.vm.checkjni=false
+# Dalvik settings
+dalvik.vm.heapstartsize=5m
+dalvik.vm.heapgrowthlimit=36m
+dalvik.vm.heapsize=128m
 dalvik.vm.dexopt-data-only=1
+
+# Disable zram by default
 ro.zram.default=0
 
 # QCOM
@@ -46,9 +49,6 @@ persist.sys.usb.config=mtp
 
 # Increase speed for UMS transfer
 ro.vold.umsdirtyratio=50
-
-# Enable debug mode by default
-persist.service.adb.enable=1
 
 # Storage configuration
 ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1
