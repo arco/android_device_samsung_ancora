@@ -124,10 +124,6 @@ on boot
     chown system system /proc/nosim_handler
     copy /data/dump_enable /proc/dump_enable
 
-    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
-    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 75000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
-
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/boostfreq
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/boostfreq
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/boostpulse
@@ -144,8 +140,12 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/powersave_bias
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    chown system system /sys/devices/system/cpu/cpufreq ondemand/up_threshold
-    chmod 0664 /sys/devices/system/cpu/cpufreq ondemand/up_threshold
+    chown system system /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 90
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 75000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
 
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
