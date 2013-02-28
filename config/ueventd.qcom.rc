@@ -1,6 +1,6 @@
 /dev/rtc0                 0600   system     system
 /dev/rtc1                 0600   system     system
-/dev/ttyHS0               0660   system     bluetooth
+/dev/ttyHS0               0660   bluetooth  bluetooth
 
 # the DIAG device node is world writable/readable.
 /dev/diag                 0666   root       root
@@ -40,6 +40,10 @@
 /dev/video*               0660   system     camera
 /dev/system_bus_freq      0660   system     system
 /dev/cpu_dma_latency      0660   system     system
+/dev/smd2                 0660   bluetooth  bluetooth
+/dev/smd3                 0660   bluetooth  bluetooth
+/dev/smd4                 0660   system     system
+/dev/smd7                 0640   radio      radio
 /dev/smdcntl*             0640   radio      radio
 /dev/ledflash             0660   root       system
 /dev/fmradio              0660   system     system
