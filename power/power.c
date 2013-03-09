@@ -29,9 +29,10 @@
 #define SCALING_GOVERNOR_PATH "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 #define BOOSTPULSE_ONDEMAND "/sys/devices/system/cpu/cpufreq/ondemand/boostpulse"
 #define BOOSTPULSE_INTERACTIVE "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
-#define SAMPLING_RATE_ONDEMAND "/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate"
 #define SAMPLING_RATE_SCREEN_ON "75000"
 #define SAMPLING_RATE_SCREEN_OFF "500000"
+#define TIMER_RATE_SCREEN_ON "30000"
+#define TIMER_RATE_SCREEN_OFF "500000"
 
 struct cm_power_module {
     struct power_module base;
@@ -39,6 +40,8 @@ struct cm_power_module {
     int boostpulse_fd;
     int boostpulse_warned;
 };
+
+static char governor[20];
 
 static int sysfs_read(char *path, char *s, int num_bytes)
 {
@@ -89,10 +92,9 @@ static void sysfs_write(char *path, char *s)
     close(fd);
 }
 
-static int get_scaling_governor(char governor[], int size) {
+static int get_scaling_governor() {
     if (sysfs_read(SCALING_GOVERNOR_PATH, governor,
-                size) == -1) {
-        // Can't obtain the scaling governor. Return.
+                sizeof(governor)) == -1) {
         return -1;
     } else {
         // Strip newline at the end.
@@ -107,15 +109,42 @@ static int get_scaling_governor(char governor[], int size) {
     return 0;
 }
 
+static void cm_power_set_interactive(struct power_module *module, int on)
+{
+    if (strncmp(governor, "ondemand", 8) == 0)
+        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate",
+                on ? SAMPLING_RATE_SCREEN_ON : SAMPLING_RATE_SCREEN_OFF);
+    else if (strncmp(governor, "interactive", 11) == 0)
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
+                on ? TIMER_RATE_SCREEN_ON : TIMER_RATE_SCREEN_OFF);
+}
+
+
+static void configure_governor()
+{
+    cm_power_set_interactive(NULL, 1);
+
+    if (strncmp(governor, "ondemand", 8) == 0) {
+        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/up_threshold", "90");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/io_is_busy", "1");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor", "4");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/ondemand/down_differential", "10");
+
+    } else if (strncmp(governor, "interactive", 11) == 0) {
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time", "90000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/hispeed_freq", "1024000");
+        sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay", "30000");
+    }
+}
+
 static int boostpulse_open(struct cm_power_module *cm)
 {
     char buf[80];
-    char governor[80];
 
     pthread_mutex_lock(&cm->lock);
 
     if (cm->boostpulse_fd < 0) {
-        if (get_scaling_governor(governor, sizeof(governor)) < 0) {
+        if (get_scaling_governor() < 0) {
             ALOGE("Can't read scaling governor.");
             cm->boostpulse_warned = 1;
         } else {
@@ -126,10 +155,12 @@ static int boostpulse_open(struct cm_power_module *cm)
 
             if (cm->boostpulse_fd < 0 && !cm->boostpulse_warned) {
                 strerror_r(errno, buf, sizeof(buf));
-                ALOGE("Error opening boostpulse: %s\n", buf);
+                ALOGV("Error opening boostpulse: %s\n", buf);
                 cm->boostpulse_warned = 1;
-            } else if (cm->boostpulse_fd > 0)
+            } else if (cm->boostpulse_fd > 0) {
+                configure_governor();
                 ALOGD("Opened %s boostpulse interface", governor);
+            }
         }
     }
 
@@ -176,25 +207,10 @@ static void cm_power_hint(struct power_module *module, power_hint_t hint,
     }
 }
 
-static void cm_power_set_interactive(struct power_module *module, int on)
-{
-    char governor[80];
-
-    if (strncmp(governor, "ondemand", 8) == 0)
-        sysfs_write(SAMPLING_RATE_ONDEMAND,
-                on ? SAMPLING_RATE_SCREEN_ON : SAMPLING_RATE_SCREEN_OFF);
-    else
-        ALOGV("Skipping sysfs_write to sampling_rate -- NOT using ondemand");
-}
-
 static void cm_power_init(struct power_module *module)
 {
-    char governor[80];
-
-    if (strncmp(governor, "ondemand", 8) == 0)
-        sysfs_write(SAMPLING_RATE_ONDEMAND, SAMPLING_RATE_SCREEN_ON);
-    else
-        ALOGV("Skipping sysfs_write to sampling_rate -- NOT using ondemand");
+    get_scaling_governor();
+    configure_governor();
 }
 
 static struct hw_module_methods_t power_module_methods = {
