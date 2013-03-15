@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keypress_vibration_durations" translatable="false">
+        <!-- Build.HARDWARE,duration_in_milliseconds -->
+        <item>qcom,40</item>
+    </string-array>
+</resources>
