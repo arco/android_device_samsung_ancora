@@ -35,7 +35,6 @@ on boot
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
-    chown bluetooth bluetooth ro.bt.bdaddr_path
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
@@ -246,6 +245,7 @@ service lpmkey /system/bin/charging_mode
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
+    chown bluetooth bluetooth /data/.bt.info
 
 on property:init.svc.bluetoothd=running
     write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
