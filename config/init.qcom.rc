@@ -126,6 +126,10 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 
+    # Flash storage isn't a good entropy source, and only causes locking
+    # overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+
 on emmc-fs
     chmod 0666 /dev/block/mmcblk0p14
 
