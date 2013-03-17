@@ -7,6 +7,8 @@ on init
     symlink /mnt/sdcard /sdcard
     mkdir /mnt/external_sd 0000 system system
     symlink /mnt/external_sd /external_sd
+    mkdir /mnt/usbdisk 0000 system system
+    symlink /mnt/usbdisk /usbdisk
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
