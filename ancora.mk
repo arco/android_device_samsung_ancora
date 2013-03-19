@@ -136,7 +136,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     badblocks \
     e2fsck \
-    e2label \
     mke2fs \
     mke2fs.conf \
     resize2fs \
