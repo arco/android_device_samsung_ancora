@@ -30,12 +30,10 @@ dalvik.vm.dexopt-data-only=1
 ro.zram.default=0
 
 # QCOM
-com.qc.hardware=true
+#com.qc.hardware=true
 debug.sf.hw=1
-debug.egl.hw=1
-debug.enabletr=true
-ro.sf.compbypass.enable=1
-debug.hwui.render_dirty_regions=true
+#debug.egl.hw=1
+debug.mdpcomp.logs=0
 
 # QCOM CpuGovernorService
 dev.pm.dyn_samplingrate=1
@@ -43,6 +41,7 @@ dev.pm.dyn_samplingrate=1
 # Low Power Audio
 lpa.decode=false
 lpa.use-stagefright=false
+use.non-omx.mp3.decoder=true
 
 # Set default USB interface
 persist.sys.usb.config=mtp

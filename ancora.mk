@@ -37,14 +37,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 
-# Feature live wallpaper
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
-
-# Media configuration xml file
+# Media configuration files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/config/audio_policy.conf:system/etc/audio_policy.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/init.qcom.rc:root/init.qcom.rc \
@@ -122,8 +119,9 @@ PRODUCT_PACKAGES += \
     power.msm7x30 \
     audio.primary.msm7x30 \
     audio_policy.msm7x30 \
-    audio_policy.conf \
-    audio.a2dp.default
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \
@@ -131,7 +129,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxVdec \
     libstagefrighthw \
-    libI420colorconvert
+    libc2dcolorconvert
 
 PRODUCT_PACKAGES += \
     badblocks \
@@ -145,9 +143,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
-    hciconfig \
-    hcitool \
-    libaudioutils
+    librpc
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \

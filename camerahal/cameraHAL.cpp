@@ -74,8 +74,8 @@ static struct hw_module_methods_t camera_module_methods = {
 camera_module_t HAL_MODULE_INFO_SYM = {
     common: {
         tag: HARDWARE_MODULE_TAG,
-        version_major: 1,
-        version_minor: 0,
+        module_api_version: CAMERA_DEVICE_API_VERSION_1_0,
+        hal_api_version: 0,
         id: CAMERA_HARDWARE_MODULE_ID,
         name: "7x30 CameraHal Module",
         author: "Zhibin Wu",

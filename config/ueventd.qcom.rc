@@ -1,5 +1,5 @@
-/dev/rtc0                 0600   system     system
-/dev/rtc1                 0600   system     system
+/dev/rtc0                 0660   system     system
+/dev/rtc1                 0660   system     system
 /dev/ttyHS0               0660   bluetooth  bluetooth
 
 # the DIAG device node is world writable/readable.
