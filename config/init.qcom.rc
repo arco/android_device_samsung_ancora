@@ -8,9 +8,8 @@ on init
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/sdcard1
 
-    mkdir /storage 0550 system sdcard_r
-    mkdir /storage/sdcard0 0000 root root
-    mkdir /storage/sdcard1 0000 root root
+    mkdir /storage/sdcard0 0000 system system
+    mkdir /storage/sdcard1 0000 system system
     mkdir /storage/usbdisk 0000 system system
 
     # for backwards compatibility
