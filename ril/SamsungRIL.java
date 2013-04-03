@@ -31,6 +31,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.AsyncResult;
 import android.os.Parcel;
+import android.os.Registrant;
 import android.os.SystemProperties;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SignalStrength;
@@ -60,6 +61,7 @@ public class SamsungRIL extends RIL implements CommandsInterface {
 
     private boolean mSignalbarCount = SystemProperties.getInt("ro.telephony.sends_barcount", 0) == 1 ? true : false;
     private boolean mIsSamsungCdma = SystemProperties.getBoolean("ro.ril.samsung_cdma", false);
+    private Object mCatProCmdBuffer;
 
     public SamsungRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
@@ -271,17 +273,6 @@ public class SamsungRIL extends RIL implements CommandsInterface {
                     return;
                 }
             } else {
-                switch (rr.mRequest) {
-                    case RIL_REQUEST_GET_SIM_STATUS:
-                        if (mIccStatusChangedRegistrants != null) {
-                            if (RILJ_LOGD) {
-                                riljLog("ON some errors fakeSimStatusChanged: reg count="
-                                        + mIccStatusChangedRegistrants.size());
-                             }
-                             mIccStatusChangedRegistrants.notifyRegistrants();
-                    }
-                    break;
-                }
                 rr.onError(error, ret);
                 rr.release();
                 return;
@@ -363,6 +354,7 @@ public class SamsungRIL extends RIL implements CommandsInterface {
         case RIL_UNSOL_SIGNAL_STRENGTH: ret = responseSignalStrength(p); break;
         case RIL_UNSOL_CDMA_INFO_REC: ret = responseCdmaInformationRecord(p); break;
         case RIL_UNSOL_HSDPA_STATE_CHANGED: ret = responseInts(p); break;
+        case RIL_UNSOL_STK_PROACTIVE_COMMAND: ret = responseString(p); break;
 
         //fixing anoying Exceptions caused by the new Samsung states
         //FIXME figure out what the states mean an what data is in the parcel
@@ -445,6 +437,20 @@ public class SamsungRIL extends RIL implements CommandsInterface {
             if (mSignalStrengthRegistrant != null) {
                 mSignalStrengthRegistrant.notifyRegistrant(
                                     new AsyncResult (null, ret, null));
+            }
+            break;
+
+        case RIL_UNSOL_STK_PROACTIVE_COMMAND:
+            if (RILJ_LOGD) unsljLogRet(response, ret);
+
+            if (mCatProCmdRegistrant != null) {
+                mCatProCmdRegistrant.notifyRegistrant(
+                                    new AsyncResult (null, ret, null));
+            } else {
+                // The RIL will send a CAT proactive command before the
+                // registrant is registered. Buffer it to make sure it
+                // does not get ignored (and breaks CatService).
+                mCatProCmdBuffer = ret;
             }
             break;
 
@@ -587,6 +593,14 @@ public class SamsungRIL extends RIL implements CommandsInterface {
     @Override
     protected Object
     responseSignalStrength(Parcel p) {
+        // When SIM is PIN-unlocked, the RIL responds with APPSTATE_UNKNOWN and
+        // does not follow up with RIL_UNSOL_RESPONSE_SIM_STATUS_CHANGED. We
+        // notify the system here.
+        String state = SystemProperties.get(TelephonyProperties.PROPERTY_SIM_STATE);
+        if (!"READY".equals(state) && mIccStatusChangedRegistrants != null && !mIsSamsungCdma) {
+            mIccStatusChangedRegistrants.notifyRegistrants();
+        }
+
         int[] response = new int[7];
         for (int i = 0 ; i < 7 ; i++) {
             response[i] = p.readInt();
@@ -600,7 +614,7 @@ public class SamsungRIL extends RIL implements CommandsInterface {
         }
         else {
             /* Matching Samsung signal strength to asu.
--              Method taken from Samsungs cdma/gsmSignalStateTracker */
+               Method taken from Samsungs cdma/gsmSignalStateTracker */
             if(mSignalbarCount)
             {
                 // Samsung sends the count of bars that should be displayed instead of
@@ -834,6 +848,16 @@ public class SamsungRIL extends RIL implements CommandsInterface {
             + "cli=" + numberPresentation + ","
             + "name=" + name + ","
             + namePresentation;
+        }
+    }
+
+    @Override
+    public void setOnCatProactiveCmd(Handler h, int what, Object obj) {
+        mCatProCmdRegistrant = new Registrant (h, what, obj);
+        if (mCatProCmdBuffer != null) {
+            mCatProCmdRegistrant.notifyRegistrant(
+                                new AsyncResult (null, mCatProCmdBuffer, null));
+            mCatProCmdBuffer = null;
         }
     }
 
