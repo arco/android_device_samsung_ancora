@@ -250,9 +250,6 @@ on property:init.svc.ril-daemon=running
     start get_macaddrs
     chown bluetooth bluetooth /data/.bt.info
 
-on property:init.svc.bluetoothd=running
-    write /sys/devices/virtual/bluetooth/hci0/idle_timeout 7000
-
 on property:init.svc.playlpm=running
     chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
