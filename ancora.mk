@@ -120,8 +120,7 @@ PRODUCT_PACKAGES += \
     audio.primary.msm7x30 \
     audio_policy.msm7x30 \
     audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default
+    audio.usb.default
 
 PRODUCT_PACKAGES += \
     libmm-omxcore \
