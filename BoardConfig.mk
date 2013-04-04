@@ -100,6 +100,7 @@ BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # QCOM webkit
+ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
 TARGET_QCOM_DISPLAY_VARIANT := legacy
