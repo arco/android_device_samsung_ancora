@@ -2,7 +2,7 @@
  * include/linux/ion.h
  *
  * Copyright (C) 2011 Google, Inc.
- * Copyright (c) 2011-2012, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2011-2012, Code Aurora Forum. All rights reserved.
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -52,14 +52,6 @@ enum ion_heap_type {
 #define ION_HEAP_CARVEOUT_MASK		(1 << ION_HEAP_TYPE_CARVEOUT)
 #define ION_HEAP_CP_MASK		(1 << ION_HEAP_TYPE_CP)
 
-/**
- * heap flags - the lower 16 bits are used by core ion, the upper 16
- * bits are reserved for use by the heaps themselves.
- */
-#define ION_FLAG_CACHED 1		/* mappings of this buffer should be
-					   cached, ion will do cache
-					   maintenance when the buffer is
-					   mapped for dma */
 
 /**
  * These are the only ids that should be used for Ion heap ids.
@@ -808,7 +800,7 @@ struct ion_flag_data {
  * descriptor obtained from ION_IOC_SHARE and returns the struct with the handle
  * filed set to the corresponding opaque handle.
  */
-#define ION_IOC_IMPORT		_IOWR(ION_IOC_MAGIC, 5, struct ion_fd_data)
+#define ION_IOC_IMPORT		_IOWR(ION_IOC_MAGIC, 5, int)
 
 /**
  * DOC: ION_IOC_CUSTOM - call architecture specific ion ioctl
@@ -824,21 +816,21 @@ struct ion_flag_data {
  *
  * Clean the caches of the handle specified.
  */
-#define ION_IOC_CLEAN_CACHES	_IOWR(ION_IOC_MAGIC, 20, \
+#define ION_IOC_CLEAN_CACHES	_IOWR(ION_IOC_MAGIC, 7, \
 						struct ion_flush_data)
 /**
  * DOC: ION_MSM_IOC_INV_CACHES - invalidate the caches
  *
  * Invalidate the caches of the handle specified.
  */
-#define ION_IOC_INV_CACHES	_IOWR(ION_IOC_MAGIC, 21, \
+#define ION_IOC_INV_CACHES	_IOWR(ION_IOC_MAGIC, 8, \
 						struct ion_flush_data)
 /**
  * DOC: ION_MSM_IOC_CLEAN_CACHES - clean and invalidate the caches
  *
  * Clean and invalidate the caches of the handle specified.
  */
-#define ION_IOC_CLEAN_INV_CACHES	_IOWR(ION_IOC_MAGIC, 22, \
+#define ION_IOC_CLEAN_INV_CACHES	_IOWR(ION_IOC_MAGIC, 9, \
 						struct ion_flush_data)
 
 /**
@@ -847,15 +839,6 @@ struct ion_flag_data {
  * Gets the flags of the current handle which indicate cachability,
  * secure state etc.
  */
-#define ION_IOC_GET_FLAGS		_IOWR(ION_IOC_MAGIC, 23, \
-						struct ion_flag_data)
-
-
-/**
- * DOC: ION_IOC_SYNC - BOGUS
- *
- * NOT SUPPORTED
- */
-#define ION_IOC_SYNC		_IOWR(ION_IOC_MAGIC, 42, \
+#define ION_IOC_GET_FLAGS		_IOWR(ION_IOC_MAGIC, 10, \
 						struct ion_flag_data)
 #endif /* _LINUX_ION_H */
