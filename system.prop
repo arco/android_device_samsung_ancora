@@ -30,9 +30,9 @@ dalvik.vm.dexopt-data-only=1
 ro.zram.default=0
 
 # QCOM
-#com.qc.hardware=true
+com.qc.hardware=true
 debug.sf.hw=1
-#debug.egl.hw=1
+debug.egl.hw=1
 debug.mdpcomp.logs=0
 
 # Low Power Audio
