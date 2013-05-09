@@ -37,9 +37,6 @@ debug.enabletr=true
 ro.sf.compbypass.enable=1
 debug.hwui.render_dirty_regions=true
 
-# QCOM CpuGovernorService
-dev.pm.dyn_samplingrate=1
-
 # Low Power Audio
 lpa.decode=false
 lpa.use-stagefright=false
