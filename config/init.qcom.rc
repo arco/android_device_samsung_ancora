@@ -17,7 +17,6 @@ on early-boot
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
@@ -31,8 +30,9 @@ on boot
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    setprop ro.bt.bdaddr_path "/data/.bt.info"
 
     # Force Power Down
     chmod 0660 /sys/class/sec/pm/power_down
