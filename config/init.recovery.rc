@@ -19,7 +19,7 @@ on init
     mkdir /cache
     mount /tmp /tmp tmpfs
 
-    write /sys/class/android_usb/android0/iSerial $ro.serialno
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -31,8 +31,8 @@ on boot
     class_start default
 
     write /sys/class/android_usb/android0/iManufacturer Samsung
-    write /sys/class/android_usb/android0/iProduct $ro.product.model
-    write /sys/class/android_usb/f_mass_storage/inquiry_string $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/f_mass_storage/inquiry_string ${ro.product.manufacturer}
 
 service ueventd /sbin/ueventd
     critical
