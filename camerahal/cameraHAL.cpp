@@ -66,6 +66,7 @@ static int camera_device_close(hw_device_t* device);
 static int camera_get_number_of_cameras(void);
 static int camera_get_camera_info(int camera_id, struct camera_info *info);
 int camera_get_number_of_cameras(void);
+static inline void rotateJPEG(void* src,size_t size);
 
 static struct hw_module_methods_t camera_module_methods = {
     open: camera_device_open
@@ -183,7 +184,7 @@ static void wrap_queue_buffer_hook(void *data, void* buffer)
     if(window == 0)
         return;
 
-    heap =  gCameraHals[dev->cameraid]->getPreviewHeap();
+    heap = gCameraHals[dev->cameraid]->getPreviewHeap();
     if(heap == 0)
         return;
 
@@ -207,8 +208,48 @@ static void wrap_queue_buffer_hook(void *data, void* buffer)
                                 GRALLOC_USAGE_SW_WRITE_MASK,
                                 0, 0, width, height, &vaddr)) {
         // the code below assumes YUV, not RGB
-        memcpy(vaddr, frame, width * height * 3 / 2);
-        ALOGV("%s: copy frame to gralloc buffer", __FUNCTION__);
+        if (dev->cameraid==CAMERA_ID_FRONT) {
+            /*
+            * The YUV420 Semi-Planar frame is constructed as follows:
+            *
+            * - the Y values are stored in one plane:
+            * |-------------------------------| _
+            * | Y0 | Y1 | Y2 | Y3 | ... | |
+            * | ... | height
+            * | | |
+            * |-------------------------------| -
+            * <------------ width ------------>
+            *
+            * - the U and V values (sub-sampled by 2) are stored in another plane:
+            * |-------------------------------| _
+            * | U0 | V0 | U2 | V2 | .... | |
+            * | ... | height/2
+            * | | |
+            * |-------------------------------| -
+            * <------------ width ------------>
+            */
+
+            uint8_t *buff = (uint8_t *)vaddr;
+            int pos = 0;
+
+            //swap Y plane
+            for (int y = 0; y < height; ++y)
+            {
+                pos = y * width;                
+                for (int x = 0; x < width; ++x)
+                    buff[pos + x] = frame[pos + width - x - 1];
+            }
+
+            //swap UV plane
+            for (int y = 0; y < height/2; ++y)
+            {
+                pos += width;
+                for (int x = 0; x < width; ++x)
+                    buff[pos + x] = frame[pos + width - x - 2];
+            }
+        } else
+            memcpy(vaddr, frame, width * height * 3 / 2);
+                                      ALOGV("%s: copy frame to gralloc buffer", __FUNCTION__);
     } else {
         ALOGE("%s: could not lock gralloc buffer", __FUNCTION__);
         goto skipframe;
@@ -303,6 +344,8 @@ static camera_memory_t *wrap_memory_data(priv_camera_device_t *dev,
     ALOGV(" mem:%p,mem->data%p ",  mem,mem->data);
 
     memcpy(mem->data, data, size);
+    if (dev->cameraid==CAMERA_ID_FRONT)
+        rotateJPEG(mem->data,size);
 
     ALOGV("%s---", __FUNCTION__);
     return mem;
@@ -342,7 +385,7 @@ static void wrap_data_callback(int32_t msg_type, const sp<IMemory>& dataPtr,
 
     dev = (priv_camera_device_t*) user;
 
-    if(msg_type == CAMERA_MSG_RAW_IMAGE)
+    if (msg_type == CAMERA_MSG_RAW_IMAGE)
     {
         gCameraHals[dev->cameraid]->disableMsgType(CAMERA_MSG_RAW_IMAGE);
         return;
@@ -370,7 +413,7 @@ static void wrap_data_callback_timestamp(nsecs_t timestamp, int32_t msg_type,
     ALOGV("%s+++: type %i user %p ts %u", __FUNCTION__, msg_type, user, timestamp);
     dump_msg(__FUNCTION__, msg_type);
 
-    if(!user)
+    if (!user)
         return;
 
     dev = (priv_camera_device_t*) user;
@@ -407,22 +450,24 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_dev
 
     if (dev->cameraid == CAMERA_ID_FRONT) {
         camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "");
-        camParams.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "15");
+		camParams.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES,
+                  CameraParameters::FOCUS_MODE_INFINITY);
+
+    	camParams.set(CameraParameters::KEY_FOCUS_MODE,
+                  CameraParameters::FOCUS_MODE_INFINITY);
     }
 
     if (dev->cameraid == CAMERA_ID_BACK) {
         if (!camParams.get(android::CameraParameters::KEY_MAX_NUM_FOCUS_AREAS)) {
             camParams.set(CameraParameters::KEY_MAX_NUM_FOCUS_AREAS, 1);
         }
-        camParams.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES, "auto,macro");
-        camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "auto,ISO50,ISO100,ISO200,ISO400");
 
-        camParams.set(CameraParameters::KEY_MAX_ZOOM, "8");
-        camParams.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300");
+        camParams.set(CameraParameters::KEY_MAX_ZOOM, "12");
+        camParams.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300,325,350,375,400");
         camParams.set(CameraParameters::KEY_ZOOM_SUPPORTED, CameraParameters::TRUE);
-
-        camParams.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "30");
     }
+
+    camParams.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES, "30,15,7");
 
     camParams.set(CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, 4);
     camParams.set(CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, -4);
@@ -1164,4 +1209,22 @@ int camera_get_camera_info(int camera_id, struct camera_info *info)
     ALOGI("%s: id:%i faceing:%i orientation: %i", __FUNCTION__,camera_id, info->facing, info->orientation);
 
     return rv;
+}
+
+extern "C" {
+#include "exif/jhead.h"
+}
+
+static inline void rotateJPEG(void* src,size_t size) {
+    ReadMode_t ReadMode = READ_METADATA;
+
+    ALOGE("ResetJpgfile");
+    ResetJpgfile();
+
+    // Start with an empty image information structure.
+    memset(&CameraHALImageInfo, 0, sizeof(CameraHALImageInfo));
+
+    ALOGE("ReadJpegFile");
+    ReadJpegSectionsFromBuffer((unsigned char*)src, size, ReadMode);
+
 }
