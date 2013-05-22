@@ -28,12 +28,16 @@
 #include <sys/types.h>
 #include <hardware/lights.h>
 
+#define BACKLIGHT_ON    	0x1
+#define BACKLIGHT_OFF		0x2
+
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 static int g_enable_touchlight = -1;
 
 static char const LCD_FILE[]      = "/sys/class/leds/lcd-backlight/brightness";
-static char const BUTTONS_FILE[]  = "/sys/class/sec/ts/brightness";
+static char const BUTTONS_FILE[]  = "/sys/devices/virtual/misc/melfas_touchkey/brightness";
+static char const NOTIFICATION_FILE[] = "/sys/class/misc/backlightnotification/notification_led";
 
 void init_globals(void)
 {
@@ -119,6 +123,32 @@ static int rgb_to_brightness(struct light_state_t const *state)
         + (150*((color>>8) & 0x00ff)) + (29*(color & 0x00ff))) >> 8;
 }
 
+static int is_lit(struct light_state_t const* state)
+{
+    return state->color & 0x00ffffff;
+}
+
+static int set_light_notifications(struct light_device_t* dev,
+			struct light_state_t const* state)
+{
+	int brightness =  rgb_to_brightness(state);
+	int v = 0;
+	int err = 0;
+    int on = is_lit(state);
+    pthread_mutex_lock(&g_lock);
+
+	if (brightness+state->color == 0 || brightness > 100) {
+		if (state->color & 0x00ffffff)
+			v = 1;
+	} else
+		v = 0;
+
+	ALOGI("color %u fm %u status %u is lit %u brightness", state->color, state->flashMode, v, (state->color & 0x00ffffff), brightness);
+    err = write_int(NOTIFICATION_FILE, on?1:0);
+    pthread_mutex_unlock(&g_lock);
+    return err;
+}
+
 static int set_light_backlight(struct light_device_t *dev,
             struct light_state_t const *state)
 {
@@ -168,6 +198,8 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
         set_light = set_light_backlight;
+	else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
+		set_light = set_light_notifications;
     else if (0 == strcmp(LIGHT_ID_BUTTONS, name))
         set_light = set_light_buttons;
     else
