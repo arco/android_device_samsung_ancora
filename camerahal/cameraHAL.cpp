@@ -406,6 +406,7 @@ void CameraHAL_FixupParams(android::CameraParameters &camParams, priv_camera_dev
     }
 
     if (dev->cameraid == CAMERA_ID_FRONT) {
+        camParams.set(CameraParameters::KEY_SUPPORTED_EFFECTS, "");
         camParams.set(CameraParameters::KEY_SUPPORTED_FLASH_MODES, "");
         camParams.set(CameraParameters::KEY_SUPPORTED_ISO_MODES, "");
         camParams.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES, "");
