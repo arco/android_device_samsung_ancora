@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <hardware/lights.h>
 
-#define BACKLIGHT_ON    	0x1
+#define BACKLIGHT_ON		0x1
 #define BACKLIGHT_OFF		0x2
 
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
