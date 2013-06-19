@@ -20,12 +20,6 @@ ro.sf.lcd_density=240
 # This is a 16.16 fixed point number.
 ro.opengles.version=131072
 
-# Dalvik settings
-dalvik.vm.heapstartsize=5m
-dalvik.vm.heapgrowthlimit=36m
-dalvik.vm.heapsize=128m
-dalvik.vm.dexopt-data-only=1
-
 # Disable zram by default
 ro.zram.default=0
 
