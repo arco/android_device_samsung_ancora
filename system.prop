@@ -34,6 +34,9 @@ lpa.decode=false
 lpa.use-stagefright=false
 use.non-omx.mp3.decoder=true
 
+# Resampler quality
+af.resampler.quality=255
+
 # Set default USB interface
 persist.sys.usb.config=mtp
 
