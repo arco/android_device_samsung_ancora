@@ -26,7 +26,6 @@
 /dev/msm_rotator          0660   system     system
 /dev/pmem_audio           0660   system     audio
 /dev/pmem_smipool*        0660   system     camera
-/dev/oncrpc/*             0660   root       qcom_oncrpc
 /dev/i2c-0                0664   root       system
 /dev/i2c-1                0664   root       system
 /dev/i2c-2                0660   root       system
