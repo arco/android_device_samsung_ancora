@@ -28,8 +28,6 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/samsung/ancora/BoardConfigVendor.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/ancora/include
-
 TARGET_BOARD_PLATFORM := msm7x30
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
@@ -68,7 +66,7 @@ BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
 BOARD_WLAN_DEVICE                := bcmdhd
 BOARD_HAVE_SAMSUNG_WIFI          := true
 
-WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
 WIFI_DRIVER_MODULE_ARG           := "firmware_path=/vendor/firmware/fw_bcmdhd.bin nvram_path=/vendor/firmware/nvram_net.txt"
 WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/vendor/firmware/fw_bcmdhd_apsta.bin nvram_path=/vendor/firmware/nvram_net.txt"
@@ -158,6 +156,7 @@ TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/config/fstab.qcom
 # End recovery stuff
 
-TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
+TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
+TARGET_KERNEL_CONFIG := ancora_defconfig
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
