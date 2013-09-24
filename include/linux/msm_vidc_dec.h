@@ -3,6 +3,7 @@
 
 #include <linux/types.h>
 #include <linux/ioctl.h>
+#include <linux/compiler.h>
 
 /* STATUS CODES */
 /* Base value for status codes */
