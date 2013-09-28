@@ -3,6 +3,13 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 #<src>                    <mnt_point>  <type>   <mnt_flags and options>                            <fs_mgr_flags>
+/dev/block/mmcblk0p8      /boot        emmc     defaults    defaults
+/dev/block/mmcblk0p13     /recovery    emmc     defaults    defaults
 /dev/block/mmcblk0p15     /system      ext4     ro,barrier=1                                       wait
 /dev/block/mmcblk0p16     /cache       ext4     nosuid,nodev,barrier=0                             wait,check
-/dev/block/mmcblk0p17     /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,barrier=1     wait,check,encryptable=footer
+/dev/block/mmcblk0p17     /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,barrier=1     wait,check,encryptable=footer,length=-16384
+
+# vold managed volumes
+/devices/platform/msm_sdcc.2/mmc_host               /storage/sdcard0     auto     nosuid,nodev     wait,voldmanaged=sdcard0:28,nonremovable
+/devices/platform/msm_sdcc.4/mmc_host               /storage/sdcard1     auto     nosuid,nodev     wait,voldmanaged=sdcard1:auto
+/devices/platform/msm_hsusb_host.0                  /storage/usbdisk     auto     default          wait,voldmanaged=usbdisk:auto

@@ -2,7 +2,7 @@ import init.qcom.usb.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
-    chmod 666 /proc/cmdline
+    chmod 644 /proc/cmdline
 
 on init
     export EXTERNAL_STORAGE /storage/sdcard0
@@ -201,7 +201,7 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     disabled
     oneshot
 
-service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
@@ -211,7 +211,7 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service iprenew_bnep0 /system/bin/dhcpcd -n
+service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
     oneshot

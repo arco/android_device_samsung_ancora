@@ -39,8 +39,7 @@ TARGET_CPU_ABI2 := armeabi
 # Enable NEON feature
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_ARCH_VARIANT_CPU := cortex-a8
-TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
+TARGET_CPU_VARIANT := scorpion
 
 TARGET_ARCH_LOWMEM := true
 
@@ -97,6 +96,9 @@ BOARD_HAVE_SAMSUNG_AUDIO := true
 BOARD_USES_QCOM_AUDIO_RESETALL := true
 BOARD_USES_QCOM_AUDIO_VOIPMUTE := true
 
+# QCOM enhanced A/V
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+
 BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
 
 USE_OPENGL_RENDERER := true
@@ -151,14 +153,10 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_SDCARD_INTERNAL := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/ancora/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
-TARGET_RECOVERY_FSTAB := device/samsung/ancora/recovery.fstab
-# Enable below line if compiling for a recovery version before 6.0.1.2
-#BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+TARGET_RECOVERY_FSTAB := device/samsung/ancora/config/fstab.qcom
 # End recovery stuff
 
 TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
-TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/ancora/recovery/zImage
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
