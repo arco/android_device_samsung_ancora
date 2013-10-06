@@ -35,6 +35,7 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := generic
 
 # Enable NEON feature
 TARGET_ARCH := arm
