@@ -167,6 +167,9 @@ on boot
     # overhead in the kernel. Turn it off.
     write /sys/block/mmcblk0/queue/add_random 0
 
+    # Permissions for led device
+    chmod 666 /dev/ledflash
+
 on fs
     chmod 0666 /dev/block/mmcblk0p14
 
