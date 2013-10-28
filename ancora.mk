@@ -139,7 +139,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libexifa \
-    libjpega
+    libjpega \
+    libs3cjpeg
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
