@@ -31,7 +31,7 @@
     <string-array name="shutdown_reboot_actions" translatable="false">
         <item></item>
         <item>recovery</item>
-        <item>bootloader</item>
+        <item>download</item>
     </string-array>
 
 </resources>
