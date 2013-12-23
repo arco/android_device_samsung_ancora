@@ -40,7 +40,7 @@
 /dev/smd4                 0660   system     system
 /dev/smd7                 0640   radio      radio
 /dev/smdcntl*             0640   radio      radio
-/dev/ledflash             0660   root       system
+/dev/ledflash             0660   root       camera
 /dev/fmradio              0660   system     system
 /dev/tun                  0660   system     vpn
 
