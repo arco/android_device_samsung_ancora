@@ -28,8 +28,6 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/samsung/ancora/BoardConfigVendor.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/ancora/include
-
 TARGET_BOARD_PLATFORM := msm7x30
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
@@ -44,7 +42,7 @@ TARGET_USE_SCORPION_BIONIC_OPTIMIZATION := true
 
 TARGET_ARCH_LOWMEM := true
 
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DNEW_ION_API
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
 COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY
 
@@ -69,7 +67,7 @@ BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
 BOARD_WLAN_DEVICE                := bcmdhd
 BOARD_HAVE_SAMSUNG_WIFI          := true
 
-WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_NAME          := "dhd"
 WIFI_DRIVER_MODULE_ARG           := "firmware_path=/vendor/firmware/fw_bcmdhd.bin nvram_path=/vendor/firmware/nvram_net.txt"
 WIFI_DRIVER_MODULE_AP_ARG        := "firmware_path=/vendor/firmware/fw_bcmdhd_apsta.bin nvram_path=/vendor/firmware/nvram_net.txt"
@@ -105,11 +103,10 @@ USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
-TARGET_QCOM_DISPLAY_VARIANT := legacy
-TARGET_NO_HW_VSYNC := false
-TARGET_USES_ION := false
+TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
 
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 
@@ -120,6 +117,7 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Camera stuff
 BOARD_USES_LEGACY_OVERLAY := true
+BOARD_USES_QCOM_LEGACY_CAM_PARAMS := true
 BOARD_CAMERA_USE_MM_HEAP := true
 TARGET_DISABLE_ARM_PIE := true
 
@@ -158,7 +156,8 @@ TARGET_RECOVERY_FSTAB := device/samsung/ancora/recovery.fstab
 #BOARD_UMS_LUNFILE := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 # End recovery stuff
 
-TARGET_PREBUILT_KERNEL := device/samsung/ancora/prebuilt/zImage
+TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
+TARGET_KERNEL_CONFIG := ancora_defconfig
 TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/ancora/recovery/zImage
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file

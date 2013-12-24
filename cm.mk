@@ -9,8 +9,8 @@ $(call inherit-product, $(LOCAL_PATH)/full_ancora.mk)
 
 PRODUCT_RELEASE_NAME := ancora
 
-#CM_EXPERIMENTAL := true
-#CM_EXTRAVERSION := alpha1
+#RELEASE_TYPE := EXPERIMENTAL
+#CM_EXTRAVERSION := beta2
 
 # Setup device configuration
 PRODUCT_NAME := cm_ancora

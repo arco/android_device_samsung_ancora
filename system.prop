@@ -37,6 +37,7 @@ com.qc.hardware=true
 debug.sf.hw=1
 debug.egl.hw=1
 debug.mdpcomp.logs=0
+debug.egl.recordable.rgba8888=1
 
 # Low Power Audio
 lpa.decode=false
