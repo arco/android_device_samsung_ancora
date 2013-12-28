@@ -41,9 +41,9 @@ TARGET_CPU_VARIANT := scorpion
 
 TARGET_ARCH_LOWMEM := true
 
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY -DNEEDS_VECTORIMPL_SYMBOLS
 
 TARGET_BOOTLOADER_BOARD_NAME := ancora
 TARGET_OTA_ASSERT_DEVICE := ancora,GT-I8150
@@ -77,6 +77,9 @@ WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 BOARD_KERNEL_BASE := 0x00400000
 BOARD_KERNEL_PAGESIZE := 4096
 
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.qcom
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -90,6 +93,7 @@ BOARD_USES_LEGACY_RIL := true
 BOARD_USES_LIBSECRIL_STUB := true
 
 TARGET_QCOM_AUDIO_VARIANT := caf
+BOARD_USES_LEGACY_ALSA_AUDIO := true
 BOARD_HAVE_SAMSUNG_AUDIO := true
 BOARD_USES_QCOM_AUDIO_RESETALL := true
 BOARD_USES_QCOM_AUDIO_VOIPMUTE := true
@@ -105,12 +109,14 @@ USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
-TARGET_QCOM_DISPLAY_VARIANT := legacy
-TARGET_QCOM_MEDIA_VARIANT := legacy
-TARGET_NO_HW_VSYNC := false
-TARGET_USES_ION := false
+TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
+TARGET_USES_QCOM_BSP := true
+
+# Use retire fence from MDP driver
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
 
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 
@@ -123,6 +129,7 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 BOARD_USES_LEGACY_OVERLAY := true
 BOARD_CAMERA_USE_MM_HEAP := true
 TARGET_DISABLE_ARM_PIE := true
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 TARGET_PROVIDES_LIBLIGHT := true
 TARGET_PROVIDES_POWERHAL := true
@@ -160,3 +167,27 @@ TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
 TARGET_KERNEL_CONFIG := ancora_defconfig
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/ancora/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
+    property_contexts \
+    bridge.te \
+    camera.te \
+    device.te \
+    dhcp.te \
+    domain.te \
+    file.te \
+    init.te \
+    mac_update.te \
+    mediaserver.te \
+    rild.te \
+    rmt.te \
+    surfaceflinger.te \
+    system.te \
+    tee.te \
+    ueventd.te \
+    wpa_supplicant.te

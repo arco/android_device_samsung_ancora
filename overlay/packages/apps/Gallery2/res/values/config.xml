@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- The camera removes the focus modes by default when touch-to-focus exists. Use this option to change that behavior -->
-    <bool name="wantsFocusModes">true</bool>
-    <!-- Disable software HDR on non-hw HDR devices -->
-    <bool name="disableSoftwareHDR">true</bool>
-</resources>
