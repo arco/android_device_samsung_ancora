@@ -27,16 +27,15 @@ ro.opengles.version=131072
 dalvik.vm.dexopt-data-only=1
 
 # Disable zram by default
-ro.zram.default=0
-
-# Reduce total number of background apps
-sys.mem.max_hidden_apps=5
+ro.zram.default=18
 
 # QCOM
-com.qc.hardware=true
 debug.sf.hw=1
 debug.mdpcomp.logs=0
 debug.egl.recordable.rgba8888=1
+
+# Enable non-omx mp3 decode
+use.non-omx.mp3.decoder=true
 
 # Low Power Audio
 lpa.decode=false
