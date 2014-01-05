@@ -9,6 +9,9 @@
 /dev/block/mmcblk0p16     /cache       ext4     nosuid,nodev,barrier=0                             wait,check
 /dev/block/mmcblk0p17     /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,barrier=1     wait,check,encryptable=footer,length=-16384
 
+# zRAM
+/dev/block/zram0          none         swap     defaults    zramsize=134217728
+
 # vold managed volumes
 /devices/platform/msm_sdcc.2/mmc_host               auto     auto     defaults     wait,voldmanaged=sdcard0:28,nonremovable,noemulatedsd
 /devices/platform/msm_sdcc.4/mmc_host               auto     auto     defaults     wait,voldmanaged=sdcard1:auto

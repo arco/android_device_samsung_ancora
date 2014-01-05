@@ -191,6 +191,7 @@ on fs
     chmod 0666 /dev/block/mmcblk0p14
 
     mount_all fstab.qcom
+    swapon_all fstab.qcom
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
 
