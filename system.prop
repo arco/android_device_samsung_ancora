@@ -31,6 +31,9 @@ debug.sf.hw=1
 debug.mdpcomp.logs=0
 debug.egl.recordable.rgba8888=1
 
+# Disable dirty regions for now
+debug.hwui.render_dirty_regions=false
+
 # Enable non-omx mp3 decode
 use.non-omx.mp3.decoder=true
 
