@@ -179,6 +179,7 @@ BOARD_SEPOLICY_UNION += \
     dhcp.te \
     domain.te \
     file.te \
+    healthd.te \
     init.te \
     mac_update.te \
     mediaserver.te \
