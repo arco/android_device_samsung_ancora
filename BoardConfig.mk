@@ -190,3 +190,6 @@ BOARD_SEPOLICY_UNION += \
     tee.te \
     ueventd.te \
     wpa_supplicant.te
+
+# Hardware tunables
+BOARD_HARDWARE_CLASS := device/samsung/ancora/cmhw/
