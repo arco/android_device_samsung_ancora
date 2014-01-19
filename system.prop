@@ -35,8 +35,11 @@ sys.mem.max_hidden_apps=5
 # QCOM
 com.qc.hardware=true
 debug.sf.hw=1
-debug.egl.hw=1
 debug.mdpcomp.logs=0
+debug.egl.recordable.rgba8888=1
+
+# Enable non-omx mp3 decode
+use.non-omx.mp3.decoder=true
 
 # Low Power Audio
 lpa.decode=false
@@ -59,3 +62,7 @@ persist.sys.vold.switchexternal=0
 
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true
+
+# Use ION uncached buffers for video recording and video playback
+persist.camera.mem.usecache=0
+persist.video.mem.usecache=0

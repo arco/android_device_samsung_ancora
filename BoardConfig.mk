@@ -38,10 +38,11 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := scorpion
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 TARGET_ARCH_LOWMEM := true
 
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
 COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY
 
@@ -105,12 +106,14 @@ USE_OPENGL_RENDERER := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
-TARGET_QCOM_DISPLAY_VARIANT := legacy
-TARGET_QCOM_MEDIA_VARIANT := legacy
-TARGET_NO_HW_VSYNC := false
-TARGET_USES_ION := false
+TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
+TARGET_USES_QCOM_BSP := true
+
+# Use retire fence from MDP driver
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
 
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 
@@ -121,7 +124,6 @@ BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Camera stuff
 BOARD_USES_LEGACY_OVERLAY := true
-BOARD_CAMERA_USE_MM_HEAP := true
 TARGET_DISABLE_ARM_PIE := true
 
 TARGET_PROVIDES_LIBLIGHT := true
@@ -160,3 +162,27 @@ TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
 TARGET_KERNEL_CONFIG := ancora_defconfig
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/ancora/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
+    property_contexts \
+    bridge.te \
+    camera.te \
+    device.te \
+    dhcp.te \
+    domain.te \
+    file.te \
+    init.te \
+    mac_update.te \
+    mediaserver.te \
+    rild.te \
+    rmt.te \
+    surfaceflinger.te \
+    system.te \
+    tee.te \
+    ueventd.te \
+    wpa_supplicant.te

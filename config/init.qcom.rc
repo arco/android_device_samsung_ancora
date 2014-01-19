@@ -31,14 +31,14 @@ on boot
     write /sys/module/pm2/parameters/idle_sleep_mode 3
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
     chown system system /sys/module/sco/parameters/disable_esco
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
-    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+    chown bluetooth net_bt_stack /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
     setprop ro.bt.bdaddr_path "/data/.bt.info"
@@ -157,8 +157,23 @@ on boot
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     chown system system /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
     chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
 
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 368640
 
     # Don't disable dmesg access for apps
     write /proc/sys/kernel/dmesg_restrict 0
@@ -184,8 +199,6 @@ on post-fs-data
     mkdir /data/misc/radio 0775 radio system
     mkdir /data/radio 0770 radio radio
 
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
-
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
@@ -200,22 +213,20 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
-    class main
+    class late_start
     disabled
     oneshot
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
+service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
 service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
+    class late_start
     disabled
     oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
-    class main
     disabled
     oneshot
 
@@ -252,7 +263,7 @@ service lpmkey /system/bin/charging_mode
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
-    chown bluetooth bluetooth /data/.bt.info
+    chown bluetooth net_bt_stack /data/.bt.info
 
 on property:init.svc.playlpm=running
     chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor

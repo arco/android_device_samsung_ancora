@@ -1,0 +1,11 @@
+# wifi connection service
+type mac_update, domain;
+type mac_update_exec, exec_type, file_type;
+
+# Started by logwrapper in init
+domain_auto_trans(init, mac_update_exec, mac_update)
+allow mac_update devpts:chr_file { read write };
+
+# allow /data/misc/wifi access for firmware files
+allow mac_update wifi_data_file:dir w_dir_perms;
+allow mac_update wifi_data_file:file create_file_perms;

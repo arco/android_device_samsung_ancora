@@ -1,0 +1,54 @@
+/dev/msm_acdb                  u:object_r:audio_device:s0
+/dev/msm_mp3                   u:object_r:audio_device:s0
+/dev/msm_rtac                  u:object_r:audio_device:s0
+/dev/msm_vidc.*                u:object_r:audio_device:s0
+/dev/msm_amrnb.*               u:object_r:audio_device:s0
+/dev/msm_amrwb.*               u:object_r:audio_device:s0
+/dev/msm_aac.*                 u:object_r:audio_device:s0
+
+# Jpeg Engine support
+/dev/gemini.*                  u:object_r:camera_device:s0
+# MSM camera related
+/dev/video.*                   u:object_r:camera_device:s0
+/dev/msm_camera.*              u:object_r:camera_device:s0
+
+# Media interface
+/dev/media.*                   u:object_r:video_device:s0
+# Image Rotator Driver
+/dev/msm_rotator               u:object_r:video_device:s0
+
+/dev/rmnet_mux_ctrl            u:object_r:radio_device:s0
+/dev/qmi[0-2]                  u:object_r:radio_device:s0
+/dev/smd7                      u:object_r:radio_device:s0
+/dev/smdcntl0                  u:object_r:radio_device:s0
+/dev/smdcntl1                  u:object_r:radio_device:s0
+/dev/smdcntl2                  u:object_r:radio_device:s0
+/dev/smdcntl3                  u:object_r:radio_device:s0
+/dev/smdcntl4                  u:object_r:radio_device:s0
+/dev/smdcntl5                  u:object_r:radio_device:s0
+/dev/smdcntl6                  u:object_r:radio_device:s0
+/dev/smdcntl7                  u:object_r:radio_device:s0
+/dev/ttyUSB0                   u:object_r:radio_device:s0
+
+/dev/ttyHS0                    u:object_r:hci_attach_dev:s0
+/dev/ttyMSM0                   u:object_r:hci_attach_dev:s0
+/dev/smd2                      u:object_r:hci_attach_dev:s0
+/dev/smd3                      u:object_r:hci_attach_dev:s0
+
+/dev/cpu_dma_latency           u:object_r:power_control_device:s0
+/dev/diag                      u:object_r:diagnostic_device:s0
+/dev/smd.*                     u:object_r:shared_memory_device:s0
+/dev/smem_log                  u:object_r:shared_log_device:s0
+/dev/kgsl-3d0                  u:object_r:kgsl_device:s0
+/dev/kgsl                      u:object_r:kgsl_device:s0
+
+# for wpa
+/dev/rfkill                    u:object_r:rfkill_device:s0
+
+# Block labeling
+/dev/block/mmcblk0p18          u:object_r:efs_block_device:s0
+/dev/block/mmcblk0p19          u:object_r:efs_block_device:s0
+/dev/block/mmcblk0p20          u:object_r:efs_block_device:s0
+
+# System binaries
+/system/bin/rmt_storage        u:object_r:rmt_exec:s0

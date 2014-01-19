@@ -1,0 +1,2 @@
+allow ueventd { wifi_data_file }:file r_file_perms;
+allow ueventd { wifi_data_file }:dir search;
