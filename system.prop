@@ -65,3 +65,6 @@ ro.config.low_ram=true
 # Use ION uncached buffers for video recording and video playback
 persist.camera.mem.usecache=0
 persist.video.mem.usecache=0
+
+# Use classic webview to workaround glitches
+persist.webview.provider=classic
