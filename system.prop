@@ -60,3 +60,7 @@ persist.sys.vold.switchexternal=0
 
 # Enable repeatable keys in recovery
 ro.cwm.enable_key_repeat=true
+
+# Use ION uncached buffers for video recording and video playback
+persist.camera.mem.usecache=0
+persist.video.mem.usecache=0
