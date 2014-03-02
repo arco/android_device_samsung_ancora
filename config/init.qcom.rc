@@ -11,7 +11,7 @@ on init
     mkdir /storage/usbdisk 0000 system system
 
     export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export SECONDARY_STORAGE /storage/sdcard1
 
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
