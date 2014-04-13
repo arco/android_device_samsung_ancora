@@ -36,7 +36,6 @@ sys.mem.max_hidden_apps=5
 com.qc.hardware=true
 debug.sf.hw=1
 debug.mdpcomp.logs=0
-debug.egl.recordable.rgba8888=1
 
 # Enable non-omx mp3 decode
 use.non-omx.mp3.decoder=true
