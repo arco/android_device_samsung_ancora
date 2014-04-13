@@ -34,8 +34,8 @@ debug.mdpcomp.logs=0
 use.non-omx.mp3.decoder=true
 
 # Low Power Audio
-lpa.decode=false
-lpa.use-stagefright=false
+lpa.decode=true
+lpa.use-stagefright=true
 
 # Resampler quality
 af.resampler.quality=255
