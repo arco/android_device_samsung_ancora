@@ -7,4 +7,3 @@ allow wpa wpa_socket:unix_dgram_socket { read write };
 allow wpa_socket system:unix_dgram_socket sendto;
 
 allow wpa_socket wifi_data_file:sock_file unlink;
-allow wpa rfkill_device:chr_file rw_file_perms;
