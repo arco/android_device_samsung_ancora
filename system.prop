@@ -30,9 +30,6 @@ dalvik.vm.dexopt-data-only=1
 debug.sf.hw=1
 debug.mdpcomp.logs=0
 
-# Enable non-omx mp3 decode
-use.non-omx.mp3.decoder=true
-
 # Low Power Audio
 lpa.decode=true
 lpa.use-stagefright=true
