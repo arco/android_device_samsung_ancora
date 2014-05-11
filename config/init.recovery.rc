@@ -18,7 +18,7 @@ on init
     mkdir /data
     mkdir /data/data
     mkdir /cache
-    mount /tmp /tmp tmpfs
+    mount tmpfs tmpfs /tmp
 
     chown root shell /tmp
     chmod 0775 /tmp
@@ -91,10 +91,12 @@ on property:service.adb.root=1
 
 on property:sys.storage.ums_enabled=1
     write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idProduct 685b
     write /sys/class/android_usb/android0/functions mass_storage
     write /sys/class/android_usb/android0/enable 1
 
 on property:sys.storage.ums_enabled=0
     write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idProduct 685e
     write /sys/class/android_usb/android0/functions adb
     write /sys/class/android_usb/android0/enable ${service.adb.root}
