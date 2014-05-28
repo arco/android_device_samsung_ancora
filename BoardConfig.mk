@@ -106,6 +106,8 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
 
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+
 USE_OPENGL_RENDERER := true
 
 # QCOM webkit
