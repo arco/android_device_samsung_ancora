@@ -23,8 +23,9 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
-    # Clear splash screen
+    # Clear splash screen (blank and unblank)
     write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/blank 0
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
