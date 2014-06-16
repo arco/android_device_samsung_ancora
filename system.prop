@@ -54,6 +54,3 @@ ro.cwm.enable_key_repeat=true
 
 # Low memory device
 ro.config.low_ram=true
-
-# Use classic webview to workaround glitches
-#persist.webview.provider=classic
