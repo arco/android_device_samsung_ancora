@@ -156,6 +156,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
 TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/config/fstab.qcom
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 # End recovery stuff
 
 TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
