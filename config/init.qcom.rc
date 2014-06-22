@@ -72,19 +72,19 @@ on boot
     chown root system /proc/net/ip_conntrack
 
     # accelerometer
-    chown system input /sys/class/input/input4/enable
-    chown system input /sys/class/input/input4/delay
-    chown system input /sys/class/input/input4/position
-    chown system input /sys/class/input/input4/threshold
-    chown system input /sys/class/input/input4/wake
-    chown system input /sys/class/input/input4/data
-    chown system input /sys/class/input/input4/calibration
+    chown system input /sys/class/input/input3/enable
+    chown system input /sys/class/input/input3/delay
+    chown system input /sys/class/input/input3/position
+    chown system input /sys/class/input/input3/threshold
+    chown system input /sys/class/input/input3/wake
+    chown system input /sys/class/input/input3/data
+    chown system input /sys/class/input/input3/calibration
 
     # proximity
-    chown system input /sys/class/input/input5/enable
-    chown system input /sys/class/input/input5/delay
-    chown system input /sys/class/input/input5/wake
-    chown system input /sys/class/input/input5/data
+    chown system input /sys/class/input/input4/enable
+    chown system input /sys/class/input/input4/delay
+    chown system input /sys/class/input/input4/wake
+    chown system input /sys/class/input/input4/data
 
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
