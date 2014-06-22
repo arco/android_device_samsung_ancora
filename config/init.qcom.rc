@@ -122,9 +122,6 @@ on boot
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
 
-    # for jack control
-    chown system system /sys/class/jack/jack_selector/select_jack
-
     # Amp Tun (YDA165)
     chown system audio /sys/devices/virtual/misc/amp/mode
     chown system audio /sys/devices/virtual/misc/amp/in1_gain
