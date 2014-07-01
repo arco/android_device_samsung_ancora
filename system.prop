@@ -37,6 +37,9 @@ lpa.use-stagefright=true
 # Resampler quality
 af.resampler.quality=255
 
+# Disable gapless mode
+audio.gapless.playback.disable=true
+
 # Set default USB interface
 persist.sys.usb.config=mtp
 
