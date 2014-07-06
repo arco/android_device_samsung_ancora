@@ -42,7 +42,6 @@ use.non-omx.mp3.decoder=true
 
 # Low Power Audio
 lpa.decode=false
-lpa.use-stagefright=false
 
 # Resampler quality
 af.resampler.quality=255
