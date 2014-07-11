@@ -114,9 +114,6 @@ TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_QCOM_BSP := true
 
-# Use retire fence from MDP driver
-TARGET_DISPLAY_USE_RETIRE_FENCE := true
-
 # Use insecure heap
 TARGET_DISPLAY_INSECURE_MM_HEAP := true
 
