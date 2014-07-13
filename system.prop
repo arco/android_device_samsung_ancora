@@ -31,7 +31,7 @@ debug.sf.hw=1
 debug.mdpcomp.logs=0
 
 # Low Power Audio
-lpa.decode=true
+lpa.decode=false
 
 # Resampler quality
 af.resampler.quality=255
