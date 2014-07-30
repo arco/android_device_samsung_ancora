@@ -55,4 +55,4 @@ persist.sys.vold.switchablepair=sdcard0,sdcard1
 ro.cwm.enable_key_repeat=true
 
 # Low memory device
-ro.config.low_ram=true
+ro.config.low_ram=false
