@@ -50,8 +50,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/config/fstab.qcom:root/fstab.qcom \
     $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
-    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs \
-    $(LOCAL_PATH)/prebuilt/Torch.apk:system/app/Torch.apk
+    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
 
 # Needed to reset bootmode when leaving recovery
 PRODUCT_COPY_FILES += \
@@ -148,6 +147,9 @@ PRODUCT_PACKAGES += \
 
 # qcmediaplayer
 PRODUCT_PACKAGES += qcmediaplayer
+
+# Torch
+PRODUCT_PACKAGES += Torch
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
