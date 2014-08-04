@@ -181,6 +181,7 @@ BOARD_SEPOLICY_UNION += \
     device.te \
     dhcp.te \
     domain.te \
+    drmserver.te \
     file.te \
     healthd.te \
     init.te \
