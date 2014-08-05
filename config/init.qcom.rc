@@ -302,6 +302,11 @@ service lpmkey /system/bin/charging_mode
     user root
     oneshot
 
+service qrngd /system/bin/qrngd -f
+    class main
+    user root
+    group root
+
 on property:init.svc.ril-daemon=running
     start get_macaddrs
     chown bluetooth net_bt_stack /data/.bt.info
