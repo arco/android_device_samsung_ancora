@@ -85,6 +85,9 @@
         <item>7</item>
     </integer-array>
 
+    <!-- Indicate whether the SD card is accessible without removing the battery. -->
+    <bool name="config_batterySdCardAccessibility">true</bool>
+
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
