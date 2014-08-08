@@ -9,6 +9,10 @@ ro.ril.gprsclass=10
 ro.telephony.ril_class=SamsungRIL
 ro.telephony.ril.v3=datacall,icccardstatus,facilitylock
 
+# QCOM Connectivity Engine (CnE)
+persist.cne.override.memlimit=1
+persist.cne.feature=1
+
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 ro.telephony.call_ring.multiple=0
 

@@ -23,7 +23,6 @@
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
-USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
 -include vendor/samsung/ancora/BoardConfigVendor.mk
@@ -31,21 +30,14 @@ USE_CAMERA_STUB := true
 TARGET_BOARD_PLATFORM := msm7x30
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-
-# Enable NEON feature
+# CPU ARCHİTECTURE stuff
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := scorpion
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
-
 TARGET_ARCH_LOWMEM := true
-
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
-COMMON_GLOBAL_CFLAGS += -DWITH_QCOM_VOIP_OVER_MVS
-COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY -DNEEDS_VECTORIMPL_SYMBOLS
 
 TARGET_BOOTLOADER_BOARD_NAME := ancora
 TARGET_OTA_ASSERT_DEVICE := ancora,GT-I8150
@@ -88,50 +80,57 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/ancora/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/ancora/bluetooth/vnd_ancora.txt
 
+# RIL stuff
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
-
 BOARD_RIL_CLASS := ../../../device/samsung/ancora/ril/
 BOARD_USES_LEGACY_RIL := true
 BOARD_USES_LIBSECRIL_STUB := true
 
+# Audio stuff
 TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_USES_LEGACY_ALSA_AUDIO := true
 BOARD_HAVE_SAMSUNG_AUDIO := true
 BOARD_USES_QCOM_AUDIO_LPA := true
 BOARD_USES_QCOM_AUDIO_RESETALL := true
 BOARD_USES_QCOM_AUDIO_VOIPMUTE := true
+COMMON_GLOBAL_CFLAGS += -DWITH_QCOM_VOIP_OVER_MVS
 
-# QCOM enhanced A/V
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-
-BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
-
-USE_OPENGL_RENDERER := true
-
+# QCOM stuff
 TARGET_QCOM_DISPLAY_VARIANT := caf
 TARGET_QCOM_MEDIA_VARIANT := caf
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
-TARGET_USES_QCOM_BSP := true
-
-# Use insecure heap
+USE_OPENGL_RENDERER := true
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_DISPLAY_INSECURE_MM_HEAP := true
-
-BOARD_NEEDS_MEMORYHEAPPMEM := true
-
+TARGET_USES_QCOM_BSP := true
 BOARD_USES_QCOM_HARDWARE := true
-BOARD_USES_QCOM_GPS := true
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 
-BOARD_USE_LEGACY_TOUCHSCREEN := true
+BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
+
+# Keep 3 buffers as active on all times
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Camera stuff
+USE_CAMERA_STUB := true
 BOARD_USES_LEGACY_OVERLAY := true
 TARGET_DISABLE_ARM_PIE := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+BOARD_NEEDS_MEMORYHEAPPMEM := true
+COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
+# Lights
 TARGET_PROVIDES_LIBLIGHT := true
+
+# PowerHAL
 TARGET_PROVIDES_POWERHAL := true
 
+# GPS stuff
+BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_AMSS_VERSION := 6225
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := msm7x30
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
@@ -160,6 +159,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recover
 TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/config/fstab.qcom
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+BOARD_RECOVERY_SWIPE := true
 # End recovery stuff
 
 TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
@@ -179,6 +179,7 @@ BOARD_SEPOLICY_UNION += \
     device.te \
     dhcp.te \
     domain.te \
+    drmserver.te \
     file.te \
     healthd.te \
     init.te \
