@@ -105,6 +105,9 @@ BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 
+# Touchscreen stuff
+BOARD_USE_LEGACY_TOUCHSCREEN := true
+
 # Camera stuff
 USE_CAMERA_STUB := true
 BOARD_USES_LEGACY_OVERLAY := true
