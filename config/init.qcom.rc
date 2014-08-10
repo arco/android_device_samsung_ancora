@@ -91,12 +91,6 @@ on boot
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_hsusb/gadget/wakeup
 
-    # I/O schedulers
-    chown system system /sys/block/mmcblk0/queue/scheduler
-    chmod 0664 /sys/block/mmcblk0/queue/scheduler
-    chown system system /sys/block/mmcblk1/queue/scheduler
-    chmod 0664 /sys/block/mmcblk1/queue/scheduler
-
     # for Jig
     chmod 0664 /sys/devices/virtual/jig/jig/jig
 
