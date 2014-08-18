@@ -56,6 +56,3 @@ ro.cwm.enable_key_repeat=true
 
 # Low memory device
 ro.config.low_ram=false
-
-# Set call recording source.
-persist.call_recording.src=4
