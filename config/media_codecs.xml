@@ -64,6 +64,9 @@
         </MediaCodec>
         <MediaCodec name="OMX.qcom.audio.decoder.amrwbplus" type="audio/amr-wb-plus" >
         </MediaCodec>
+        <MediaCodec name="OMX.qcom.audio.decoder.mp3" type="audio/mpeg">
+            <Quirk name="requires-global-flush"/>
+        </MediaCodec>
         <!-- Audio Software  -->
         <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
         <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />

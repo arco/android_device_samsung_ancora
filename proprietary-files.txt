@@ -40,6 +40,7 @@
 /lib/libmmjpeg.so
 /lib/libmmosal.so
 /lib/libmmparser.so
+/lib/libOmxMp3Dec.so
 /lib/liboemcamera.so
 /lib/libOpenVG.so
 /lib/libPanoraMax3.so
