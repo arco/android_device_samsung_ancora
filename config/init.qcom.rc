@@ -38,14 +38,14 @@ on boot
     write /sys/module/pm2/parameters/idle_sleep_mode 3
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
     chown system system /sys/module/sco/parameters/disable_esco
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
-    chown bluetooth net_bt_stack /sys/devices/platform/msm_serial_hs.0/clock
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
     setprop ro.bt.bdaddr_path "/data/.bt.info"
