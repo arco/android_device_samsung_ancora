@@ -1,4 +1,4 @@
 <resources>
-    <integer name="def_screen_brightness">80</integer>
+    <integer name="def_screen_brightness">92</integer>
     <bool name="def_install_non_market_apps">true</bool>
 </resources>
