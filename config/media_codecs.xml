@@ -52,6 +52,7 @@
     </Encoders>
     <Decoders>
         <!-- Audio Hardware  -->
+        <!--
         <MediaCodec name="OMX.qcom.audio.decoder.wma" type="audio/x-ms-wma" >
             <Quirk name="requires-global-flush" />
             <Quirk name="requires-wma-pro-component" />
@@ -62,6 +63,7 @@
         <MediaCodec name="OMX.qcom.audio.decoder.wma10Pro" type="audio/x-ms-wma" >
             <Quirk name="requires-global-flush" />
         </MediaCodec>
+        -->
         <MediaCodec name="OMX.qcom.audio.decoder.amrwbplus" type="audio/amr-wb-plus" >
         </MediaCodec>
         <MediaCodec name="OMX.qcom.audio.decoder.mp3" type="audio/mpeg">
@@ -130,6 +132,7 @@
         <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
 
         <!-- ffmpeg audio codecs -->
+        <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma"/>
         <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio"/>
         <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac"/>
         <MediaCodec name="OMX.ffmpeg.mp2.decoder" type="audio/mpeg-L2"/>
