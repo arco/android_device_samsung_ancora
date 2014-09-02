@@ -63,9 +63,6 @@
         </MediaCodec>
         <MediaCodec name="OMX.qcom.audio.decoder.amrwbplus" type="audio/amr-wb-plus" >
         </MediaCodec>
-        <MediaCodec name="OMX.qcom.audio.decoder.mp3" type="audio/mpeg">
-            <Quirk name="requires-global-flush"/>
-        </MediaCodec>
         <!-- Audio Software  -->
         <MediaCodec name="OMX.qcom.audio.decoder.Qcelp13" type="audio/qcelp" >
             <Quirk name="requires-global-flush" />
