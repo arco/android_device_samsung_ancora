@@ -32,6 +32,9 @@ on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
+    #stop ril-daemon to start it later and avoid problems when phone is encryted
+    stop ril-daemon
+    
 on boot
     # Disable idle power collapse during boot.
     # These features will be enabled at the end of boot
@@ -225,6 +228,13 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
+service qcom-ril-daemon /system/bin/rild
+    class late_start
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log
+    
 service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
     class late_start
     disabled
