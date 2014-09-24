@@ -451,7 +451,7 @@ int camera_set_preview_window(struct camera_device * device,
 
     ALOGI("%s: preview format %s", __FUNCTION__, str_preview_format);
 
-    window->set_usage(window, GRALLOC_USAGE_PRIVATE_SYSTEM_HEAP | GRALLOC_USAGE_HW_RENDER);
+    window->set_usage(window, GRALLOC_USAGE_PRIVATE_MM_HEAP | GRALLOC_USAGE_HW_RENDER);
 
     if (window->set_buffers_geometry(window, preview_width,
                                      preview_height, hal_pixel_format)) {
