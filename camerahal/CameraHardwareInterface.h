@@ -228,8 +228,6 @@ public:
     /**
      * Dump state of the camera hardware
      */
-    virtual status_t dump(int fd, const Vector<String16>& args) const = 0;
-
     virtual void takeLiveSnapshot() = 0;
 };
 
