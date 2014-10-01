@@ -98,23 +98,6 @@ on boot
     chown system system /sys/devices/virtual/sec/ts/brightness
 
     # TSP Test Mode
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_threshould
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_all_refer
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/disp_all_refdata
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_all_delta
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/disp_all_deltadata
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_all_intensity
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/disp_all_intendata
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta4
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer4
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta3
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer3
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta2
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer2
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta1
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer1
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta0
-    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer0
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_panel
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
     chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
