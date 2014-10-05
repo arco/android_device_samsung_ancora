@@ -40,10 +40,12 @@
 /dev/smdcntl*             0640   radio      radio
 /dev/ledflash             0660   root       system
 /dev/fmradio              0660   system     system
-/dev/tun                  0660   system     vpn
 
 # permissions for video
-/dev/msm_vidc*            0660   system     audio
+/dev/msm_vidc_reg         0660   system     audio
+/dev/msm_vidc_dec         0660   system     audio
+/dev/msm_vidc_dec_sec     0660   system     audio
+/dev/msm_vidc_enc         0660   system     audio
 
 # permissions for audio
 /dev/msm_amrnb            0660   system     audio
