@@ -67,9 +67,6 @@ PRODUCT_COPY_FILES += \
 
 # Keychars and keylayout files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keyfiles/Broadcom_Bluetooth_HID.kcm.bin:system/usr/keychars/Broadcom_Bluetooth_HID.kcm.bin \
-    $(LOCAL_PATH)/keyfiles/ancora_keypad_numeric.kcm.bin:system/usr/keychars/ancora_keypad_numeric.kcm.bin \
-    $(LOCAL_PATH)/keyfiles/ancora_keypad_qwerty.kcm.bin:system/usr/keychars/ancora_keypad_qwerty.kcm.bin \
     $(LOCAL_PATH)/keyfiles/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
     $(LOCAL_PATH)/keyfiles/sec_key.kl:system/usr/keylayout/sec_key.kl \
     $(LOCAL_PATH)/keyfiles/sec_power_key.kl:system/usr/keylayout/sec_power_key.kl \
