@@ -53,8 +53,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/init.qcom.usb.rc:root/init.qcom.usb.rc \
     $(LOCAL_PATH)/config/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/config/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
-    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
+    $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt
 
 # Needed to reset bootmode when leaving recovery
 PRODUCT_COPY_FILES += \
@@ -141,10 +140,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     libnetcmdiface
-
-PRODUCT_PACKAGES += \
-    libexifa \
-    libjpega
 
 # qcmediaplayer
 PRODUCT_PACKAGES += qcmediaplayer
