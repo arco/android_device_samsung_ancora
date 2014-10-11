@@ -53,13 +53,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/init.qcom.usb.rc:root/init.qcom.usb.rc \
     $(LOCAL_PATH)/config/ueventd.qcom.rc:root/ueventd.qcom.rc \
     $(LOCAL_PATH)/config/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
-    $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
-
-# Prebuilt libexifa and libjpega
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/libjpega:system/lib/libjpega.so \
-    $(LOCAL_PATH)/prebuilt/libexifa:system/lib/libexifa.so
+    $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt
 
 # Needed to reset bootmode when leaving recovery
 PRODUCT_COPY_FILES += \
