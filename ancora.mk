@@ -56,6 +56,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/nvram_net.txt:system/vendor/firmware/nvram_net.txt \
     $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
 
+# Prebuilt libexifa and libjpega
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/libjpega:system/lib/libjpega.so \
+    $(LOCAL_PATH)/prebuilt/libexifa:system/lib/libexifa.so
+
 # Needed to reset bootmode when leaving recovery
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
@@ -141,10 +146,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     libnetcmdiface
-
-PRODUCT_PACKAGES += \
-    libexifa \
-    libjpega
 
 # qcmediaplayer
 PRODUCT_PACKAGES += qcmediaplayer
