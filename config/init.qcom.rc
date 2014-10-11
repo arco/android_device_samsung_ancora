@@ -292,6 +292,14 @@ service lpmkey /system/bin/charging_mode
     user root
     oneshot
 
+on property:crypto.driver.load=1
+    insmod /system/lib/modules/qce.ko
+    insmod /system/lib/modules/qcedev.ko
+
+on property:crypto.driver.load=0
+    exec /system/bin/rmmod qcedev.ko
+    exec /system/bin/rmmod qce.ko
+
 on property:init.svc.ril-daemon=running
     start get_macaddrs
     chown bluetooth net_bt_stack /data/.bt.info
