@@ -152,6 +152,8 @@ PRODUCT_PACKAGES += qcmediaplayer
 # Torch
 PRODUCT_PACKAGES += Torch
 
+PRODUCT_PACKAGES += LiveWallpapersPicker
+
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0
