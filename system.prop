@@ -29,6 +29,7 @@ dalvik.vm.dexopt-data-only=1
 # QCOM
 debug.sf.hw=1
 debug.mdpcomp.logs=0
+debug.composition.type=dyn
 
 # Low Power Audio
 lpa.decode=false
