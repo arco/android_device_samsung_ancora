@@ -81,7 +81,6 @@ BOARD_BLUEDROID_VENDOR_CONF := device/samsung/ancora/bluetooth/vnd_ancora.txt
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_RIL_CLASS := ../../../device/samsung/ancora/ril/
 BOARD_USES_LEGACY_RIL := true
-BOARD_USES_LIBSECRIL_STUB := true
 
 # Audio
 TARGET_QCOM_AUDIO_VARIANT := caf
@@ -102,7 +101,7 @@ USE_OPENGL_RENDERER := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_USES_QCOM_BSP := true
 BOARD_USES_QCOM_HARDWARE := true
-BOARD_EGL_CFG := device/samsung/ancora/config/egl.cfg
+BOARD_EGL_CFG := device/samsung/ancora/configs/egl.cfg
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 
@@ -144,8 +143,8 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_SDCARD_INTERNAL := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
-TARGET_RECOVERY_INITRC := device/samsung/ancora/config/init.recovery.rc
-TARGET_RECOVERY_FSTAB := device/samsung/ancora/config/fstab.qcom
+TARGET_RECOVERY_INITRC := device/samsung/ancora/rootdir/init.recovery.rc
+TARGET_RECOVERY_FSTAB := device/samsung/ancora/rootdir/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
