@@ -56,7 +56,7 @@ persist.sys.vold.switchablepair=sdcard0,sdcard1
 ro.cwm.enable_key_repeat=true
 
 # Low memory device
-ro.config.low_ram=false
+ro.config.low_ram=true
 
 # Reduce background apps limit to 16 on low-tier devices
 ro.sys.fw.bg_apps_limit=16
