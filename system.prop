@@ -61,8 +61,5 @@ ro.config.low_ram=true
 # Reduce background apps limit to 16 on low-tier devices
 ro.sys.fw.bg_apps_limit=16
 
-# Set max background services
-ro.config.max_starting_bg=8
-
 # Disable metadata mode
 debug.camcorder.disablemeta=1
