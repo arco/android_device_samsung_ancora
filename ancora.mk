@@ -162,6 +162,9 @@ PRODUCT_PACKAGES += qcmediaplayer
 # Torch
 PRODUCT_PACKAGES += Torch
 
+# Sensors
+PRODUCT_PACKAGES += sensors.ancora
+
 PRODUCT_PACKAGES += LiveWallpapersPicker
 
 # For userdebug builds
