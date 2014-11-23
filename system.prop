@@ -23,9 +23,6 @@ ro.sf.lcd_density=240
 # This is a 16.16 fixed point number.
 ro.opengles.version=131072
 
-# Perform dexopt in data as our cache partition is very small
-dalvik.vm.dexopt-data-only=1
-
 # QCOM
 debug.sf.hw=1
 debug.mdpcomp.logs=0
