@@ -166,6 +166,7 @@ BOARD_SEPOLICY_UNION += \
     init.te \
     mac_update.te \
     mediaserver.te \
+    property.te \
     rild.te \
     rmt.te \
     surfaceflinger.te \
