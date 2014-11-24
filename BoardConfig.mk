@@ -77,6 +77,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/ancora/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/ancora/bluetooth/vnd_ancora.txt
 
 # RIL
+TARGET_NEEDS_NON_PIE_SUPPORT := true
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_RIL_CLASS := ../../../device/samsung/ancora/ril/
 BOARD_USES_LEGACY_RIL := true
