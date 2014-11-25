@@ -901,19 +901,6 @@ public class SamsungRIL extends RIL implements CommandsInterface {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setCurrentPreferredNetworkType() {
-        if (RILJ_LOGD) riljLog("setCurrentPreferredNetworkType IGNORED");
-        /* Google added this as a fix for crespo loosing network type after
-         * taking an OTA. This messes up the data connection state for us
-         * due to the way we handle network type change (disable data
-         * then change then re-enable).
-         */
-    }
-
     @Override
     public void setPreferredNetworkType(int networkType , Message response) {
         /* Samsung modem implementation does bad things when a datacall is running
