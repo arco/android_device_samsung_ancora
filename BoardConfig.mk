@@ -43,6 +43,9 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_ARCH_LOWMEM := true
 
+# Use dlmalloc instead of jemalloc for mallocs on low-ram targets
+MALLOC_IMPL := dlmalloc
+
 # Kernel
 BOARD_KERNEL_BASE := 0x00400000
 BOARD_KERNEL_PAGESIZE := 2048
