@@ -259,7 +259,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     oneshot
 
 service rmt_storage /system/bin/rmt_storage
-    class core
+    class main
     user root
     disabled
 
