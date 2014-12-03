@@ -49,6 +49,9 @@ MALLOC_IMPL := dlmalloc
 # Enable dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := true
 
+# Legacy MMAP for pre-lollipop blobs
+BOARD_USES_LEGACY_MMAP := true
+
 # Kernel
 BOARD_KERNEL_BASE := 0x00400000
 BOARD_KERNEL_PAGESIZE := 2048
