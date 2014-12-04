@@ -1,0 +1,5 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Home button Wake Support. Some devices do not support this.
+         Setting to false will disable Home button Wake support -->
+    <bool name="config_show_homeWake">true</bool>
+</resources>
