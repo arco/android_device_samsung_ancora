@@ -63,3 +63,6 @@ ro.config.max_starting_bg=4
 
 # Disable metadata mode
 debug.camcorder.disablemeta=1
+
+# Use Awesomeplayer instead of NuPlayer
+media.stagefright.use-awesome=true
