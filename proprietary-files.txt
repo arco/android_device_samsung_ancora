@@ -5,6 +5,7 @@
 
 /bin/BCM4329B1_002.002.023.0944.0952.hcd
 /bin/rmt_storage
+/bin/radish
 
 /cameradata/datapattern_420sp.yuv
 /cameradata/datapattern_front_420sp.yuv
