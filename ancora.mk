@@ -162,6 +162,11 @@ PRODUCT_PACKAGES += qcmediaplayer
 # Torch
 PRODUCT_PACKAGES += Torch
 
+# IPv6 tethering
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
+
 PRODUCT_PACKAGES += LiveWallpapersPicker
 
 # For userdebug builds
