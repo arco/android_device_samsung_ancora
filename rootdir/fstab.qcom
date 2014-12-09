@@ -5,14 +5,13 @@
 #<src>                                              <mnt_point>  <type>   <mnt_flags and options>                                                                           <fs_mgr_flags>
 /dev/block/mmcblk0p8                                /boot        emmc     defaults                                                                                          defaults
 /dev/block/mmcblk0p13                               /recovery    emmc     defaults                                                                                          defaults
-/dev/block/mmcblk0p15                               /system      ext4     ro,errors=panic                                                                                   wait
-/dev/block/mmcblk0p16                               /cache       ext4     noatime,nosuid,nodev                                                                              wait,check
-/dev/block/mmcblk0p17                               /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,journal_async_commit,errors=panic                            wait,check,encryptable=footer,length=-16384
+/dev/block/mmcblk0p17                               /system      ext4     ro,errors=panic                                                                                   wait
+/dev/block/mmcblk0p15                               /cache       ext4     noatime,nosuid,nodev                                                                              wait,check
+/dev/block/mmcblk0p28                               /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,journal_async_commit,errors=panic                            wait,check,encryptable=footer,length=-16384
 
 # zRAM
 /dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=201326592
 
 # vold managed volumes
-/devices/platform/msm_sdcc.2/mmc_host*              auto         auto     defaults                                                                                          voldmanaged=sdcard0:28,nonremovable,noemulatedsd
 /devices/platform/msm_sdcc.4/mmc_host*              auto         auto     defaults                                                                                          voldmanaged=sdcard1:auto,noemulatedsd
 /devices/platform/msm_hsusb_host.0*                 auto         auto     defaults                                                                                          voldmanaged=usbdisk:auto
