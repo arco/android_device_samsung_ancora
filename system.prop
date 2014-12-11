@@ -31,9 +31,6 @@ debug.composition.type=dyn
 # Low Power Audio
 lpa.decode=false
 
-# Resampler quality
-af.resampler.quality=255
-
 # Disable gapless mode
 audio.gapless.playback.disable=true
 
