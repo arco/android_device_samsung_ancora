@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+#include <string.h>
+#include <stdlib.h>
+
 #define CAMERA_PARAMETERS_EXTRA_C \
 const char CameraParameters::AUTO_EXPOSURE_CENTER_WEIGHTED[] = "center-weighted"; \
 const char CameraParameters::AUTO_EXPOSURE_FRAME_AVG[] = "frame-average"; \
@@ -151,11 +154,48 @@ const char CameraParameters::ZSL_ON[] = "on"; \
 int CameraParameters::getInt64(const char *key) const { return -1; }; \
 void CameraParameters::setPreviewFrameRateMode(const char *mode) { set(KEY_PREVIEW_FRAME_RATE_MODE, mode); }; \
 const char *CameraParameters::getPreviewFrameRateMode() const { return get(KEY_PREVIEW_FRAME_RATE_MODE); }; \
-void CameraParameters::setTouchIndexAec(int x, int y) { }; \
-void CameraParameters::getTouchIndexAec(int *x, int *y) const { }; \
-void CameraParameters::setTouchIndexAf(int x, int y) { }; \
-void CameraParameters::getTouchIndexAf(int *x, int *y) const { }; \
-void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
+static int parse_pair_extra(const char *str, int *first, int *second, char delim, char **endptr = NULL) { \
+    char *end; \
+    int w = (int)strtol(str, &end, 10); \
+    if (*end != delim) return -1; \
+    int h = (int)strtol(end + 1, &end, 10); \
+    *first = w; *second = h; \
+    if (endptr) *endptr = end; \
+    return 0; \
+}; \
+void CameraParameters::setTouchIndexAec(int x, int y) { \
+    char str[32]; \
+    snprintf(str, sizeof(str), "%dx%d", x, y); \
+    set(KEY_TOUCH_INDEX_AEC, str); \
+}; \
+void CameraParameters::getTouchIndexAec(int *x, int *y) const { \
+    *x = -1; *y = -1; \
+    const char *p = get(KEY_TOUCH_INDEX_AEC); \
+    if (p == 0) return; \
+    int tempX, tempY; \
+    if (parse_pair_extra(p, &tempX, &tempY, 'x') == 0) { \
+        *x = tempX; *y = tempY; \
+    } \
+}; \
+void CameraParameters::setTouchIndexAf(int x, int y) { \
+    char str[32]; \
+    snprintf(str, sizeof(str), "%dx%d", x, y); \
+    set(KEY_TOUCH_INDEX_AF, str); \
+}; \
+void CameraParameters::getTouchIndexAf(int *x, int *y) const { \
+    *x = -1; *y = -1; \
+    const char *p = get(KEY_TOUCH_INDEX_AF); \
+    if (p == 0) return; \
+    int tempX, tempY; \
+    if (parse_pair_extra(p, &tempX, &tempY, 'x') == 0) { \
+        *x = tempX; *y = tempY; \
+    } \
+}; \
+void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { \
+    char str[32]; \
+    snprintf(str, sizeof(str), "%d,%d",minFPS,maxFPS); \
+    set(KEY_PREVIEW_FPS_RANGE,str); \
+};
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char AUTO_EXPOSURE_CENTER_WEIGHTED[]; \
