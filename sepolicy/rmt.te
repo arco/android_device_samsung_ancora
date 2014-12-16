@@ -28,3 +28,4 @@ allow rmt ctl_rmt_prop:property_service set;
 unconfined_domain(rmt)
 dontaudit rmt kmem_device:chr_file rw_file_perms;
 
+allow rmt mmc_block_device:blk_file rw_file_perms;

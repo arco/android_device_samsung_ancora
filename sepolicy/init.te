@@ -1,1 +1,7 @@
+# Adding allow rule for search on /fuse
+allow init fuse:dir search;
+allow init self:capability sys_module;
+allow init fuse:dir mounton;
+
+allow init mmc_block_device:blk_file { setattr };
 allow init wpa_socket:unix_dgram_socket { bind create };
