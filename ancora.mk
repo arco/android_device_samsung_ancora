@@ -165,6 +165,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     LiveWallpapersPicker
 
+# WPA supplicant
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    hostapd \
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.locale.language=en \
     ro.product.locale.region=GB
