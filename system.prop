@@ -37,6 +37,9 @@ audio.gapless.playback.disable=true
 # Set default USB interface
 persist.sys.usb.config=mtp
 
+# Set read only default composition for USB
+ro.sys.usb.default.config=mtp
+
 # Increase speed for UMS transfer
 ro.vold.umsdirtyratio=20
 
