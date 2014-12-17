@@ -117,7 +117,6 @@ PRODUCT_PACKAGES += \
     lights.msm7x30 \
     power.msm7x30 \
     audio.primary.msm7x30 \
-    audio_policy.msm7x30 \
     audio.a2dp.default \
     audio.usb.default \
     libaudio-resampler \
@@ -144,25 +143,27 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory \
-    libnetcmdiface
+    com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
     libexifa \
     libjpega
 
 # qcmediaplayer
-PRODUCT_PACKAGES += qcmediaplayer
+PRODUCT_PACKAGES += \
+    qcmediaplayer
 
 # Torch
-PRODUCT_PACKAGES += Torch
+PRODUCT_PACKAGES += \
+    Torch
 
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-PRODUCT_PACKAGES += LiveWallpapersPicker
+PRODUCT_PACKAGES += \
+    LiveWallpapersPicker
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.locale.language=en \
@@ -174,9 +175,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     ro.debuggable=1 \
     persist.service.adb.enable=1
-
-# We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 $(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
