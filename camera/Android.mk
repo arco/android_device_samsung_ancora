@@ -13,7 +13,8 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := cameraHAL.cpp
 LOCAL_C_INCLUDES := $(TOP)/frameworks/native/include
 
-LOCAL_C_INCLUDES += hardware/qcom/display-caf/libgralloc
+LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc \
+                    system/media/camera/include
 
 LOCAL_SHARED_LIBRARIES := liblog libutils libcutils
 LOCAL_SHARED_LIBRARIES += libui libhardware libcamera_client

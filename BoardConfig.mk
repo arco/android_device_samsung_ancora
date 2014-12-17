@@ -27,6 +27,8 @@
 # inherit from the proprietary version
 -include vendor/samsung/ancora/BoardConfigVendor.mk
 
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/ancora/include
+
 # Platform
 TARGET_BOARD_PLATFORM := msm7x30
 TARGET_BOOTLOADER_BOARD_NAME := ancora
