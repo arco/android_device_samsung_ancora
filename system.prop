@@ -43,15 +43,6 @@ ro.sys.usb.default.config=mtp
 # Increase speed for UMS transfer
 ro.vold.umsdirtyratio=20
 
-# Storage configuration
-persist.sys.vold.switchablepair=sdcard0,sdcard1
-
-# Change to 1 for swapping SD cards
-#persist.sys.vold.switchexternal=0
-
-# Enable repeatable keys in recovery
-ro.cwm.enable_key_repeat=true
-
 # Low memory device
 ro.config.low_ram=true
 

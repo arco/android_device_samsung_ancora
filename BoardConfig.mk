@@ -34,7 +34,6 @@ TARGET_BOARD_PLATFORM := msm7x30
 TARGET_BOOTLOADER_BOARD_NAME := ancora
 TARGET_OTA_ASSERT_DEVICE := ancora,GT-I8150
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE := true
 
 # Architecture
 TARGET_ARCH := arm
@@ -44,7 +43,6 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
-TARGET_ARCH_LOWMEM := true
 
 # Use dlmalloc instead of jemalloc for mallocs on low-ram targets
 MALLOC_IMPL := dlmalloc
@@ -129,8 +127,6 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := msm7x30
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Partitions
-# Partition sizes must match your phone, or all hell will break loose!
-# For the Galaxy W, these are calculated from /proc/partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 5767168
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 7864320
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1163919360
@@ -141,15 +137,9 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/ancora
-BOARD_USES_MMCUTILS := true
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_HAS_SDCARD_INTERNAL := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
-TARGET_RECOVERY_INITRC := device/samsung/ancora/rootdir/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/rootdir/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # SELinux
