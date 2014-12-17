@@ -1,4 +1,4 @@
-key 102   HOME              WAKE
-key 107   POWER             WAKE
-key 115   VOLUME_UP         WAKE
-key 114   VOLUME_DOWN       WAKE
+key 102   HOME
+key 107   POWER
+key 115   VOLUME_UP
+key 114   VOLUME_DOWN
