@@ -75,3 +75,6 @@ camera2.portability.force_api=1
 
 # Disable atlas services on low-ram targets
 config.disable_atlas=true
+
+# Enable smooth streaming
+mm.enable.smoothstreaming=true
