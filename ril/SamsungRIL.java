@@ -949,6 +949,19 @@ public class SamsungRIL extends RIL implements CommandsInterface {
         }
     }
 
+    // This call causes ril to crash the socket, stopping further communication
+    @Override
+    public void
+    getHardwareConfig (Message result) {
+        riljLog("Ignoring call to 'getHardwareConfig'");
+        if (result != null) {
+            CommandException ex = new CommandException(
+                CommandException.Error.REQUEST_NOT_SUPPORTED);
+            AsyncResult.forMessage(result, null, ex);
+            result.sendToTarget();
+        }
+    }
+
     /* private class that does the handling for the dataconnection
      * dataconnection is done async, so we send the request for disabling it,
      * wait for the response, set the prefered networktype and notify the
