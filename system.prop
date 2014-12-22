@@ -66,3 +66,6 @@ debug.camcorder.disablemeta=1
 
 # Use /cache partition to store dex files of system apps
 dalvik.vm.dexopt-data-only=0
+
+# Enable smooth streaming
+mm.enable.smoothstreaming=true
