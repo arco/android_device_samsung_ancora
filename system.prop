@@ -7,7 +7,7 @@ rild.libargs=-d /dev/smd0
 ro.ril.hsxpa=1
 ro.ril.gprsclass=10
 ro.telephony.ril_class=SamsungRIL
-ro.telephony.ril.v3=datacall,icccardstatus,facilitylock
+ro.telephony.ril.config=datacall,icccardstatus,facilitylock
 
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 ro.telephony.call_ring.multiple=0
@@ -23,9 +23,6 @@ ro.sf.lcd_density=240
 # This is a 16.16 fixed point number.
 ro.opengles.version=131072
 
-# Perform dexopt in data as our cache partition is very small
-dalvik.vm.dexopt-data-only=1
-
 # QCOM
 debug.sf.hw=1
 debug.mdpcomp.logs=0
@@ -34,26 +31,17 @@ debug.composition.type=dyn
 # Low Power Audio
 lpa.decode=false
 
-# Resampler quality
-af.resampler.quality=255
-
 # Disable gapless mode
 audio.gapless.playback.disable=true
 
 # Set default USB interface
 persist.sys.usb.config=mtp
 
+# Set read only default composition for USB
+ro.sys.usb.default.config=mtp
+
 # Increase speed for UMS transfer
 ro.vold.umsdirtyratio=20
-
-# Storage configuration
-persist.sys.vold.switchablepair=sdcard0,sdcard1
-
-# Change to 1 for swapping SD cards
-#persist.sys.vold.switchexternal=0
-
-# Enable repeatable keys in recovery
-ro.cwm.enable_key_repeat=true
 
 # Low memory device
 ro.config.low_ram=true
@@ -64,5 +52,20 @@ persist.sys.force_highendgfx=false
 # Reduce background apps limit to 16 on low-tier devices
 ro.sys.fw.bg_apps_limit=16
 
+# Set max background services
+ro.config.max_starting_bg=4
+
 # Disable metadata mode
 debug.camcorder.disablemeta=1
+
+# Use Awesomeplayer instead of NuPlayer
+media.stagefright.use-awesome=true
+
+# Force camera API version 1
+camera2.portability.force_api=1
+
+# Disable atlas services on low-ram targets
+config.disable_atlas=true
+
+# Enable smooth streaming
+mm.enable.smoothstreaming=true

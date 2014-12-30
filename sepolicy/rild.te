@@ -6,3 +6,8 @@ allow rild diagnostic_device:chr_file rw_file_perms;
 
 # XXX label with own type?
 allow rild sysfs:file { read open write getattr };
+
+allow rild proc_net:file write;
+allow rild self:capability dac_override;
+allow rild self:process execmem;
+allow rild radio_data_file:file rw_file_perms;

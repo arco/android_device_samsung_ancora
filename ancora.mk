@@ -44,6 +44,10 @@ PRODUCT_COPY_FILES += \
 
 # Media configuration
 PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     $(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
 
@@ -65,11 +69,6 @@ PRODUCT_COPY_FILES += \
 # MAC adress tool
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
-
-# Needed to reset bootmode when leaving recovery
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
-    $(LOCAL_PATH)/recovery/postrecoveryboot.sh:recovery/system/bin/postrecoveryboot.sh
 
 # Input device calibration files
 PRODUCT_COPY_FILES += \
@@ -122,7 +121,6 @@ PRODUCT_PACKAGES += \
     lights.msm7x30 \
     power.msm7x30 \
     audio.primary.msm7x30 \
-    audio_policy.msm7x30 \
     audio.a2dp.default \
     audio.usb.default \
     libaudio-resampler \
@@ -149,27 +147,46 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory \
-    libnetcmdiface
+    fsck.f2fs \
+    mkfs.f2fs
+
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
     libexifa \
     libjpega
 
 # qcmediaplayer
-PRODUCT_PACKAGES += qcmediaplayer
+PRODUCT_PACKAGES += \
+    qcmediaplayer
 
-# Torch
-PRODUCT_PACKAGES += Torch
+# IPv6 tethering
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
 
-PRODUCT_PACKAGES += LiveWallpapersPicker
+PRODUCT_PACKAGES += \
+    LiveWallpapersPicker
+
+# WPA supplicant
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    hostapd \
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.product.locale.language=en \
+    ro.product.locale.region=GB
 
 # For userdebug builds
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0
-
-# We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
+    ro.secure=0 \
+    ro.adb.secure=0 \
+    ro.debuggable=1 \
+    persist.service.adb.enable=1
 
 $(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)

@@ -27,14 +27,13 @@
 # inherit from the proprietary version
 -include vendor/samsung/ancora/BoardConfigVendor.mk
 
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/ancora/include
+
 # Platform
 TARGET_BOARD_PLATFORM := msm7x30
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_BOOTLOADER_BOARD_NAME := ancora
 TARGET_OTA_ASSERT_DEVICE := ancora,GT-I8150
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE := true
-TARGET_NO_INITLOGO := true
 
 # Architecture
 TARGET_ARCH := arm
@@ -42,16 +41,26 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := scorpion
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := false
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
-TARGET_ARCH_LOWMEM := true
+
+# Use dlmalloc instead of jemalloc for mallocs on low-ram targets
+MALLOC_IMPL := dlmalloc
+
+# Enable dex-preoptimization to speed up first boot sequence
+WITH_DEXPREOPT := true
+
+# Legacy MMAP for pre-lollipop blobs
+BOARD_USES_LEGACY_MMAP := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00400000
-BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/msm7x30-common
 TARGET_KERNEL_CONFIG := ancora_defconfig
 
 # Wifi related defines
+BOARD_NO_WIFI_HAL                := true
 WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
@@ -79,32 +88,22 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/ancora/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/ancora/bluetooth/vnd_ancora.txt
 
 # RIL
+TARGET_NEEDS_NON_PIE_SUPPORT := true
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_RIL_CLASS := ../../../device/samsung/ancora/ril/
 BOARD_USES_LEGACY_RIL := true
 
 # Audio
-TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_USES_LEGACY_ALSA_AUDIO := true
 BOARD_HAVE_SAMSUNG_AUDIO := true
-BOARD_USES_QCOM_AUDIO_LPA := true
-BOARD_USES_QCOM_AUDIO_RESETALL := true
-BOARD_USES_QCOM_AUDIO_VOIPMUTE := true
-COMMON_GLOBAL_CFLAGS += -DWITH_QCOM_VOIP_OVER_MVS
 
 # Qualcomm
-TARGET_QCOM_DISPLAY_VARIANT := caf
-TARGET_QCOM_MEDIA_VARIANT := caf
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_DISPLAY_INSECURE_MM_HEAP := true
 USE_OPENGL_RENDERER := true
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-TARGET_USES_QCOM_BSP := true
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_EGL_CFG := device/samsung/ancora/configs/egl.cfg
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
-COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 
 # Camera
 BOARD_USES_LEGACY_OVERLAY := true
@@ -112,7 +111,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
 COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_LEGACY
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # Light HAL
 TARGET_PROVIDES_LIBLIGHT := true
@@ -121,33 +120,26 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_PROVIDES_POWERHAL := true
 
 # GPS
+TARGET_GPS_HAL_PATH := device/samsung/ancora/gps
 BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_AMSS_VERSION := 6225
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := msm7x30
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
 # Partitions
-# Partition sizes must match your phone, or all hell will break loose!
-# For the Galaxy W, these are calculated from /proc/partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 5767168
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 7864320
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 560988160
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 1163919360
-BOARD_CACHEIMAGE_PARTITION_SIZE := 62914560
-BOARD_FLASH_BLOCK_SIZE := 4096
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1163919360
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 1832910848
+BOARD_CACHEIMAGE_PARTITION_SIZE := 560988160
+BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_VOLD_MAX_PARTITIONS := 28
 
 # Recovery
-BOARD_USES_MMCUTILS := true
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_HAS_SDCARD_INTERNAL := true
+TARGET_RECOVERY_DEVICE_DIRS += device/samsung/ancora
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/ancora/recovery/recovery_keys.c
-TARGET_RECOVERY_INITRC := device/samsung/ancora/rootdir/init.recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/ancora/rootdir/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # SELinux
@@ -167,10 +159,14 @@ BOARD_SEPOLICY_UNION += \
     init.te \
     mac_update.te \
     mediaserver.te \
+    platform_app.te \
+    property.te \
     rild.te \
     rmt.te \
     surfaceflinger.te \
     system.te \
+    system_app.te \
     tee.te \
     ueventd.te \
+    vold.te \
     wpa_supplicant.te

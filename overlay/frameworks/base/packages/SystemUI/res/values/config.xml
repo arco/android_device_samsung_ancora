@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Whether recents should use hardware layers for its taskviews. This flag can be enabled
+    for devices where the java drawing of round rects may be slow -->
+    <bool name="config_recents_use_hardware_layers">true</bool>
+    <!-- Whether to use cheap, less good looking shadows for recents -->
+    <bool name="config_recents_fake_shadows">true</bool>
+</resources>

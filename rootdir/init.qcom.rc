@@ -2,23 +2,28 @@ import init.qcom.usb.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
-    chmod 644 /proc/cmdline
     write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
-    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard0 0700 root root
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk 0700 root root
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
 
-    export EXTERNAL_STORAGE /storage/sdcard0
+    # External storage directories
+    mkdir /mnt/media_rw/sdcard1 0770 media_rw media_rw
+    mkdir /mnt/media_rw/usbdisk 0770 media_rw media_rw
+    mkdir /storage/sdcard1 0771 root sdcard_r
+    mkdir /storage/usbdisk 0771 root sdcard_r
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
     export SECONDARY_STORAGE /storage/sdcard1
 
-    # for backwards compatibility
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
     symlink /storage/sdcard1 /external_sd
     symlink /storage/sdcard1 /mnt/external_sd
     symlink /storage/usbdisk /usbdisk
@@ -207,23 +212,22 @@ on fs
     swapon_all fstab.qcom
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
+    setprop ro.crypto.fuse_sdcard true
 
 on post-fs-data
+    mkdir /data/media 0770 media_rw media_rw
+
     # create log system
     mkdir /data/log 0775 system log
 
     mkdir /data/misc/radio 0775 radio system
     mkdir /data/radio 0770 radio radio
 
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
     setprop vold.post_fs_data_done 1
 
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+# FUSE sdcard daemon for rich permissions (runs as media_rw)
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
-    disabled
 
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
@@ -236,19 +240,19 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -O/data/misc/wifi/sockets \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
     class late_start
     disabled
     oneshot
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
+    class late_start
     disabled
     oneshot
 
@@ -258,11 +262,12 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
     oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
+    class late_start
     disabled
     oneshot
 
 service rmt_storage /system/bin/rmt_storage
-    class core
+    class main
     user root
     disabled
 
@@ -276,7 +281,7 @@ service get_macaddrs /system/bin/get_macaddrs
     disabled
 
 # create filesystems if necessary
-service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p16 /dev/block/mmcblk0p17
+service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15 /dev/block/mmcblk0p28
     class core
     user root
     group root
