@@ -119,6 +119,9 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Power HAL
 TARGET_PROVIDES_POWERHAL := true
 
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 # GPS
 TARGET_GPS_HAL_PATH := device/samsung/ancora/gps
 BOARD_USES_QCOM_GPS := true
