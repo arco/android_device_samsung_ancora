@@ -166,9 +166,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-PRODUCT_PACKAGES += \
-    LiveWallpapersPicker
-
 # WPA supplicant
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
