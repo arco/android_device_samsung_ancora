@@ -50,7 +50,7 @@ typedef unsigned char boolean;
 #include <loc_eng_log.h>
 #include <loc_eng_cfg.h>
 
-#define LOC_IOCTL_DEFAULT_TIMEOUT 1000 // 1000 milli-seconds
+#define LOC_IOCTL_DEFAULT_TIMEOUT 1500 // 1500 milli-seconds
 
 // The data connection minimal open time
 #define DATA_OPEN_MIN_TIME        1  /* sec */
