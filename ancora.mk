@@ -139,9 +139,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-PRODUCT_PACKAGES += \
-    LiveWallpapersPicker
-
 # WPA supplicant
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
