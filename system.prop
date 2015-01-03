@@ -25,7 +25,6 @@ ro.opengles.version=131072
 
 # QCOM
 debug.sf.hw=1
-debug.mdpcomp.logs=0
 debug.composition.type=dyn
 
 # Low Power Audio
@@ -54,9 +53,6 @@ ro.sys.fw.bg_apps_limit=16
 
 # Set max background services
 ro.config.max_starting_bg=8
-
-# Disable metadata mode
-debug.camcorder.disablemeta=1
 
 # Use Awesomeplayer instead of NuPlayer
 persist.sys.media.use-awesome=true
