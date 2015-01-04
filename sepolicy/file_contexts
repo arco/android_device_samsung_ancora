@@ -28,6 +28,7 @@
 
 # Radio
 /dev/dpram.*                   u:object_r:radio_device:s0
+/dev/multipdp                  u:object_r:radio_device:s0
 /dev/rmnet_mux_ctrl            u:object_r:radio_device:s0
 /dev/qmi[0-2]                  u:object_r:radio_device:s0
 /dev/smd7                      u:object_r:radio_device:s0
