@@ -135,8 +135,17 @@ on boot
     chown system audio /sys/devices/virtual/misc/amp/gain_all
     chown system audio /sys/devices/virtual/misc/amp/save
 
-    chown radio system sys/devices/virtual/sec/switch/disable_vbus
-    chown radio system sys/devices/virtual/sec/switch/usb_sel
+    chown radio system /sys/devices/virtual/sec/switch/disable_vbus
+    chown radio system /sys/devices/virtual/sec/switch/usb_sel
+
+    # Fast Charge and USB-Host charging mode
+    chown system system /sys/kernel/fast_charge/force_fast_charge
+    chown system system /sys/class/sec/switch/otg_charger_type
+
+    # External SD scheduler
+    chown system system /sys/block/mmcblk1/queue/scheduler
+    chmod 0664 /sys/block/mmcblk1/queue/scheduler
+    restorecon /sys/block/mmcblk1/queue/scheduler
 
     # for silent reset
     chown system system /proc/dump_enable
@@ -144,40 +153,7 @@ on boot
     chown system system /proc/nosim_handler
     copy /data/dump_enable /proc/dump_enable
 
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/boostfreq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/boostfreq
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/boostpulse
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/boosttime
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/boosttime
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/powersave_bias
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/powersave_bias
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-    chown system system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-    chmod 0664 /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-
+    # Set min cpu frequency
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
 
     # Don't disable dmesg access for apps
