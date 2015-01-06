@@ -46,7 +46,7 @@ ro.vold.umsdirtyratio=20
 ro.config.low_ram=true
 
 # Force high-end graphics in low ram mode
-persist.sys.force_highendgfx=false
+persist.sys.force_highendgfx=true
 
 # Reduce background apps limit to 16 on low-tier devices
 ro.sys.fw.bg_apps_limit=16
