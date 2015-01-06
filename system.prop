@@ -59,3 +59,11 @@ config.disable_atlas=true
 
 # Enable smooth streaming
 mm.enable.smoothstreaming=true
+
+# Dalvik heap params
+dalvik.vm.heapstartsize=5m
+dalvik.vm.heapgrowthlimit=48m
+dalvik.vm.heapsize=128m
+dalvik.vm.heaptargetutilization=0.25
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=3m
