@@ -26,6 +26,8 @@ ro.opengles.version=131072
 # QCOM
 debug.sf.hw=1
 debug.composition.type=dyn
+persist.hwc.mdpcomp.enable=true
+debug.mdpcomp.maxlayer=3
 
 # Low Power Audio
 lpa.decode=false
