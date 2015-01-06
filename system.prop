@@ -25,8 +25,9 @@ ro.opengles.version=131072
 
 # QCOM
 debug.sf.hw=1
-debug.mdpcomp.logs=0
 debug.composition.type=dyn
+persist.hwc.mdpcomp.enable=true
+debug.mdpcomp.maxlayer=3
 
 # Low Power Audio
 lpa.decode=false
@@ -47,16 +48,7 @@ ro.vold.umsdirtyratio=20
 ro.config.low_ram=true
 
 # Force high-end graphics in low ram mode
-persist.sys.force_highendgfx=false
-
-# Reduce background apps limit to 16 on low-tier devices
-ro.sys.fw.bg_apps_limit=16
-
-# Set max background services
-ro.config.max_starting_bg=4
-
-# Disable metadata mode
-debug.camcorder.disablemeta=1
+persist.sys.force_highendgfx=true
 
 # Use Awesomeplayer instead of NuPlayer
 media.stagefright.use-awesome=true
@@ -69,3 +61,11 @@ config.disable_atlas=true
 
 # Enable smooth streaming
 mm.enable.smoothstreaming=true
+
+# Dalvik heap params
+dalvik.vm.heapstartsize=5m
+dalvik.vm.heapgrowthlimit=48m
+dalvik.vm.heapsize=128m
+dalvik.vm.heaptargetutilization=0.25
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=3m

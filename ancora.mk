@@ -40,7 +40,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 
 # Media configuration
 PRODUCT_COPY_FILES += \
@@ -166,9 +167,6 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-PRODUCT_PACKAGES += \
-    LiveWallpapersPicker
-
 # WPA supplicant
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
@@ -190,4 +188,3 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 
 $(call inherit-product-if-exists, vendor/samsung/ancora/device-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
