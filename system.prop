@@ -46,7 +46,7 @@ ro.vold.umsdirtyratio=20
 ro.config.low_ram=true
 
 # Force high-end graphics in low ram mode
-persist.sys.force_highendgfx=false
+persist.sys.force_highendgfx=true
 
 # Use Awesomeplayer instead of NuPlayer
 media.stagefright.use-awesome=true
