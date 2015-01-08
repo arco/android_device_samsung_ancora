@@ -49,7 +49,7 @@ ro.config.low_ram=true
 persist.sys.force_highendgfx=true
 
 # Use Awesomeplayer instead of NuPlayer
-media.stagefright.use-awesome=true
+persist.sys.media.use-awesome=true
 
 # Force camera API version 1
 camera2.portability.force_api=1
