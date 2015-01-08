@@ -59,7 +59,7 @@ ro.config.max_starting_bg=8
 debug.camcorder.disablemeta=1
 
 # Use Awesomeplayer instead of NuPlayer
-media.stagefright.use-awesome=true
+persist.sys.media.use-awesome=true
 
 # Force camera API version 1
 camera2.portability.force_api=1
