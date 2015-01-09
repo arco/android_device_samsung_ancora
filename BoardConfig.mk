@@ -48,7 +48,13 @@ TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 MALLOC_IMPL := dlmalloc
 
 # Enable dex-preoptimization to speed up first boot sequence
-WITH_DEXPREOPT := true
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),userdebug)
+   ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := true
+   endif
+  endif
+endif
 
 # Legacy MMAP for pre-lollipop blobs
 BOARD_USES_LEGACY_MMAP := true
