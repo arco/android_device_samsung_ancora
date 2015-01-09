@@ -122,6 +122,7 @@ PRODUCT_PACKAGES += \
     power.msm7x30 \
     audio.primary.msm7x30 \
     audio.a2dp.default \
+    audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
     libaudioparameter \
