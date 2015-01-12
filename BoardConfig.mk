@@ -104,6 +104,7 @@ TARGET_DISPLAY_INSECURE_MM_HEAP := true
 USE_OPENGL_RENDERER := true
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_EGL_CFG := device/samsung/ancora/configs/egl.cfg
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Camera
 BOARD_USES_LEGACY_OVERLAY := true
@@ -118,6 +119,9 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Power HAL
 TARGET_PROVIDES_POWERHAL := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
 
 # GPS
 TARGET_GPS_HAL_PATH := device/samsung/ancora/gps
