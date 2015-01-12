@@ -71,6 +71,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/get_macaddrs:system/bin/get_macaddrs
 
+# GPS Configuration File
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
+
 # Input device calibration files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
