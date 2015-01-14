@@ -80,6 +80,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/sec_power_key.kl:system/usr/keylayout/sec_power_key.kl \
     $(LOCAL_PATH)/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
 
+# GPS config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf
+
 PRODUCT_PACKAGES += \
     camera.msm7x30 \
     copybit.msm7x30 \
