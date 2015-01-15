@@ -42,10 +42,11 @@ static int open_gps(const struct hw_module_t* module, char const* name,
         struct hw_device_t** device)
 {
     struct gps_device_t *dev = malloc(sizeof(struct gps_device_t));
-    memset(dev, 0, sizeof(*dev));
 
     if(dev == NULL)
         return -1;
+
+    memset(dev, 0, sizeof(*dev));
 
     dev->common.tag = HARDWARE_DEVICE_TAG;
     dev->common.version = 0;
