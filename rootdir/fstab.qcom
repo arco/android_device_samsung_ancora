@@ -8,6 +8,7 @@
 /dev/block/mmcblk0p17                               /system      ext4     ro,errors=panic                                                                                   wait
 /dev/block/mmcblk0p15                               /cache       ext4     noatime,nosuid,nodev                                                                              wait,check
 /dev/block/mmcblk0p28                               /data        ext4     noatime,nosuid,nodev,noauto_da_alloc,journal_async_commit,errors=panic                            wait,check,encryptable=footer,length=-16384
+/dev/block/mmcblk0p28                               /data        f2fs     rw,noatime,nosuid,nodev,nodiratime,inline_xattr                                                   wait,encryptable=footer,length=-16384
 
 # zRAM
 /dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=201326592

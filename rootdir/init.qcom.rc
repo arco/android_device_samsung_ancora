@@ -270,7 +270,7 @@ service get_macaddrs /system/bin/get_macaddrs
     disabled
 
 # create filesystems if necessary
-service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15 /dev/block/mmcblk0p28
+service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15
     class core
     user root
     group root
