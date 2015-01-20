@@ -1,0 +1,4 @@
+userdebug_or_eng(`
+  # Allow system apps, like AriesParts, to perform su shell commands
+  allow system_app su_exec:file { execute_no_trans getattr open read execute };
+')

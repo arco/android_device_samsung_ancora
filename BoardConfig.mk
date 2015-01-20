@@ -148,6 +148,7 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
+    genfs_contexts \
     property_contexts \
     bridge.te \
     camera.te \
@@ -155,18 +156,23 @@ BOARD_SEPOLICY_UNION += \
     dhcp.te \
     domain.te \
     file.te \
+    geomagneticd.te \
     healthd.te \
     init.te \
     mac_update.te \
     mediaserver.te \
+    netd.te \
+    orientationd.te \
     platform_app.te \
     property.te \
     rild.te \
     rmt.te \
+    su.te \
     surfaceflinger.te \
-    system.te \
     system_app.te \
+    system_server.te \
     tee.te \
     ueventd.te \
+    untrusted_app.te \
     vold.te \
     wpa_supplicant.te

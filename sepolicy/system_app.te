@@ -1,1 +1,4 @@
 allow system_app gpu_device:chr_file rw_file_perms;
+allow system_app sysfs_custom:dir search;
+allow system_app sysfs_custom:file rw_file_perms;
+allow system_app sysfs_custom:lnk_file read;

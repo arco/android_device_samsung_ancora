@@ -29,6 +29,7 @@
 # Radio
 /dev/dpram.*                   u:object_r:radio_device:s0
 /dev/multipdp                  u:object_r:radio_device:s0
+/dev/oncrpc(/.*)?              u:object_r:radio_device:s0
 /dev/rmnet_mux_ctrl            u:object_r:radio_device:s0
 /dev/qmi[0-2]                  u:object_r:radio_device:s0
 /dev/smd7                      u:object_r:radio_device:s0
@@ -62,6 +63,8 @@
 
 # System Binaries
 /system/bin/rmt_storage        u:object_r:rmt_exec:s0
+/system/bin/geomagneticd       u:object_r:geomagneticd_exec:s0
+/system/bin/orientationd       u:object_r:orientationd_exec:s0
 
 # Other devices
 /dev/cpu_dma_latency           u:object_r:power_control_device:s0
@@ -69,3 +72,16 @@
 /dev/smd.*                     u:object_r:shared_memory_device:s0
 /dev/smem_log                  u:object_r:shared_log_device:s0
 /dev/rfkill                    u:object_r:rfkill_device:s0
+
+# Sysfs
+/sys/class/input/event5/device/calibration      --  u:object_r:sysfs_custom:s0
+/sys/class/sec/switch/otg_charger_type          --  u:object_r:sysfs_custom:s0
+/sys/class/misc/notification(/.*)?              --  u:object_r:sysfs_custom:s0
+/sys/class/misc/backlightnotification(/.*)?     --  u:object_r:sysfs_custom:s0
+/sys/class/misc/phantom_kp_filter(/.*)?         --  u:object_r:sysfs_custom:s0
+/sys/class/vibetonz/immDuty/pwmvalue_intensity  --  u:object_r:sysfs_custom:s0
+/sys/kernel/fast_charge/force_fast_charge       --  u:object_r:sysfs_custom:s0
+
+# Sysfs Bluetooth
+/sys/devices/platform/bt_power.0/rfkill/rfkill0/state  --  u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/platform/msm_serial_hs.0/clock            --  u:object_r:sysfs_bluetooth_writable:s0

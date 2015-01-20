@@ -1,1 +1,2 @@
+allow vold kernel:system module_request;
 allow vold mmc_block_device:blk_file rw_file_perms;

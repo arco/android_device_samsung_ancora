@@ -1,3 +1,7 @@
-ctl.rmt            u:object_r:ctl_rmt_prop:s0
-rild.libpath       u:object_r:system_radio_prop:s0
-rild.libargs       u:object_r:system_radio_prop:s0
+ctl.rmt                 u:object_r:ctl_rmt_prop:s0
+rild.libpath            u:object_r:system_radio_prop:s0
+rild.libargs            u:object_r:system_radio_prop:s0
+bt.bdaddr_path          u:object_r:bluetooth_prop:s0
+config.low_ram          u:object_r:system_prop:s0
+config.max_starting_bg  u:object_r:system_prop:s0
+sys.fw.bg_apps_limit    u:object_r:system_prop:s0

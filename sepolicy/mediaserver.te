@@ -1,3 +1,9 @@
+binder_call(mediaserver, rild)
+
+allow mediaserver camera_device:dir search;
+allow mediaserver camera_device:chr_file rw_file_perms;
+allow mediaserver radio_device:dir getattr;
+
 # Allow mediaserver to create sockets
 allow mediaserver self:socket create;
 allow mediaserver self:capability sys_nice;

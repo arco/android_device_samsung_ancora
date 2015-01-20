@@ -1,3 +1,5 @@
+binder_use(rild)
+
 allow rild self:netlink_socket { create bind read write };
 allow rild self:netlink_route_socket { write };
 
@@ -11,3 +13,5 @@ allow rild proc_net:file write;
 allow rild self:capability dac_override;
 allow rild self:process execmem;
 allow rild radio_data_file:file rw_file_perms;
+allow rild mediaserver:binder { transfer call };
+allow rild system_prop:property_service set;
