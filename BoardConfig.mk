@@ -168,13 +168,11 @@ BOARD_SEPOLICY_UNION += \
     dhcp.te \
     domain.te \
     file.te \
-    geomagneticd.te \
     healthd.te \
     init.te \
     mac_update.te \
     mediaserver.te \
     netd.te \
-    orientationd.te \
     platform_app.te \
     property.te \
     rild.te \
