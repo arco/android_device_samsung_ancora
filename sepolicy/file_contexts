@@ -63,8 +63,6 @@
 
 # System Binaries
 /system/bin/rmt_storage        u:object_r:rmt_exec:s0
-/system/bin/geomagneticd       u:object_r:geomagneticd_exec:s0
-/system/bin/orientationd       u:object_r:orientationd_exec:s0
 
 # Other devices
 /dev/cpu_dma_latency           u:object_r:power_control_device:s0
@@ -74,11 +72,7 @@
 /dev/rfkill                    u:object_r:rfkill_device:s0
 
 # Sysfs
-/sys/class/input/event5/device/calibration      --  u:object_r:sysfs_custom:s0
 /sys/class/sec/switch/otg_charger_type          --  u:object_r:sysfs_custom:s0
-/sys/class/misc/notification(/.*)?              --  u:object_r:sysfs_custom:s0
-/sys/class/misc/backlightnotification(/.*)?     --  u:object_r:sysfs_custom:s0
-/sys/class/misc/phantom_kp_filter(/.*)?         --  u:object_r:sysfs_custom:s0
 /sys/class/vibetonz/immDuty/pwmvalue_intensity  --  u:object_r:sysfs_custom:s0
 /sys/kernel/fast_charge/force_fast_charge       --  u:object_r:sysfs_custom:s0
 
