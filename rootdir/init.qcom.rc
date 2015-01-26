@@ -288,6 +288,8 @@ service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
+    chmod 666 /data/.bt.info
+    chmod 666 /data/.mac.info
     chown bluetooth net_bt_stack /data/.bt.info
 
 on property:sys.boot_completed=1
