@@ -30,10 +30,6 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
-    # Clear splash screen (blank and unblank)
-    write /sys/class/graphics/fb0/blank 1
-    write /sys/class/graphics/fb0/blank 0
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -285,6 +281,11 @@ service setup_fs /system/bin/setup_fs /dev/block/mmcblk0p15
     user root
     group root
     oneshot
+
+on property:init.svc.bootanim=running
+    # Clear splash screen (blank and unblank)
+    write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/blank 0
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
