@@ -303,6 +303,8 @@ service lpmkey /system/bin/charging_mode
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
+    chmod 666 /data/.bt.info
+    chmod 666 /data/.mac.info
     chown bluetooth net_bt_stack /data/.bt.info
 
 on property:init.svc.playlpm=running

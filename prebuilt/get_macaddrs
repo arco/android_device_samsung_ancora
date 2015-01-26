@@ -29,7 +29,4 @@ echo $WIFIMAC >/data/.mac.info
 # Convert BT MAC address to proper format
 echo $BTMAC | sed 's!^M$!!;s!\-!!g;s!\.!!g;s!\(..\)!\1:!g;s!:$!!' >/data/.bt.info
 
-chmod 666 /data/.bt.info
-chmod 666 /data/.mac.info
-
 exit
