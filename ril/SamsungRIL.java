@@ -990,6 +990,15 @@ public class SamsungRIL extends RIL implements CommandsInterface {
         }
      }
 
+    /**
+     * RIL doesn't support RIL_REQUEST_SEND_SMS_EXPECT_MORE to send a multipart sms,
+     * so use RIL_REQUEST_SEND_SMS instead.
+     */
+    @Override
+    public void sendSMSExpectMore(String smscPDU, String pdu, Message result) {
+        sendSMS(smscPDU, pdu, result);
+    }
+
     /* private class that does the handling for the dataconnection
      * dataconnection is done async, so we send the request for disabling it,
      * wait for the response, set the prefered networktype and notify the
