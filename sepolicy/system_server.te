@@ -1,3 +1,4 @@
+allow system_server radio_device:chr_file rw_file_perms;
 allow system_server sysfs_custom:dir search;
 allow system_server sysfs_custom:file rw_file_perms;
 allow system_server sysfs_custom:lnk_file read;
