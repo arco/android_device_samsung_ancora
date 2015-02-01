@@ -1,4 +1,6 @@
 allow system_server radio_device:chr_file rw_file_perms;
+allow system_server radio_device:dir { getattr search };
 allow system_server sysfs_custom:dir search;
 allow system_server sysfs_custom:file rw_file_perms;
 allow system_server sysfs_custom:lnk_file read;
+allow system_server uhid_device:chr_file { open read write ioctl };

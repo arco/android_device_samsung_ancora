@@ -70,6 +70,7 @@
 /dev/smd.*                     u:object_r:shared_memory_device:s0
 /dev/smem_log                  u:object_r:shared_log_device:s0
 /dev/rfkill                    u:object_r:rfkill_device:s0
+/dev/akm8975                   u:object_r:sensors_device:s0
 
 # Sysfs
 /sys/devices/virtual/input/input3/calibration          --  u:object_r:sysfs_custom:s0
@@ -79,3 +80,8 @@
 # Sysfs Bluetooth
 /sys/devices/platform/bt_power.0/rfkill/rfkill0/state  --  u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/msm_serial_hs.0/clock            --  u:object_r:sysfs_bluetooth_writable:s0
+
+# Data files
+/data/.bt.info                 u:object_r:system_data_file:s0
+/data/.mac.info                u:object_r:system_data_file:s0
+/data/.nvmac.info              u:object_r:system_data_file:s0
