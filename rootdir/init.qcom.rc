@@ -75,13 +75,13 @@ on boot
     chown root system /proc/net/ip_conntrack
 
     # accelerometer
-    chown system input /sys/class/input/input3/enable
-    chown system input /sys/class/input/input3/delay
-    chown system input /sys/class/input/input3/position
-    chown system input /sys/class/input/input3/threshold
-    chown system input /sys/class/input/input3/wake
-    chown system input /sys/class/input/input3/data
-    chown system input /sys/class/input/input3/calibration
+    chown system input /sys/class/input/event3/device/enable
+    chown system input /sys/class/input/event3/device/delay
+    chown system input /sys/class/input/event3/device/position
+    chown system input /sys/class/input/event3/device/threshold
+    chown system input /sys/class/input/event3/device/wake
+    chown system input /sys/class/input/event3/device/data
+    chown system input /sys/class/input/event3/device/calibration
 
     # proximity
     chown system input /sys/class/input/input4/enable
