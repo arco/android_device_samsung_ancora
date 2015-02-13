@@ -170,6 +170,7 @@ BOARD_SEPOLICY_UNION += \
     file.te \
     healthd.te \
     init.te \
+    kernel.te \
     mac_update.te \
     mediaserver.te \
     netd.te \
