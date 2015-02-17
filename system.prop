@@ -27,9 +27,6 @@ ro.opengles.version=131072
 debug.sf.hw=1
 debug.composition.type=dyn
 
-# Low Power Audio
-lpa.decode=false
-
 # Disable gapless mode
 audio.gapless.playback.disable=true
 
@@ -53,9 +50,6 @@ ro.sys.fw.bg_apps_limit=16
 
 # Set max background services
 ro.config.max_starting_bg=8
-
-# Use Awesomeplayer instead of NuPlayer
-persist.sys.media.use-awesome=true
 
 # Force camera API version 1
 camera2.portability.force_api=1
