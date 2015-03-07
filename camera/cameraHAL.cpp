@@ -973,7 +973,7 @@ static int camera_device_open(const hw_module_t *module, const char *name,
         memset(camera_ops, 0, sizeof(*camera_ops));
 
         priv_camera_device->base.common.tag = HARDWARE_DEVICE_TAG;
-        priv_camera_device->base.common.version = CAMERA_DEVICE_API_VERSION_1_0;
+        priv_camera_device->base.common.version = HARDWARE_DEVICE_API_VERSION(1, 0);
         priv_camera_device->base.common.module = (hw_module_t *)(module);
         priv_camera_device->base.common.close = camera_device_close;
         priv_camera_device->base.ops = camera_ops;
