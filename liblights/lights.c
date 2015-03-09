@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
  * Copyright (C) 2011 <kang@insecure.ws>
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-// #define LOG_NDEBUG 0
 #define LOG_TAG "lights"
 #include <cutils/log.h>
 #include <stdint.h>
@@ -37,21 +36,21 @@ static char const BUTTONS_FILE[]  = "/sys/class/sec/ts/brightness";
 
 void init_globals(void)
 {
+    // init the mutex
     pthread_mutex_init(&g_lock, NULL);
 }
 
-static int write_int(char const *path, int value)
+static int 
+write_int(char const* path, int value)
 {
     int fd;
     static int already_warned = 0;
 
-    ALOGV("write_int: path=\"%s\", value=\"%d\".", path, value);
     fd = open(path, O_RDWR);
-
     if (fd >= 0) {
         char buffer[20];
-        int bytes = sprintf(buffer, "%d\n", value);
-        int amt = write(fd, buffer, bytes);
+        int bytes = snprintf(buffer, sizeof(buffer), "%d\n", value);
+        ssize_t amt = write(fd, buffer, (size_t)bytes);
         close(fd);
         return amt == -1 ? -errno : 0;
     } else {
@@ -74,7 +73,8 @@ void load_settings()
     }
 }
 
-static int rgb_to_brightness(struct light_state_t const *state)
+static int
+rgb_to_brightness(struct light_state_t const* state)
 {
     int color = state->color & 0x00ffffff;
 
@@ -82,8 +82,9 @@ static int rgb_to_brightness(struct light_state_t const *state)
         + (150*((color>>8) & 0x00ff)) + (29*(color & 0x00ff))) >> 8;
 }
 
-static int set_light_backlight(struct light_device_t *dev,
-            struct light_state_t const *state)
+static int
+set_light_backlight(struct light_device_t* dev,
+        struct light_state_t const* state)
 {
     load_settings();
     int err = 0;
@@ -96,8 +97,9 @@ static int set_light_backlight(struct light_device_t *dev,
     return err;
 }
 
-static int set_light_buttons(struct light_device_t *dev,
-            struct light_state_t const *state)
+static int
+set_light_buttons(struct light_device_t* dev,
+        struct light_state_t const* state)
 {
     int touch_led_control = state->color & 0x00ffffff ? 1 : 2;
     int res = 0;
@@ -110,20 +112,21 @@ static int set_light_buttons(struct light_device_t *dev,
     return res;
 }
 
-static int close_lights(struct light_device_t *dev)
+static int
+close_lights(struct light_device_t* dev)
 {
     ALOGV("close_light is called");
-    if (dev)
+    if (dev) {
         free(dev);
-
+    }
     return 0;
 }
 
-static int open_lights(const struct hw_module_t *module, char const *name,
-                        struct hw_device_t **device)
+static int open_lights(const struct hw_module_t* module, char const* name,
+        struct hw_device_t** device)
 {
-    int (*set_light)(struct light_device_t *dev,
-        struct light_state_t const *state);
+    int (*set_light)(struct light_device_t* dev,
+            struct light_state_t const* state);
 
     ALOGV("open_lights: open with %s", name);
 
@@ -136,16 +139,20 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 
     pthread_once(&g_init, init_globals);
 
-    struct light_device_t *dev = malloc(sizeof(struct light_device_t));
+    struct light_device_t* dev = malloc(sizeof(struct light_device_t));
+
+    if(!dev)
+	return -ENOMEM;
+
     memset(dev, 0, sizeof(*dev));
 
     dev->common.tag = HARDWARE_DEVICE_TAG;
     dev->common.version = 0;
-    dev->common.module = (struct hw_module_t *)module;
-    dev->common.close = (int (*)(struct hw_device_t *))close_lights;
+    dev->common.module = (struct hw_module_t*)module;
+    dev->common.close = (int (*)(struct hw_device_t*))close_lights;
     dev->set_light = set_light;
 
-    *device = (struct hw_device_t *)dev;
+    *device = (struct hw_device_t*)dev;
 
     return 0;
 }
