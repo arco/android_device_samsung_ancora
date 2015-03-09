@@ -111,7 +111,6 @@ TARGET_USES_C2D_COMPOSITION := true
 TARGET_DISPLAY_INSECURE_MM_HEAP := true
 USE_OPENGL_RENDERER := true
 BOARD_USES_QCOM_HARDWARE := true
-BOARD_EGL_CFG := device/samsung/ancora/configs/egl.cfg
 
 # Camera
 BOARD_USES_LEGACY_OVERLAY := true
