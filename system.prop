@@ -30,6 +30,9 @@ debug.composition.type=dyn
 # Disable gapless mode
 audio.gapless.playback.disable=true
 
+# Disable offload audio
+audio.offload.disable=1
+
 # Set default USB interface
 persist.sys.usb.config=mtp
 
