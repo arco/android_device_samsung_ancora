@@ -11,7 +11,7 @@
 /dev/block/mmcblk0p28                               /data        f2fs     rw,noatime,nosuid,nodev,nodiratime,inline_xattr                                                   wait,encryptable=footer,length=-16384
 
 # zRAM
-/dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=201326592
+/dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=268435456
 
 # vold managed volumes
 /devices/platform/msm_sdcc.4/mmc_host*              auto         auto     defaults                                                                                          voldmanaged=sdcard1:auto,noemulatedsd
