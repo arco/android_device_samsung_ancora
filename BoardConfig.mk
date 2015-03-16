@@ -44,6 +44,9 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
+# CMHW
+BOARD_HARDWARE_CLASS += device/samsung/ancora/cmhw
+
 # Use dlmalloc instead of jemalloc for mallocs on low-ram targets
 MALLOC_IMPL := dlmalloc
 
