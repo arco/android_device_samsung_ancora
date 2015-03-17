@@ -173,6 +173,9 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_delack_seg
     chown system system /sys/kernel/ipv4/tcp_use_userconfig
 
+    # Display color calibration
+    chown system system /sys/class/graphics/fb0/kcal
+
     # Define TCP delayed ack settings for WiFi & LTE
     setprop net.tcp.delack.default     1
     setprop net.tcp.delack.wifi        20
