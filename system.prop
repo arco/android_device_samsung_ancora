@@ -65,3 +65,6 @@ mm.enable.smoothstreaming=true
 
 # USB-OTG
 persist.sys.isUsbOtgEnabled=true
+
+# Enable reboot from charger mode
+ro.enable_boot_charger_mode=1
