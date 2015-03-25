@@ -632,7 +632,7 @@ static void process_key(struct charger *charger, int code, int64_t now)
     struct key_state *key = &charger->keys[code];
     int64_t next_key_check;
 
-    if (code == KEY_POWER) {
+    if (code == KEY_HOME) {
         if (key->down) {
             int64_t reboot_timeout = key->timestamp + POWER_ON_KEY_TIME;
             if (now >= reboot_timeout) {
