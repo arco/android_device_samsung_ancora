@@ -166,4 +166,12 @@
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
     <integer name="config_deviceHardwareWakeKeys">65</integer>
+    <!-- If there is no sysfs-based control mechanism, enable this -->
+    <bool name="useCameraInterface">false</bool>
+    <!-- Full path to the sysfs toggle -->
+    <string name="flashDevice">/dev/ledflash</string>  
+    <!-- Off setting -->
+    <integer name="valueOff">0</integer>
+    <!-- On setting -->
+    <integer name="valueOn">1</integer>
 </resources>

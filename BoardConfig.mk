@@ -44,6 +44,9 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
+# CMHW
+BOARD_HARDWARE_CLASS += device/samsung/ancora/cmhw
+
 # Use dlmalloc instead of jemalloc for mallocs on low-ram targets
 MALLOC_IMPL := dlmalloc
 
@@ -157,6 +160,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # Charger
+BOARD_HEALTHD_CUSTOM_CHARGER := device/samsung/ancora/charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_SHOW_PERCENTAGE := true

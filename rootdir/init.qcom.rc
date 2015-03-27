@@ -89,6 +89,11 @@ on boot
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_hsusb/gadget/wakeup
 
+    # Live display
+    chown system system /sys/class/graphics/fb0/kcal
+    chmod 0664 /sys/class/graphics/fb0/kcal
+    restorecon /sys/class/graphics/fb0/kcal
+
     # for Jig
     chmod 0664 /sys/devices/virtual/jig/jig/jig
 
