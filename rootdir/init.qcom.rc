@@ -176,6 +176,9 @@ on boot
     # Display color calibration
     chown system system /sys/class/graphics/fb0/kcal
 
+    # Keydisabler
+    chown system system /sys/devices/virtual/sec/qt602240_noise_test/keypad_enable:
+
     # Define TCP delayed ack settings for WiFi & LTE
     setprop net.tcp.delack.default     1
     setprop net.tcp.delack.wifi        20
