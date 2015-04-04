@@ -1,0 +1,10 @@
+# mount point   fstype          device                  [device2]
+
+/boot           emmc            /dev/block/mmcblk0p8
+/recovery       emmc            /dev/block/mmcblk0p13
+
+/system         ext4            /dev/block/mmcblk0p17
+/cache          ext4            /dev/block/mmcblk0p15
+/data           auto            /dev/block/mmcblk0p28   length=-16384
+
+/external_sd    vfat            /dev/block/mmcblk1p1    /dev/block/mmcblk1  flags=display="Micro SDcard";storage;wipeingui;removable
