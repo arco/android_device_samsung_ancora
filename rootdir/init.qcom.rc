@@ -2,7 +2,7 @@ import init.qcom.usb.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
-    chmod 644 /proc/cmdline
+    chmod 0644 /proc/cmdline
     write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
@@ -161,7 +161,7 @@ on boot
     write /sys/block/mmcblk0/queue/add_random 0
 
     # Permissions for led device
-    chmod 666 /dev/ledflash
+    chmod 0666 /dev/ledflash
 
     # Read only 1 page at a time
     write /proc/sys/vm/page-cluster 0
@@ -199,6 +199,10 @@ on fs
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
+    # Increase max readahead size to 512 KB
+    write /sys/block/mmcblk0/queue/read_ahead_kb 512
+    write /sys/block/mmcblk1/queue/read_ahead_kb 512
+
     # create log system
     mkdir /data/log 0775 system log
 
@@ -210,8 +214,8 @@ on post-fs-data
 on charger
     mount_all fstab.qcom
     class_start charger
-    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 122880
 
@@ -299,9 +303,12 @@ on property:init.svc.bootanim=running
 
 on property:init.svc.ril-daemon=running
     start get_macaddrs
-    chmod 666 /data/.bt.info
-    chmod 666 /data/.mac.info
+    chmod 0666 /data/.bt.info
+    chmod 0666 /data/.mac.info
     chown bluetooth net_bt_stack /data/.bt.info
+
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd
 
 on property:sys.boot_completed=1
     write /sys/block/mmcblk0/queue/scheduler row
