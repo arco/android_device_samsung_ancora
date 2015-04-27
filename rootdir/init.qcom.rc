@@ -5,6 +5,9 @@ on early-init
     chmod 0644 /proc/cmdline
     write /sys/block/mmcblk0/queue/scheduler noop
 
+    # Use lz4 compression for ZRAM
+    write /sys/block/zram0/comp_algorithm lz4
+
 on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
