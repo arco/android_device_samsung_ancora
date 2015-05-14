@@ -5,4 +5,8 @@
     <bool name="config_recents_use_hardware_layers">true</bool>
     <!-- Whether to use cheap, less good looking shadows for recents -->
     <bool name="config_recents_fake_shadows">true</bool>
+    <!-- The default tiles to display in QuickSettings -->
+    <string name="quick_settings_tiles_default" translatable="false">
+        wifi,bt,cell,airplane,rotation,location
+    </string>
 </resources>
