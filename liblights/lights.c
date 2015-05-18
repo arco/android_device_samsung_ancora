@@ -73,13 +73,19 @@ void load_settings()
     }
 }
 
+static int is_lit(struct light_state_t const* state)
+{
+    return state->color & 0x00ffffff;
+}
+
 static int
 rgb_to_brightness(struct light_state_t const* state)
 {
-    int color = state->color & 0x00ffffff;
+    int color = is_lit(state);
 
-    return ((77*((color>>16) & 0x00ff))
-        + (150*((color>>8) & 0x00ff)) + (29*(color & 0x00ff))) >> 8;
+    return ((77*((color>>16) & 0x00ff)) +
+            (150*((color>>8) & 0x00ff)) +
+            (29*(color & 0x00ff))) >> 8;
 }
 
 static int
@@ -101,7 +107,7 @@ static int
 set_light_buttons(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-    int touch_led_control = state->color & 0x00ffffff ? 1 : 2;
+    int touch_led_control = is_lit(state) ? 1 : 2;
     int res = 0;
 
     pthread_mutex_lock(&g_lock);
