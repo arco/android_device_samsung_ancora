@@ -142,6 +142,11 @@ on boot
     chown system system /sys/kernel/fast_charge/force_fast_charge
     chown system system /sys/class/sec/switch/otg_charger_type
 
+    # Backlight Notification
+    chown system system /sys/class/misc/backlightnotification/enabled
+    chown system system /sys/class/misc/backlightnotification/blink_control
+    chown system system /sys/class/misc/backlightnotification/notification_led
+
     # External SD scheduler
     chown system system /sys/block/mmcblk1/queue/scheduler
     chmod 0664 /sys/block/mmcblk1/queue/scheduler
