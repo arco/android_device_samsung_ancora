@@ -76,6 +76,7 @@
 # Sysfs
 /sys/devices/virtual/input/input3/calibration          --  u:object_r:sysfs_custom:s0
 /sys/devices/virtual/sec/switch/otg_charger_type       --  u:object_r:sysfs_custom:s0
+/sys/devices/virtual/misc/backlightnotification(/.*)?  --  u:object_r:sysfs_custom:s0
 /sys/kernel/fast_charge/force_fast_charge              --  u:object_r:sysfs_custom:s0
 
 # Sysfs Bluetooth
