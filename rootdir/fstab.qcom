@@ -10,7 +10,7 @@
 /dev/block/mmcblk0p28                               /data        ext4     noatime,nosuid,nodev,data=ordered,noauto_da_alloc,journal_async_commit,errors=panic               wait,check,encryptable=footer,length=-16384
 
 # zRAM
-/dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=268435456
+/dev/block/zram0                                    none         swap     defaults                                                                                          zramsize=201326592
 
 # vold managed volumes
 /devices/platform/msm_sdcc.4/mmc_host               auto         auto     defaults                                                                                          voldmanaged=sdcard1:auto,noemulatedsd
